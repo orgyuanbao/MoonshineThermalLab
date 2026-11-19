@@ -1,0 +1,761 @@
+{
+  "origin": "External independent audit, not extra native Moonshine research",
+  "created_at": "2026-10-25T08:42:41.235436+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "frozen_sources_match_reviewed_driver_and_snapshots",
+      "passed": true,
+      "source_matches": {
+        "kernel": true,
+        "solver": true,
+        "driver": true
+      }
+    },
+    {
+      "name": "configuration_precedes_parameter_generation",
+      "passed": true
+    },
+    {
+      "name": "configuration_and_parameter_file_hashes",
+      "passed": true
+    },
+    {
+      "name": "saved_parameter_array_and_json_agree",
+      "passed": true
+    },
+    {
+      "name": "registered_protocol_constants",
+      "passed": true
+    },
+    {
+      "name": "training_provenance_unchanged",
+      "passed": true
+    },
+    {
+      "name": "final_domain_and_development_disjointness",
+      "passed": true
+    },
+    {
+      "name": "static_reference_separation_and_single_svd",
+      "passed": true,
+      "review": "Kernel source previously independently reviewed: fallback invokes full_solve; evaluator only compares references after all streams."
+    },
+    {
+      "name": "n24_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n24_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n24_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "nine_run_cost_ledgers_and_progress_evidence",
+      "passed": true,
+      "runs": [
+        {
+          "n": 24,
+          "repeat": 1,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 24,
+          "repeat": 2,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 24,
+          "repeat": 3,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 48,
+          "repeat": 1,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 48,
+          "repeat": 2,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 48,
+          "repeat": 3,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 15
+        },
+        {
+          "n": 96,
+          "repeat": 1,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 17
+        },
+        {
+          "n": 96,
+          "repeat": 2,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 17
+        },
+        {
+          "n": 96,
+          "repeat": 3,
+          "passed": true,
+          "problems": [],
+          "progress_training_entries": 24,
+          "progress_query_counts": {
+            "raw_fom": 256,
+            "fast_fom": 256,
+            "raw_pod": 256,
+            "fast_pod": 256,
+            "adaptive": 256
+          },
+          "recorded_fallbacks": 17
+        }
+      ]
+    },
+    {
+      "name": "nine_native_timing_runs_do_not_overlap",
+      "passed": true,
+      "intervals": [
+        {
+          "n": 24,
+          "repeat": 1,
+          "start": "2026-10-25T08:37:46.743329+00:00",
+          "end": "2026-10-25T08:37:47.944371+00:00"
+        },
+        {
+          "n": 24,
+          "repeat": 2,
+          "start": "2026-10-25T08:37:47.960461+00:00",
+          "end": "2026-10-25T08:37:49.159128+00:00"
+        },
+        {
+          "n": 24,
+          "repeat": 3,
+          "start": "2026-10-25T08:37:49.178827+00:00",
+          "end": "2026-10-25T08:37:50.347722+00:00"
+        },
+        {
+          "n": 48,
+          "repeat": 1,
+          "start": "2026-10-25T08:37:50.825409+00:00",
+          "end": "2026-10-25T08:37:54.745872+00:00"
+        },
+        {
+          "n": 48,
+          "repeat": 2,
+          "start": "2026-10-25T08:37:54.762678+00:00",
+          "end": "2026-10-25T08:37:58.795566+00:00"
+        },
+        {
+          "n": 48,
+          "repeat": 3,
+          "start": "2026-10-25T08:37:58.811786+00:00",
+          "end": "2026-10-25T08:38:02.805102+00:00"
+        },
+        {
+          "n": 96,
+          "repeat": 1,
+          "start": "2026-10-25T08:38:03.291212+00:00",
+          "end": "2026-10-25T08:38:20.636446+00:00"
+        },
+        {
+          "n": 96,
+          "repeat": 2,
+          "start": "2026-10-25T08:39:08.681826+00:00",
+          "end": "2026-10-25T08:39:26.577516+00:00"
+        },
+        {
+          "n": 96,
+          "repeat": 3,
+          "start": "2026-10-25T08:39:27.074521+00:00",
+          "end": "2026-10-25T08:39:44.537951+00:00"
+        }
+      ],
+      "overlaps": []
+    },
+    {
+      "name": "independent_numerics_match_all_nine_runs",
+      "passed": true,
+      "runs": [
+        {
+          "n": 24,
+          "repeat": 1,
+          "independent_stream_reused_for_identical_initial_basis": false,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 8.326672684688674e-16,
+            "hotspot_metric": 8.881784197001252e-16,
+            "relative_l2_metric": 1.2841290530918315e-15,
+            "eta": 1.279672982162916e-13,
+            "worst_saved_field": 9.298117831235686e-16
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 3.604994444949416e-14,
+          "final_subspace_difference": 5.74732690769102e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 24,
+          "repeat": 2,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 8.326672684688674e-16,
+            "hotspot_metric": 8.881784197001252e-16,
+            "relative_l2_metric": 1.2841290530918315e-15,
+            "eta": 1.279672982162916e-13,
+            "worst_saved_field": 9.298117831235686e-16
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 3.604994444949416e-14,
+          "final_subspace_difference": 5.74732690769102e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 24,
+          "repeat": 3,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 8.326672684688674e-16,
+            "hotspot_metric": 8.881784197001252e-16,
+            "relative_l2_metric": 1.2841290530918315e-15,
+            "eta": 1.279672982162916e-13,
+            "worst_saved_field": 9.298117831235686e-16
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 3.604994444949416e-14,
+          "final_subspace_difference": 5.74732690769102e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 48,
+          "repeat": 1,
+          "independent_stream_reused_for_identical_initial_basis": false,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 2.1094237467877974e-15,
+            "hotspot_metric": 2.0261570199409107e-15,
+            "relative_l2_metric": 3.3955043637901028e-15,
+            "eta": 4.0871939079728525e-13,
+            "worst_saved_field": 2.8727020762175925e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.1555711766016343e-14,
+          "final_subspace_difference": 6.076535906097984e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 48,
+          "repeat": 2,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 2.1094237467877974e-15,
+            "hotspot_metric": 2.0261570199409107e-15,
+            "relative_l2_metric": 3.3955043637901028e-15,
+            "eta": 4.0871939079728525e-13,
+            "worst_saved_field": 2.8727020762175925e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.1555711766016343e-14,
+          "final_subspace_difference": 6.076535906097984e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 48,
+          "repeat": 3,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 2.1094237467877974e-15,
+            "hotspot_metric": 2.0261570199409107e-15,
+            "relative_l2_metric": 3.3955043637901028e-15,
+            "eta": 4.0871939079728525e-13,
+            "worst_saved_field": 2.8727020762175925e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.1555711766016343e-14,
+          "final_subspace_difference": 6.076535906097984e-10,
+          "independent_triggers": 15,
+          "independent_final_rank": 23
+        },
+        {
+          "n": 96,
+          "repeat": 1,
+          "independent_stream_reused_for_identical_initial_basis": false,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 3.622102617839573e-15,
+            "hotspot_metric": 3.552713678800501e-15,
+            "relative_l2_metric": 5.110603780444922e-15,
+            "eta": 2.8027303785108093e-12,
+            "worst_saved_field": 3.552713678800501e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.0181311732757228e-14,
+          "final_subspace_difference": 2.4741912941916814e-09,
+          "independent_triggers": 17,
+          "independent_final_rank": 25
+        },
+        {
+          "n": 96,
+          "repeat": 2,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 3.622102617839573e-15,
+            "hotspot_metric": 3.552713678800501e-15,
+            "relative_l2_metric": 5.110603780444922e-15,
+            "eta": 2.8027303785108093e-12,
+            "worst_saved_field": 3.552713678800501e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.0181311732757228e-14,
+          "final_subspace_difference": 2.4741912941916814e-09,
+          "independent_triggers": 17,
+          "independent_final_rank": 25
+        },
+        {
+          "n": 96,
+          "repeat": 3,
+          "independent_stream_reused_for_identical_initial_basis": true,
+          "passed": true,
+          "failures": [],
+          "maximum_numerical_differences": {
+            "field_metric": 3.622102617839573e-15,
+            "hotspot_metric": 3.552713678800501e-15,
+            "relative_l2_metric": 5.110603780444922e-15,
+            "eta": 2.8027303785108093e-12,
+            "worst_saved_field": 3.552713678800501e-15
+          },
+          "tolerances": {
+            "field_metric": 1e-08,
+            "hotspot_metric": 1e-08,
+            "relative_l2_metric": 1e-07,
+            "eta": 1e-06,
+            "worst_saved_field": 1e-08
+          },
+          "initial_rank8_subspace_difference": 2.0181311732757228e-14,
+          "final_subspace_difference": 2.4741912941916814e-09,
+          "independent_triggers": 17,
+          "independent_final_rank": 25
+        }
+      ]
+    },
+    {
+      "name": "final_summary_recomputed_from_per_case_ledgers",
+      "passed": true,
+      "errors": [],
+      "actual_complete_native_counts": {
+        "training_fom": 216,
+        "raw_fom_service": 2304,
+        "fast_fom_service_and_reference": 2304,
+        "raw_pod": 2304,
+        "fast_pod": 2304,
+        "adaptive_rom": 2304,
+        "adaptive_trigger_fom": 141
+      }
+    },
+    {
+      "name": "summary_source_hashes_and_completion",
+      "passed": true
+    },
+    {
+      "name": "original_moonshine_tool_execution_coverage",
+      "passed": true,
+      "calls": [
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-e2e07fcb5a5842c789dc5aedadf8ba0c",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "freeze"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-95bd2645556c4f24af1b50a6d0b477a3",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "run-group",
+            "--n",
+            "24"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-dcf3cfa5d9094b169f97643972904ee2",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "run-group",
+            "--n",
+            "48"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-fd053699410245d8b77689a3d77f88d9",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "run",
+            "--n",
+            "96",
+            "--repeat",
+            "1"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-b0c9ee174c9e4c47adcbe58048abfbfe",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "run",
+            "--n",
+            "96",
+            "--repeat",
+            "2"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-05551231035f4b829009a74e2efdbcbb",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "run",
+            "--n",
+            "96",
+            "--repeat",
+            "3"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        },
+        {
+          "events_path": "evidence\\20261025-173141-89b30b0f\\moonshine_events.jsonl",
+          "call_id": "moonshine-617053238bbb4e8fa730193c7ec64e27",
+          "command": [
+            "python.exe",
+            "workspace\\experiments\\final_benchmark_driver.py",
+            "summarize"
+          ],
+          "returncode": 0,
+          "status": "ok",
+          "stderr": ""
+        }
+      ],
+      "successful_run_coverage": [
+        [
+          24,
+          1
+        ],
+        [
+          24,
+          2
+        ],
+        [
+          24,
+          3
+        ],
+        [
+          48,
+          1
+        ],
+        [
+          48,
+          2
+        ],
+        [
+          48,
+          3
+        ],
+        [
+          96,
+          1
+        ],
+        [
+          96,
+          2
+        ],
+        [
+          96,
+          3
+        ]
+      ],
+      "successful_freeze": true,
+      "successful_summary": true
+    },
+    {
+      "name": "native_artifacts_unchanged",
+      "passed": true
+    }
+  ],
+  "independent_actual_work": {
+    "training_fom_solves": 72,
+    "svd_calls": 3,
+    "reference_fom_solves": 768,
+    "fixed_rom_solves": 768,
+    "adaptive_rom_solves": 768,
+    "adaptive_fallback_solves": 47,
+    "unique_basis_stream_replays": 3
+  },
+  "elapsed_seconds": 6.97617519996129,
+  "audit_script_sha256": "fbc36236c620289d6203edf92b10d10e8cc0f5bdd22fdbc280e8794a688f81e3",
+  "source_sha256": {
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\freeze_completed.json": "1ab5c82f95e01a32530e31595e63862b6717d6240e1b0d7065f8a73f0edd576e",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\frozen_configuration.json": "eb202c915d53759cbe8d7d27c013e2d27afa2e5d93dbb397ba900c89d95796ad",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\summary.json": "48225b9e7f553a40f00d87aff889632f796465af4368516b1b2d65f1d90dcc74",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\summary_20261025T084054987662Z.json": "48225b9e7f553a40f00d87aff889632f796465af4368516b1b2d65f1d90dcc74",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\test_parameters.json": "1019a4bb18eb7138155ef219c43c75d0f7a54aef9e0343963a84ea1ef8f64399",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\test_parameters.npy": "102f4acfdbbec238507f679b0b5d47554e291617cd1f7865f207cbed3bf44eeb",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\sources\\final_benchmark_driver.py": "9737d1bd46fe9ff451e86d22ed7eb49ea98088c17d5212f0eb4242627e5d2fc4",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\sources\\stage4_kernels_v1.py": "7369b7c457af81389f296dabcde98168c9ce8bf07dd0da7e6578a58fae8c4712",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\sources\\thermal_solver.py": "67f3b1bd3adfd34b28c6c449a782438be2e1104a444c08c46e8fb66589b63ab6",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\completed.json": "3ddc027411d551c8f9d96cf44d1a1c7c7956e7a28226489ad865898e166b05b2",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\progress.jsonl": "ca61707206ae8f48a0d920ce40d38049538138f34666e180bdcf74c876611481",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\result.json": "9ab8b5eb936f5a735c0362537a2f016851cac4234f7f58f5dc92cf373e847eb7",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\run_started.json": "14fc3bee76b53f3a394545127f7f17bfdda0a6f119d2b20b6c122e5dc12a48ea",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\worst_fields_and_bases.npz": "7aa66ce90f300348563d0e73bda9fb47d30901b251fc212c7556de9fc8b42fd3",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\completed.json": "8a17b4720552bc34f2b251e49b51a8374f4a6989a00d83bd43b1df439b6b4567",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\progress.jsonl": "a50b727ac2e38fef9ecf2b0c8a99cf14db1aa3cfbd742e2375c1061e4e011876",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\result.json": "f99697957322ba44b633e4650a709b2d57a3fba4563672cfd0e3f128f64f554a",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\run_started.json": "5f19b257a3d0075dd841c07e8d9d938afa7a5ccf1034d284ad9dc3ffc479a8cc",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\worst_fields_and_bases.npz": "7aa66ce90f300348563d0e73bda9fb47d30901b251fc212c7556de9fc8b42fd3",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\completed.json": "e28533e72ee9da2ccd6dedd460d5c6a41be40c86f631c39854dcf0517f4080c0",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\progress.jsonl": "6ff2947f75b9d988803845ccff78e1a52b41376057875a48bfdbc9058f2c2cf4",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\result.json": "6fc3f1ffb5cdeaf84363381f738f1ca88026fd85e6aed324632790438228c930",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\run_started.json": "113fb9ed7e4300856d5f8667f0f25eb25d9c2b578db93454149eb47e580bebaa",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\worst_fields_and_bases.npz": "7aa66ce90f300348563d0e73bda9fb47d30901b251fc212c7556de9fc8b42fd3",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\completed.json": "304a1af88c67d141d4c3f642684e229e65f1df3c76b1a95a6cd83b68b93f0284",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\progress.jsonl": "77aad1be1a62c1f4e1d5b20bc525d7624f89b99aa750ef8f174c50e2dfe30ea5",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\result.json": "1802441467d8fe8b5b0f066ce0499ff034c8e270f470f74b1abdcb6b46cee134",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\run_started.json": "19b0607faf286ee8f19a38bfa871c45efacdc432ee9dc03897c786272d74eaf6",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\worst_fields_and_bases.npz": "f509d60d7e0716cd404266de9559b6e16c9cc2db98743bc5b0f58313684db599",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\completed.json": "3d621e510ef91c589ba046f21d0dd56aca70cf2ca61f9f9fbb22ed22f43a5b99",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\progress.jsonl": "c48d2f6898596f6a6ab649a5b718dccc935cf9f1c52014374e4331b15d89a65e",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\result.json": "44fc453daa30542d29d646d88e9b4bd4f0f0e4854b1bc39528c4d6028a514183",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\run_started.json": "9b19044d18dd512ef57585b7df5b4af9331d89e7771a6969a8b9321f2bb92b05",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\worst_fields_and_bases.npz": "f509d60d7e0716cd404266de9559b6e16c9cc2db98743bc5b0f58313684db599",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\completed.json": "b424203b4045d637f00dc14ee3c2217ec17619d778b07000a259238b81ff9c5d",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\progress.jsonl": "64b9b58363efcd7d435696cd552aa38f64f222bf5fd489cdcad4995447fbf5c9",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\result.json": "4dbee2d7ba0e68dfb1cc1af9d2f503cd51a89c5266f6ab2088eca2b3bd0bb5ca",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\run_started.json": "eb4f8466836825d58f28ac98fb4a390c6337c40f372d9a8b51eac65827c6c8cb",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\worst_fields_and_bases.npz": "f509d60d7e0716cd404266de9559b6e16c9cc2db98743bc5b0f58313684db599",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\completed.json": "3aaf2cc0a701e89dbfe3c2f323debf16f6dec0df4c581ed68bae19dbb68b1de1",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\progress.jsonl": "50f59fa7d2edbb669f7e4aca468b3285a1b4629f008f5a588bb111722fb8a2c1",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\result.json": "f21ffd617542ee756768f826b0804fb94bf43ece7372eb3d93d04a06c95878f1",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\run_started.json": "347d61b21dab1c3742798b5bc9c4921e2930e7840673ad877e31290a0fc835df",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\worst_fields_and_bases.npz": "2e7dff5346c04a282e005c6bba17dc05a8d8425bc4eed20ff6f0472b3d790bd9",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\completed.json": "3725c37967a84c9abdf3ea5f80bdc33e44bfa599ad92123d727a37ca7c09a645",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\progress.jsonl": "175db2e31f11c1d5117b68e9aac62fce21ca7579a70706c136ddeac50286b659",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\result.json": "87e546a05b6b02cb7904bf55afb6cae095d615e75d1c1d02037987b13dab5040",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\run_started.json": "c4b0a126d466f2bc7847ad698b29a61d05a6522ba545049b8d299e6b22fa2336",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\worst_fields_and_bases.npz": "2e7dff5346c04a282e005c6bba17dc05a8d8425bc4eed20ff6f0472b3d790bd9",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\completed.json": "e78cb24d394cf1a2c090caac5b0f6aa5e4e13244f9f4ce9f029197dc515dff3c",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\progress.jsonl": "02b6687387698e501b6f952283227dd04626b1c24340d21ce2019a4bd7164d76",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\result.json": "5aac09c48139e61fb799967d2ce684e922c242c2ba1a65ab2521aa070f2471d8",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\run_started.json": "c4c13d5394863b0741f3c6b78a7609aaf46cdf24834bf0e1bfdcf37a51b3e0c7",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\worst_fields_and_bases.npz": "2e7dff5346c04a282e005c6bba17dc05a8d8425bc4eed20ff6f0472b3d790bd9",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\experiments\\final_benchmark_driver.py": "9737d1bd46fe9ff451e86d22ed7eb49ea98088c17d5212f0eb4242627e5d2fc4",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\experiments\\stage4_kernels_v1.py": "7369b7c457af81389f296dabcde98168c9ce8bf07dd0da7e6578a58fae8c4712",
+    "thermal\\home\\projects\\thermal-rom\\workspace\\experiments\\thermal_solver.py": "67f3b1bd3adfd34b28c6c449a782438be2e1104a444c08c46e8fb66589b63ab6"
+  },
+  "final_parameters_generated_by_auditor": false,
+  "new_accuracy_parameters": 0,
+  "real_model_calls": 0,
+  "interpretation": "Three timings per grid reuse the same 256 parameter values. External reference/trajectory verification is separate work and not included in reported deployment cost.",
+  "limits": [
+    "Ordinary floating-point independent calculations; not interval/formal certification.",
+    "Only worst-case full fields were archived natively; remaining cases are checked by independent recomputation, scalar metrics, immutable source and execution evidence.",
+    "The alternate arithmetic replay may have different intermediate basis byte hashes; decision/rank/error statistics and final subspaces are compared."
+  ]
+}

@@ -1,0 +1,66 @@
+热仿真降阶与误差控制：独立文献核查
+核查日期：2026-10-25（Asia/Tokyo）
+性质：外部资料审阅，不是 Moonshine 自动检索结果，也不是本项目实验结果。
+核查方式：联网读取作者稿、学术机构官方页面或期刊原文；以下摘要均为转述。
+
+1. 变 Robin 边界热传导已有降阶基理论
+Sébastien Boyaval, Claude Le Bris, Yvon Maday, Ngoc Cuong Nguyen, Anthony T. Patera.
+A reduced basis approach for variational problems with stochastic parameters: Application to heat conduction with variable Robin coefficient.
+Computer Methods in Applied Mechanics and Engineering, 198(41–44), 3187–3206, 2009.
+DOI: 10.1016/j.cma.2009.05.019
+MIT 作者终稿与元数据：https://dspace.mit.edu/entities/publication/34dac50d-3f22-4e19-9447-7812843f2994
+作者页面论文：https://www.mit.edu/~cuongng/project/rbm9/rbm9.pdf
+要点：对随机 Robin 参数热传导应用 reduced basis，并研究统计输出的后验误差估计与参数采样。
+本题用途：说明变换热系数下进行多次求解和降阶已有成熟基础。本文对象含随机系数与线性输出统计量，不能直接把其界宣称为本项目热点最大值的误差界。
+
+2. 参数化对流边界热模型降阶
+Pablo Hernández-Becerro, Daniel Spescha, Konrad Wegener.
+Model order reduction of thermo-mechanical models with parametric convective boundary conditions: focus on machine tools.
+Computational Mechanics, 67, 167–184, 2021（2020-09-24 在线发表；2020 预印本）。
+DOI: 10.1007/s00466-020-01926-x
+开放原文：https://pmc.ncbi.nlm.nih.gov/articles/PMC7847468/
+作者预印本：https://arxiv.org/abs/2004.02586
+要点：提出 KMS（Krylov Modal Subspace）及降阶误差界，以双线性化处理对流边界参数，并讨论热-力耦合。
+本题用途：可作为变 HTC 热模型降阶的工程相关先例；我们的二维稳态 POD 不等同于其频域 KMS，也不能沿用它的误差保证。
+
+3. 残差驱动在线基增广已有研究
+Andreas Buhr.
+Exponential Convergence of Online Enrichment in Localized Reduced Basis Methods.
+作者预印本 2017，修订版 2018；相关出版 DOI: 10.1016/j.ifacol.2018.03.052。
+原文与作者附带程序：https://arxiv.org/abs/1710.02104
+要点：分析重叠子域上的残差驱动局部增广，给出其条件下的指数收敛结果，并用二维稳态热方程作数值实验。
+本题用途：说明“按残差扩充基”本身不是新方法。文中的局部空间结构与理论不能无条件移植到本项目的全局 POD 加单个 FOM 快照更新。
+
+4. 热问题中的残差可以是指示量，但解释需要具体分析
+Victor Brunini, Eric J. Parish, John Tencer, Francesco Rizzi.
+Projection-Based Model Reduction for Coupled Conduction—Enclosure Radiation Systems.
+Journal of Heat Transfer, 144(6), 2022.
+DOI: 10.1115/1.4053994
+Sandia 官方页面：https://www.sandia.gov/research/publications/details/projection-based-model-reduction-for-coupled-conduction-enclosure-radiation-2022-04-05/
+原文：https://www.osti.gov/servlets/purl/1894610
+要点：研究瞬态导热与封闭辐射耦合的投影降阶，并用算例讨论最终残差范数与 ROM 精度的关系。
+本题用途：区分经验误差指示量和已证明上界。不能复制该文的加速倍数或误差数字作为我们的结果或承诺。
+
+5. 正屏障/逆正性残差界已有严格数值分析基础
+A. Minamihata, K. Sekine, T. Ogita, S. Oishi.
+Fast Verified Solutions of Sparse Linear Systems with H-matrices.
+Reliable Computing, 19, 127–141, 2013.
+期刊原文：https://interval.louisiana.edu/reliable-computing-journal/volume-19/reliable-computing-19-pp-127-141.pdf
+要点：Theorem 3.1 给出 L-matrix 情况下逆非负性和存在 v>0、Av>0 的等价关系。Theorem 5.1 对单调矩阵 A、δ=||1−Aỹ||∞<1，给出分量误差界
+    |A^(-1)b−x̃| ≤ ||b−Ax̃||∞ |ỹ| / (1−δ).
+该文也区分数学不等式与包含浮点误差的数值验证。
+本题用途：正屏障与残差误差界应引用既有理论，不能写为新发现的普遍定理。若实际程序只用普通浮点计算检查 Av>0 或 δ<1，需明确并非完整有向舍入认证。
+
+针对本项目的独立推论（以下是本次外部推导，不是上述论文逐字结论，也不是已验证的项目结果）：
+若已证明 A 是非奇异 M-matrix，已知 v>0 且 Av≥1，则对 r=b−A T_ROM 有
+    |T_FOM−T_ROM| ≤ A^(-1)|r| ≤ ||r||∞ v.
+因此场无穷范数误差及热点最大值误差都不超过 ||r||∞ ||v||∞。这里 FOM 指同一离散系统的精确解，而非连续 PDE 真解；程序中 FOM 数值求解误差须另外核查。
+若 Robin 参数单调增加只增加 A 的非负对角边界项，则参数域最小 HTC 的屏障可覆盖整个参数域。需要按实际离散系数验证这一矩阵关系，并把屏障预计算与在线残差计算计入成本。
+这是一条可检验的经典比较原理应用路线；其效率、保守性和收益必须通过实际运行检验。
+
+建议报告的贡献措辞：
+“在明确的二维稳态导热子问题上，用 Moonshine 完成建模、失效搜索、方法修订和程序复核；比较固定 POD 与误差指标触发更新的收益和代价，并报告失败情形。”
+如有证据，可进一步提出“何种散热参数变化与误差容限下，缓存误差界触发的基增广能在总成本上优于固定 POD 或直接求解”的研究问题。
+不得预先写成：首次提出热传导降阶、首次提出残差自适应、首次发现 M-matrix 屏障界、完整解决原工业难题、已保证零误差/零漏洞。
+
+检索范围局限：本次是与课程实现直接相关的 5 项主要文献核查，不是穷尽性系统综述；无法据此保证任何组合策略具有出版级新颖性。

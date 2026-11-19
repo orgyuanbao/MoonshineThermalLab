@@ -1,0 +1,228 @@
+{
+  "description": "Selected fields from the historical tool receipts and audit. Original receipt hashes identify the archived local files. Full provider prompts and account-specific CLI logs are not included.",
+  "turns": [
+    {
+      "turn": "20261025-154412-6aa9be9f",
+      "started_at": "2026-10-25T06:44:12.278985+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1009.0470000000205,
+      "provider_counts": {
+        "accepted": 9,
+        "failed": 1
+      },
+      "successful_python_executions": 3,
+      "verification_attempt_count": 0,
+      "passed_verifications": 0,
+      "archived_records_reported": 8,
+      "local_step_evidence_complete": false,
+      "native_turn_summary_sha256": "c6e5a960e9759fc6ca792472094f7d5a4fe66a294da39abf8ad98e89bb6de144",
+      "native_events_sha256": "f0d5c24d2b68d9be460d5a2951d2b743b461576de1ff59b9a7a33ffe0dc2f95e",
+      "python_tool_results": [
+        {
+          "script": "check_thermal_solver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "02632ee0593404264ba6e74f8e0c3028d13d7f2bead1704b1e09956bf67b6c01"
+        },
+        {
+          "script": "repair_01_json.py",
+          "returncode": 1,
+          "status": "error",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "script": "check_thermal_solver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "24a3ab474753b3423754d52a596eab52a232d3320b9c255fe35d03079410b0e2"
+        },
+        {
+          "script": "audit_01_artifacts.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "0f5cc753ab0125a63250237b5d1093e8133f699f9c6ef917b21deffd0ffbe460"
+        }
+      ]
+    },
+    {
+      "turn": "20261025-160228-cdbd37a1",
+      "started_at": "2026-10-25T07:02:28.090132+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1188.5620000000345,
+      "provider_counts": {
+        "accepted": 15
+      },
+      "successful_python_executions": 1,
+      "verification_attempt_count": 2,
+      "passed_verifications": 1,
+      "archived_records_reported": 5,
+      "local_step_evidence_complete": true,
+      "native_turn_summary_sha256": "da05af53a79537247443dd8fd08273a60d62eb3066046f649220c941c2c01e76",
+      "native_events_sha256": "74df959bf1391b47049cda6dacd0ef9ccac01c25fd5437300a80f5ad9d57c7ab",
+      "python_tool_results": [
+        {
+          "script": "check_thermal_solver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "31601936bebb2ac6a0a6c1bb1d41a18a88a483206895270efd6d412a6225b767"
+        }
+      ]
+    },
+    {
+      "turn": "20261025-162345-350652ac",
+      "started_at": "2026-10-25T07:23:45.351130+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1383.3129999999655,
+      "provider_counts": {
+        "accepted": 13
+      },
+      "successful_python_executions": 2,
+      "verification_attempt_count": 1,
+      "passed_verifications": 1,
+      "archived_records_reported": 3,
+      "local_step_evidence_complete": true,
+      "native_turn_summary_sha256": "9c7f3a34387b06dc8c12673d6f129f7667e36a7f81d6cd90545f3e3445a206a6",
+      "native_events_sha256": "b03c0711a8ce8dbbcf6a520efd19ac949705d2ae361e92c6ef82cdb7aa16f8eb",
+      "python_tool_results": [
+        {
+          "script": "pod_baseline.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "c51a581f77195b71831b2aa2681cb32f84206ad2774713898bad414474b83abc"
+        },
+        {
+          "script": "failure_analysis.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "0f8bce24f657505a221b58c31232b56e755e492c5f5d320e48c644f4c2f934c6"
+        }
+      ]
+    },
+    {
+      "turn": "20261025-164759-a39cc510",
+      "started_at": "2026-10-25T07:47:59.250210+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 462.2179999999935,
+      "provider_counts": {
+        "failed": 1,
+        "accepted": 2
+      },
+      "successful_python_executions": 0,
+      "verification_attempt_count": 0,
+      "passed_verifications": 0,
+      "archived_records_reported": 4,
+      "local_step_evidence_complete": false,
+      "native_turn_summary_sha256": "14f330628d4bd11bba2a8756a17ecb1f045af224513833060e36764c14de4ed5",
+      "native_events_sha256": "d09ef15ea7edc45fcf5712b059eb134520a3fbf1059b2ec7853114bc829ca9ee",
+      "python_tool_results": []
+    },
+    {
+      "turn": "20261025-165634-cab652b6",
+      "started_at": "2026-10-25T07:56:34.959892+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1175.015999999945,
+      "provider_counts": {
+        "accepted": 13
+      },
+      "successful_python_executions": 1,
+      "verification_attempt_count": 1,
+      "passed_verifications": 1,
+      "archived_records_reported": 4,
+      "local_step_evidence_complete": true,
+      "native_turn_summary_sha256": "570000f3c31ae005baa71c5285e9ff27229a2cfdfcbdad5a0ad9d50436dc6cdd",
+      "native_events_sha256": "5a75d8e36d5632d84d5aabcf3d681019e18f47ed8a15ca2dfd0aa0692613be90",
+      "python_tool_results": [
+        {
+          "script": "check_stage4_development_v1.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "85090c5fb1fa6b008ec9a883e8c6b69f49eb0c4f6d490d2e8d91d01c390d15df"
+        }
+      ]
+    },
+    {
+      "turn": "20261025-173141-89b30b0f",
+      "started_at": "2026-10-25T08:31:41.581537+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1148.765000000014,
+      "provider_counts": {
+        "accepted": 13
+      },
+      "successful_python_executions": 7,
+      "verification_attempt_count": 1,
+      "passed_verifications": 0,
+      "archived_records_reported": 7,
+      "local_step_evidence_complete": false,
+      "native_turn_summary_sha256": "c1abe18a9329500364bacba3f8265d833ee1702c58bb6f1e9a8d61f3986351e7",
+      "native_events_sha256": "cacdccfd7069ab647df9ab3c4ef3ddf8ed247e9051f87201812676c3aaa1bb95",
+      "python_tool_results": [
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "9d788b46ba9e93121d6dcca8c7ee94dd2df25fb1489c8b73379ded80fbc93541"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "d253f9842640fd33c9eb846a5f4b5059676544b126addd5898ef30cd56ba952b"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "97fc9840d3d720dccfbb0a4ec68728c5175e3d9b659d99c2c90217c58a9f3574"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "30ca5803a9a241dae557797c9889c7632e4b7ec8dfb2fa3b3f6a80c43a2f4adf"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "84436c8c6f03ce28fe2d44e171fffc14868bb0fd706fcf3c814173f250a3acbc"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "3c7aeca94fbd3f63c7233ab2a4829732c787210b28349d7611dc223234cc5d25"
+        },
+        {
+          "script": "final_benchmark_driver.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "ec3b52dfcf626097fc10ddb0a7362e764a8cbba57781e83e5fe0040413344f1c"
+        }
+      ]
+    },
+    {
+      "turn": "20261025-175343-6f86b66e",
+      "started_at": "2026-10-25T08:53:43.167981+00:00",
+      "model": "gpt-6-astra",
+      "elapsed_seconds": 1040.2660000000615,
+      "provider_counts": {
+        "accepted": 12
+      },
+      "successful_python_executions": 1,
+      "verification_attempt_count": 1,
+      "passed_verifications": 1,
+      "archived_records_reported": 7,
+      "local_step_evidence_complete": true,
+      "native_turn_summary_sha256": "ffc0333e62d4261b90c76545959e029b320f04022a4b479703c7820db4c40014",
+      "native_events_sha256": "9ab9ac8d3ec45ecbf53caa16824e807bee144e97669bf75bd3f5594ce035d709",
+      "python_tool_results": [
+        {
+          "script": "final_heat_source_review.py",
+          "returncode": 0,
+          "status": "ok",
+          "stdout_sha256": "4a71f6ef09796003af53f5118f966ef412d1a7df83baaf07670297fdeee1b527"
+        }
+      ]
+    }
+  ]
+}

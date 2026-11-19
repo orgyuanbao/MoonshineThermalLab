@@ -1,0 +1,60 @@
+{
+  "project": "thermal-rom",
+  "n": 24,
+  "h_order": [
+    "left",
+    "right",
+    "bottom",
+    "top"
+  ],
+  "h_bounds": [
+    0.2,
+    5.0
+  ],
+  "source_rule": "rectangle-cell overlap area integration",
+  "sources": [
+    {
+      "bounds": [
+        0.2,
+        0.4,
+        0.2,
+        0.4
+      ],
+      "strength": 1
+    },
+    {
+      "bounds": [
+        0.6,
+        0.8,
+        0.6,
+        0.8
+      ],
+      "strength": 2
+    }
+  ],
+  "ambient": 0,
+  "k": 1,
+  "sampling": "exp(default_rng(seed).uniform(log(0.2),log(5),size=(count,4)))",
+  "train_seed": 20261025,
+  "tune_seed": 20261026,
+  "train_count": 24,
+  "tune_count": 12,
+  "candidate_ranks": [
+    1,
+    2,
+    4,
+    8,
+    12,
+    24
+  ],
+  "tau": 0.001,
+  "center_snapshots": false,
+  "rank_tolerance": "max(S.shape)*float64_eps*s[0]",
+  "selection": "smallest legal candidate with maximum tuning field Linf error <= tau",
+  "no_qualifying_rank": "selected_rank=null; use largest legal rank only for development diagnosis",
+  "protocol_authority": "coordinator user message before experiment",
+  "protocol_files_found": [],
+  "final_test_generated": false,
+  "solver_sha256": "67f3b1bd3adfd34b28c6c449a782438be2e1104a444c08c46e8fb66589b63ab6",
+  "timing_policy": "Single pass perf_counter; FOM references reused across ranks, each ROM independently assembles; no online matrix cache; no basis updates. Timers include full-dimensional assembly, projection, reconstruction and residual. Verification, evaluation and persistence are separate development overhead."
+}

@@ -1,0 +1,123 @@
+{
+  "created_at": "2026-10-25T07:43:50.185608+00:00",
+  "plotting_script_sha256": "1396c6c218f5b8888bc56b574f167fb35419222d8c1a48f49798412d010d0264",
+  "plotting_origin": "External report preparation",
+  "real_model_calls": 0,
+  "new_simulations": 0,
+  "final_test_data_read_or_generated": false,
+  "native_input_files_unchanged": true,
+  "figures": [
+    {
+      "file": "development_rank_curve.png",
+      "sha256": "db708a6bcabafe6a6889ee0da3e78789f5b6b8ecd3f08383141f009fb86a03f7",
+      "width_px": 2160,
+      "height_px": 1380,
+      "dpi_metadata": [
+        299.9994,
+        299.9994
+      ],
+      "origin": "External figure preparation; not a native Moonshine tool action",
+      "data_provenance": "Native Moonshine Stage 2 JSON; existing training/tuning data only",
+      "input_files": [
+        {
+          "path": "home/projects/thermal-rom/workspace/results/02_baseline.json",
+          "sha256": "e94f5df702c6fb9f38735a3e270d86fd76108b0ccf92fcc38af378c813c58609"
+        }
+      ],
+      "plotted_summary": {
+        "n": 24,
+        "selected_rank": 8,
+        "tuning_error_r8": 0.00038407471965163503,
+        "training_rank24_value_not_clipped": 1.304512053934559e-15
+      }
+    },
+    {
+      "file": "development_indicator_failures.png",
+      "sha256": "bda20caa906539805a334ce9f9239735ea0e51ed477aa589c46ca75a8e1af6c8",
+      "width_px": 3000,
+      "height_px": 1380,
+      "dpi_metadata": [
+        299.9994,
+        299.9994
+      ],
+      "origin": "External figure preparation; not a native Moonshine tool action",
+      "data_provenance": "Native Moonshine Stage 3 JSON; 12 reused tuning and 16 development corners",
+      "input_files": [
+        {
+          "path": "home/projects/thermal-rom/workspace/results/03_failure.json",
+          "sha256": "f040a8efe7e919510e7db96aceba8a8ae8d8a24a73fe95e289a725c23ccfa608"
+        }
+      ],
+      "plotted_summary": {
+        "points": 28,
+        "true_alarms": 2,
+        "false_alarms": 26,
+        "misses": 0,
+        "criterion": "field Linf before any correction",
+        "floating_indicator_is_not_roundoff_certified": true
+      }
+    },
+    {
+      "file": "development_worst_fields.png",
+      "sha256": "58b1709ab189c4b443ae06f1700db1dd8dc9f20168fe75fa1e0e960209221523",
+      "width_px": 3150,
+      "height_px": 1230,
+      "dpi_metadata": [
+        299.9994,
+        299.9994
+      ],
+      "origin": "External figure preparation; not a native Moonshine tool action",
+      "data_provenance": "Saved native Stage 3 NPZ fields, selected by largest recorded development field error; no recomputation",
+      "input_files": [
+        {
+          "path": "home/projects/thermal-rom/workspace/results/03_failure.json",
+          "sha256": "f040a8efe7e919510e7db96aceba8a8ae8d8a24a73fe95e289a725c23ccfa608"
+        },
+        {
+          "path": "home/projects/thermal-rom/workspace/results/03_run_20261025T073452798181Z/development_fields.npz",
+          "sha256": "9f1b34bf6ee6816ba4e41edf965d251675656f78a7e21b2eff009b640e526a64"
+        }
+      ],
+      "plotted_summary": {
+        "development_array_column": 12,
+        "n": 24,
+        "rank": 8,
+        "parameter": [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "max_field_error": 0.003979762955355237,
+        "temperature_color_scale_shared": true
+      }
+    },
+    {
+      "file": "external_manufactured_convergence.png",
+      "sha256": "60d071f829b0bec7a2dca6333c93fca409271ee573481b77b25f8026c0b048b1",
+      "width_px": 2160,
+      "height_px": 1350,
+      "dpi_metadata": [
+        299.9994,
+        299.9994
+      ],
+      "origin": "External figure preparation; not a native Moonshine tool action",
+      "data_provenance": "External independent Stage 1 crosscheck, using a manufactured source and the copied native operator; not a native Moonshine experiment",
+      "input_files": [
+        {
+          "path": "independent_review/stage01_crosscheck.json",
+          "sha256": "1f580da762637806648aa986e40e3ec36922560747e12585566316230543fdd8"
+        }
+      ],
+      "plotted_summary": {
+        "observed_orders": [
+          1.9799015692886495,
+          1.9788908282203657,
+          1.9892899511818838
+        ],
+        "source_is_different_from_project_heat_rectangles": true,
+        "no_new_solves_during_plotting": true
+      }
+    }
+  ]
+}

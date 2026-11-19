@@ -1,0 +1,8 @@
+{
+  "completed_at_utc": "2026-10-25T08:37:58.795566+00:00",
+  "result_sha256": "44fc453daa30542d29d646d88e9b4bd4f0f0e4854b1bc39528c4d6028a514183",
+  "requested_exit_code": 0,
+  "execution_complete": true,
+  "validation_passed": true,
+  "exit_code_note": "Actual process return code must be read from native Moonshine tool evidence."
+}

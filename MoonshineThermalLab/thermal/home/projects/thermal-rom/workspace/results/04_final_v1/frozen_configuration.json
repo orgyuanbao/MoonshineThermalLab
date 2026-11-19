@@ -1,0 +1,62 @@
+{
+  "origin": "Externally supplied evaluation harness; native Moonshine kernels and native execution tracked separately.",
+  "frozen_at_utc": "2026-10-25T08:36:40.139606+00:00",
+  "n_values": [
+    24,
+    48,
+    96
+  ],
+  "repetitions": [
+    1,
+    2,
+    3
+  ],
+  "seed": 20261027,
+  "test_count": 256,
+  "sampling": "exp(default_rng(20261027).uniform(log(0.2),log(5),size=(256,4)))",
+  "rank": 8,
+  "tau": 0.001,
+  "max_rank": 32,
+  "correlation": 1e-10,
+  "h_order": [
+    "left",
+    "right",
+    "bottom",
+    "top"
+  ],
+  "method_order": [
+    "raw_fom",
+    "fast_fom",
+    "raw_pod",
+    "fast_pod",
+    "adaptive"
+  ],
+  "prefixes": [
+    24,
+    256
+  ],
+  "source_sha256": {
+    "kernel": "7369b7c457af81389f296dabcde98168c9ce8bf07dd0da7e6578a58fae8c4712",
+    "solver": "67f3b1bd3adfd34b28c6c449a782438be2e1104a444c08c46e8fb66589b63ab6",
+    "driver": "9737d1bd46fe9ff451e86d22ed7eb49ea98088c17d5212f0eb4242627e5d2fc4"
+  },
+  "source_filenames": {
+    "kernel": "stage4_kernels_v1.py",
+    "solver": "thermal_solver.py",
+    "driver": "final_benchmark_driver.py"
+  },
+  "training_input": {
+    "baseline_path": "workspace/results/02_baseline.json",
+    "baseline_sha256": "e94f5df702c6fb9f38735a3e270d86fd76108b0ccf92fcc38af378c813c58609",
+    "basis_path": "workspace/results/02_run_20261025T073143523549Z/basis.npz",
+    "basis_sha256": "0e76f99058f4d9f0c93bfe0abb089bc6ecd1c8302c738f32652e681890fe90d2",
+    "train_array_sha256": "2f78cb10cdfce312e416d8b7dc1b57674c7e477b7291dde777fcb12389f1caca"
+  },
+  "parameters_generated_at_configuration_write": false,
+  "counting_policy": "Each repetition physically rebuilds one shared training set/SVD; each independent deployment ledger includes its full necessary share once. These ledger shares are not separate observed training executions.",
+  "service_contract": "Return full field. Fixed-method optional residual diagnostics and reference errors are post hoc, outside primary service. Adaptive decision residual/fallback/update are inside service.",
+  "update": "Two-pass block reorthogonalization (CGS2), not column-by-column MGS.",
+  "raw_pod_implementation": "Equivalent full-space Galerkin implementation in this external driver, using the unchanged native thermal assembler; not a direct call to Moonshine's Reduced.predict.",
+  "timing": "perf_counter; fixed method order; no preliminary final-stream warmup; numerical library imports/process startup excluded. Prior methods may warm shared hardware caches. Repetitions reset algorithm state, not hardware/OS cache state.",
+  "floating_point": "Ordinary double-precision indicator; not outward-rounded certification."
+}

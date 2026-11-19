@@ -1,0 +1,20 @@
+{
+  "origin": "External plotting of native-executed frozen evaluation results",
+  "new_models_or_scientific_solves": 0,
+  "input_sha256": {
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat01\\result.json": "9ab8b5eb936f5a735c0362537a2f016851cac4234f7f58f5dc92cf373e847eb7",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat02\\result.json": "f99697957322ba44b633e4650a709b2d57a3fba4563672cfd0e3f128f64f554a",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n24\\repeat03\\result.json": "6fc3f1ffb5cdeaf84363381f738f1ca88026fd85e6aed324632790438228c930",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat01\\result.json": "1802441467d8fe8b5b0f066ce0499ff034c8e270f470f74b1abdcb6b46cee134",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat02\\result.json": "44fc453daa30542d29d646d88e9b4bd4f0f0e4854b1bc39528c4d6028a514183",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n48\\repeat03\\result.json": "4dbee2d7ba0e68dfb1cc1af9d2f503cd51a89c5266f6ab2088eca2b3bd0bb5ca",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat01\\result.json": "f21ffd617542ee756768f826b0804fb94bf43ece7372eb3d93d04a06c95878f1",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat02\\result.json": "87e546a05b6b02cb7904bf55afb6cae095d615e75d1c1d02037987b13dab5040",
+    "home\\projects\\thermal-rom\\workspace\\results\\04_final_v1\\n96\\repeat03\\result.json": "5aac09c48139e61fb799967d2ce684e922c242c2ba1a65ab2521aa070f2471d8"
+  },
+  "figures": [
+    "final_cost_accuracy.png",
+    "final_online_trace.png"
+  ],
+  "note": "Timing bands are min/max of three repetitions of the same frozen parameter stream."
+}

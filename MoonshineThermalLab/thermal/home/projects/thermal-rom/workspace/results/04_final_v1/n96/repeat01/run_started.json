@@ -1,0 +1,11 @@
+{
+  "started_at_utc": "2026-10-25T08:38:03.291212+00:00",
+  "origin": "Externally supplied evaluation harness; native Moonshine kernels and native execution tracked separately.",
+  "n": 96,
+  "repeat": 1,
+  "development_check": false,
+  "query_count": 256,
+  "parameter_array_sha256": "5a9dfcd50c6fb52c15da588a17425a5fccba55f9161c74d3933db9c67b16c0fc",
+  "configuration_sha256": "eb202c915d53759cbe8d7d27c013e2d27afa2e5d93dbb397ba900c89d95796ad",
+  "status": "running"
+}

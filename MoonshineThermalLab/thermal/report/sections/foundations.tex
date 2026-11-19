@@ -1,0 +1,128 @@
+\section{研究问题与范围}
+本课题来源于课程资料《难题：EDA 专题第四期 2026.06.01》第 4 页的“热仿真加速”。原题涉及大规模网格、变化的换热系数、非线性材料及工业计算资源约束。本研究选取其中的一个有限数学子问题：在固定二维线性稳态导热模型中，散热边界变化会怎样影响固定降阶空间的准确度；能否用可计算的误差指标触发完整求解和基更新，并在计入全部成本后取得收益？
+
+研究对象是无量纲合成模型，不包含真实芯片几何、流固耦合或工业实测数据。误差容限 $\tau=10^{-3}$ 表示无量纲温升误差，不能解释为 $1\,{}^{\circ}\mathrm{C}$。评价重点是明确假设、可复现实验、失败案例与智能体迭代，原工业题的完整解决不在已完成工作的声称范围内。
+
+\section{Moonshine 的执行与成果归属}
+研究使用 \href{https://github.com/DeepMathLLM/Moonshine}{DeepMathLLM/Moonshine} 原版研究流程，固定上游提交为
+\href{https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615}{\texttt{bb0e4aa025fd}}（完整标识见运行证据），上游跟踪源码未修改。本地启动器负责选题、会话恢复、预算与证据快照；模型适配器通过本机已登录的 Codex CLI 提供文本、拟调用工具及结构化审核响应。工具执行仍由 Moonshine 的原版运行时承担。
+
+每一研究单元按“读取题面与记忆、问题质量评估、生成程序、实际运行、检查与修订、局部审核、归档”推进。\texttt{assess\_problem\_quality} 评估问题是否值得研究，\texttt{run\_python\_script} 产生可核对的退出码及数值输出，\texttt{verify\_overall} 提供假设、计算和逻辑方面的模型审核。质量评估与模型审核均不等于形式化证明，阶段编号也不自动表示完成度。
+
+成果按来源区分：求解器、POD 基线及失效分析程序由 Moonshine 生成和执行；题面、文献核查、解析屏障先验与测试协议审阅由外部协调和独立复核提供。Moonshine 对输入的屏障进行了推导核对、实现和有理数检查，因此该部分是有来源的协作研究，不是智能体自主发现的新通用定理。外部复核脚本单独存放，不计为 Moonshine 的原生执行次数。每轮保存输入、工具事件、代码快照、审核与归档记录；接口错误、未定审核和后续修订均保留。
+
+\section{导热模型与守恒离散}
+在 $\Omega=(0,1)^2$ 上求相对环境温升 $T$：
+\begin{equation}
+ -\nabla\!\cdot(k\nabla T)=q,\qquad
+ -k\nabla T\cdot\boldsymbol n=h_sT\quad\text{于边界段 }s,
+ \label{eq:thermal-pde}
+\end{equation}
+其中 $k=1$，四边参数按左、右、下、上排序，$\mu=(h_L,h_R,h_B,h_U)\in[0.2,5]^4$。源项在 $[0.2,0.4]^2$ 上为 $1$、在 $[0.6,0.8]^2$ 上为 $2$，其余为零，总热量为 $0.12$。
+
+采用 $n\times n$ 均匀单元中心有限体积法，$\Delta=1/n$，$x_i=(i+\tfrac12)\Delta$、$y_j=(j+\tfrac12)\Delta$。各方程表示单元积分热平衡，不除以单元面积。内部面长度与中心距离同为 $\Delta$，其导热系数为 $k$。Robin 面与单元中心相距 $\Delta/2$；消去面温度 $T_f$，得到
+\begin{equation}
+ k\Delta\frac{T_P-T_f}{\Delta/2}=h_s\Delta T_f,
+ \qquad \beta_s=\frac{k\Delta}{k/h_s+\Delta/2},
+ \qquad Q_{P,s}=\beta_sT_P.
+ \label{eq:robin-face}
+\end{equation}
+每个边界面将 $\beta_s$ 加到对应单元对角元。角单元累加两面；$n=1$ 时唯一单元累加四面。右端 $b_P=\int_Pq\,\mathrm dA$ 由矩形与单元的相交面积精确计算，避免不同网格因中心取样而改变总发热量。最终系统为 $A(\mu)\boldsymbol T=\boldsymbol b$。
+
+具体地，令 $\ell_i(a,b)=\max\{0,\min((i+1)\Delta,b)-\max(i\Delta,a)\}$，则代码中编号为 $jn+i$ 的单元载荷为
+\begin{equation}
+ b_{jn+i}=\ell_i(0.2,0.4)\ell_j(0.2,0.4)
+       +2\ell_i(0.6,0.8)\ell_j(0.6,0.8).
+ \label{eq:source-overlap}
+\end{equation}
+该表达式既用于完整组装，也用于快速几何对象的载荷；低维右端与自适应残差均由同一 $b$ 构造。它保留了两个矩形的完整贡献，理论总量为 $0.2^2+2\times0.2^2=0.12$。
+
+设 $\mathcal E$ 是内部无向边集，$\mathcal B$ 是边界面集，则
+\begin{equation}
+ \boldsymbol v^{\mathsf T}A\boldsymbol v
+ =k\sum_{(P,Q)\in\mathcal E}(v_P-v_Q)^2
+  +\sum_{(P,s)\in\mathcal B}\beta_sv_P^2.
+ \label{eq:energy}
+\end{equation}
+网格连通且 $\beta_s>0$，故二次型为零只能有 $\boldsymbol v=0$，$A$ 对称正定。其非对角元非正。若 $A\boldsymbol v\ge0$ 而 $\boldsymbol v$ 有负最小值，该值在内部只能沿邻接边传播，到正 Robin 边界即产生矛盾；因此 $A^{-1}\ge0$，即离散最大值原理成立。它同时保证 $\boldsymbol b\ge0$ 时温升非负。所有单元方程求和使内部通量相消，从而
+\begin{equation}
+ \sum_{(P,s)\in\mathcal B}\beta_sT_P=\sum_P b_P=0.12.
+ \label{eq:conservation}
+\end{equation}
+这里的完整模型（FOM）仍是一个离散模型，有网格误差；浮点线性求解还带有数值误差，不能将它等同于连续 PDE 或真实器件的精确温度。
+
+\section{POD 基线与可复用的组装结构}
+仅使用训练参数的完整解构成快照矩阵 $S$。对 $S$ 作奇异值分解，选取前 $r$ 个左奇异向量为正交基 $V_r$，通过 Galerkin 投影计算
+\begin{equation}
+ (V_r^{\mathsf T}A(\mu)V_r)\boldsymbol a
+   =V_r^{\mathsf T}\boldsymbol b,\qquad
+ \widetilde{\boldsymbol T}=V_r\boldsymbol a.
+ \label{eq:pod}
+\end{equation}
+基维数和阈值只能根据训练集与调参集选定。快照拟合良好不保证新参数的热点或场误差同样小，需要另行检查。
+
+Robin 系数对 $h_s$ 非仿射，但均匀网格的矩阵具有精确分离
+\begin{equation}
+ A(\mu)=K+\sum_{s\in\{L,R,B,U\}}\beta_s(h_s)D_s,
+ \label{eq:affine-beta}
+\end{equation}
+其中 $K$ 为内部网格 Laplacian，$D_s$ 为相应边界单元的对角标记矩阵。可离线保存 $V_r^{\mathsf T}KV_r$、$V_r^{\mathsf T}D_sV_r$ 及 $V_r^{\mathsf T}\boldsymbol b$，在线只更新小矩阵系数；完整模型也应复用 $K,D_s$ 作公平对照。温度场重构、残差评估及基更新成本不能从降阶算法计时中遗漏。
+
+\section{解析屏障与误差控制}
+\subsection{对指定离散算子的屏障}
+令 $f(t)=t(1-t)$，对于本题 $k=1$、$h_s\ge1/5$，定义
+\begin{equation}
+ F_{ij}=5+f(x_i)+f(y_j),\qquad
+ z_{ij}=\frac{F_{ij}}{4\Delta^2}.
+ \label{eq:barrier}
+\end{equation}
+在精确算术下，有 $\boldsymbol z>0$ 且 $A\boldsymbol z\ge\boldsymbol1$。证明如下：二次函数的完整四邻居模板满足
+\[
+ \sum_{Q\text{ 为四邻居}}(F_P-F_Q)=4\Delta^2.
+\]
+每个缺失的外部邻居贡献恰为 $\Delta$。设该单元有 $m$ 个边界面，则内部网格项为 $4\Delta^2-m\Delta$。任意单元中心满足
+\[
+ F_P\ge5+\Delta-\frac{\Delta^2}{2}
+      \ge5+\frac\Delta2
+      \ge\frac1{h_s}+\frac\Delta2,
+\]
+其中使用了 $0<\Delta\le1$。由式~\eqref{eq:robin-face}，每个边界面补偿量 $\beta_sF_P\ge\Delta$，故 $AF\ge4\Delta^2\boldsymbol1$。这同时覆盖内部点 $m=0$、边点 $m=1$ 与角点 $m=2$。当 $n=1$ 时 $m=4$，$F=11/2$、$z=11/8$、各面 $\beta_s\ge2/11$，仍有 $Az\ge1$，不存在单单元例外。
+
+\subsection{从残差到场与热点值误差}
+设 $\boldsymbol T_*=A^{-1}\boldsymbol b$ 为精确离散解，近似向量为 $\widetilde{\boldsymbol T}$，残差 $\boldsymbol\rho=\boldsymbol b-A\widetilde{\boldsymbol T}$。由逆非负性和屏障，逐项有
+\begin{equation}
+ |\boldsymbol T_*-\widetilde{\boldsymbol T}|
+ \le A^{-1}|\boldsymbol\rho|
+ \le\|\boldsymbol\rho\|_\infty A^{-1}\boldsymbol1
+ \le\|\boldsymbol\rho\|_\infty\boldsymbol z.
+ \label{eq:component-bound}
+\end{equation}
+最大值泛函对无穷范数为 $1$-Lipschitz，故
+\begin{equation}
+ \left|\max_P T_{*,P}-\max_P\widetilde T_P\right|
+ \le\|\boldsymbol T_*-\widetilde{\boldsymbol T}\|_\infty
+ \le\eta,\qquad
+ \eta=\|\boldsymbol\rho\|_\infty\max_Pz_P.
+ \label{eq:eta}
+\end{equation}
+它控制的是离散热点的\emph{温度数值}，不控制热点位置。$n=24$ 时 $\max_Pz_P=6335/8=791.875$，说明原始残差与温度误差可能具有明显不同的尺度。该界可能保守，触发完整求解并不意味着原近似确实超标。
+
+屏障比较原理与单调矩阵的残差误差界属于已有数值分析理论\cite{minamihata2013}。式~\eqref{eq:barrier} 是外部独立复核为本题提供的解析构造，Moonshine 随后检查与实现；报告不将其称为自主发现的新普遍定理。
+
+\subsection{数学界、浮点评估与更新规则}
+上述证明使用精确矩阵、残差与屏障。普通双精度计算可能使残差因消去而偏小；仅检查 $Az\ge1$ 到某个容差，不能形成完整机器认证。若要把返回值称为认证上界，需要明确认证对象，并对残差、系数和屏障采用有向舍入、区间算术或经证明的保守舍入包络。当前计算应称为\emph{理论界的浮点评估或预警指标}。有限个有理数精确检查验证的是这些算例，一般网格结论来自上述证明。
+
+以数值 FOM 解 $\boldsymbol T_F$ 作参照时，令其残差为 $\boldsymbol\rho_F$，精确算术下还应计入
+\[
+ \|\widetilde{\boldsymbol T}-\boldsymbol T_F\|_\infty
+ \le(\|\boldsymbol\rho\|_\infty+\|\boldsymbol\rho_F\|_\infty)
+       \max_Pz_P.
+\]
+本研究实现的自适应规则是：当 $\eta>\tau$ 时完整求解当前参数，返回完整解，并将其相对当前空间的独立分量正交化后增广。阈值、最大秩及相关性判据在最终测试前冻结；触发求解、重正交和更新低维缓存均是算法成本，不能把回退后的精度视为免费降阶收益。
+
+\section{评价目标、相关工作与新颖性边界}
+分别报告场误差 $e_\infty=\|\widetilde{\boldsymbol T}-\boldsymbol T_F\|_\infty$、热点值误差 $e_{\max}=|\max\widetilde T-\max T_F|$ 和相对二范数误差。零分母须显式处理；触发诊断采用\emph{回退前}的 $e_\infty$。离线训练、建基、组装预处理以及在线重构、残差、触发和更新分别记账，并比较完整成本。最终测试与开发数据分开；按冻结规则使用先前触发的解进行在线学习可以允许，但不得预先读取后续案例的完整解或利用最终结果重新调参。
+
+本研究建立在既有工作之上。Boyaval 等已研究变 Robin 系数热传导的降阶基与统计输出后验估计\cite{boyaval2009}；Hernández-Becerro 等以 KMS 和双线性化处理参数化对流边界\cite{hernandez2021}。Buhr 分析局部残差驱动在线增广\cite{buhr2018}，其收敛条件不能直接移植到这里的全局 POD。Brunini 等讨论热问题中残差指示量的解释\cite{brunini2022}；Minamihata 等给出单调矩阵的分量误差验证方法\cite{minamihata2013}。
+
+因此，本文的贡献应由实际证据限定为：用 Moonshine 完成具体问题的建模、失效搜索、迭代与复核，研究误差控制策略在指定参数域、批量和容限下的收益及代价。已有算法组合是否具有更广泛的新颖性，仍需进一步系统比较；固定 POD、残差更新和正屏障界本身不作为新发明声称。

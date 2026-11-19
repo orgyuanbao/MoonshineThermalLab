@@ -1,5 +1,7 @@
 # CrowdLocateLab
 
+**最新课程研究**　[用 Moonshine 研究热仿真加速](MoonshineThermalLab/) · [15 页课程论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [课堂汇报与离线演示](MoonshineThermalLab/classroom/)
+
 CrowdLocateLab 探索 AI 智能体如何研究**异步众包定位中的误差与歧义**：从数值实验发现方法的局限，再通过数学推导、反例构造和程序验证研究这些局限。
 
 [![自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml/badge.svg)](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml)

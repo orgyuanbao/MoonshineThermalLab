@@ -1,0 +1,595 @@
+{
+  "origin": "Externally provided integrity check; native execution attribution requires tool event",
+  "checked_at_utc": "2026-10-25T08:59:03.960554+00:00",
+  "passed": true,
+  "new_fom_solves": 0,
+  "new_rom_solves": 0,
+  "new_test_parameters_generated": false,
+  "heat_source_formula": "b[j*n+i] = ell(i;0.2,0.4)*ell(j;0.2,0.4) + 2*ell(i;0.6,0.8)*ell(j;0.6,0.8), ell(i;a,b)=max(0,min((i+1)/n,b)-max(i/n,a)).",
+  "model": "Omega=(0,1)^2; k=1; ambient rise=0; integrated cell-center FV; side order left/right/bottom/top; beta=delta/(delta/2+1/h).",
+  "heat_checks": [
+    {
+      "n": 24,
+      "total_heat": 0.12000000000000005,
+      "explicit_formula_max_difference": 0.0,
+      "fast_geometry_uses_identical_source": true
+    },
+    {
+      "n": 48,
+      "total_heat": 0.12000000000000005,
+      "explicit_formula_max_difference": 0.0,
+      "fast_geometry_uses_identical_source": true
+    },
+    {
+      "n": 96,
+      "total_heat": 0.12000000000000008,
+      "explicit_formula_max_difference": 0.0,
+      "fast_geometry_uses_identical_source": true
+    }
+  ],
+  "configuration_sha256": "eb202c915d53759cbe8d7d27c013e2d27afa2e5d93dbb397ba900c89d95796ad",
+  "source_sha256": {
+    "kernel": "7369b7c457af81389f296dabcde98168c9ce8bf07dd0da7e6578a58fae8c4712",
+    "solver": "67f3b1bd3adfd34b28c6c449a782438be2e1104a444c08c46e8fb66589b63ab6",
+    "driver": "9737d1bd46fe9ff451e86d22ed7eb49ea98088c17d5212f0eb4242627e5d2fc4"
+  },
+  "complete_valid_repetitions": 9,
+  "actual_study_counts": {
+    "training_fom": 216,
+    "raw_fom_service": 2304,
+    "fast_fom_service_and_reference": 2304,
+    "raw_pod": 2304,
+    "fast_pod": 2304,
+    "adaptive_rom": 2304,
+    "adaptive_trigger_fom": 141
+  },
+  "limited_empirical_results": [
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 1.0040714729300266,
+        "minimum": 0.9026685693439949,
+        "maximum": 1.086128525590783,
+        "values": [
+          0.9026685693439949,
+          1.086128525590783,
+          1.0040714729300266
+        ]
+      },
+      "max_field_error": 0.0005548069629049135,
+      "max_hotspot_error": 3.0261244247049846e-05,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 0.6025988305305658,
+        "minimum": 0.5709272524656666,
+        "maximum": 0.662752285824567,
+        "values": [
+          0.5709272524656666,
+          0.662752285824567,
+          0.6025988305305658
+        ]
+      },
+      "max_field_error": 1.2696160864716921e-06,
+      "max_hotspot_error": 7.710716676267992e-09,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "updates_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "false_alarms_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        21,
+        21,
+        21
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 8.561368992456458,
+        "minimum": 7.072173470725735,
+        "maximum": 8.587837320173604,
+        "values": [
+          7.072173470725735,
+          8.561368992456458,
+          8.587837320173604
+        ]
+      },
+      "max_field_error": 0.0019715635579437285,
+      "max_hotspot_error": 0.00014527950636986087,
+      "field_exceedances": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 4.455223076656153,
+        "minimum": 3.759159184650172,
+        "maximum": 4.4610844368566935,
+        "values": [
+          3.759159184650172,
+          4.455223076656153,
+          4.4610844368566935
+        ]
+      },
+      "max_field_error": 1.2696160864716921e-06,
+      "max_hotspot_error": 1.1322663459600868e-08,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 0.9723693378112394,
+        "minimum": 0.968908747248373,
+        "maximum": 0.9996165753883229,
+        "values": [
+          0.9996165753883229,
+          0.9723693378112394,
+          0.968908747248373
+        ]
+      },
+      "max_field_error": 0.0006247525381717217,
+      "max_hotspot_error": 2.9934859028565852e-05,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 0.5997924507202163,
+        "minimum": 0.5997138924738975,
+        "maximum": 0.6026620334241903,
+        "values": [
+          0.5997138924738975,
+          0.6026620334241903,
+          0.5997924507202163
+        ]
+      },
+      "max_field_error": 2.5548642625106144e-07,
+      "max_hotspot_error": 9.663985583996393e-10,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "updates_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "false_alarms_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        22,
+        22,
+        22
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 9.303531446521268,
+        "minimum": 9.289329580144575,
+        "maximum": 9.444525483051208,
+        "values": [
+          9.303531446521268,
+          9.444525483051208,
+          9.289329580144575
+        ]
+      },
+      "max_field_error": 0.002211473035250655,
+      "max_hotspot_error": 0.00014710138224754976,
+      "field_exceedances": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 5.2946416860962575,
+        "minimum": 5.1179847277949095,
+        "maximum": 5.339705604548083,
+        "values": [
+          5.1179847277949095,
+          5.339705604548083,
+          5.2946416860962575
+        ]
+      },
+      "max_field_error": 2.9671185398927324e-07,
+      "max_hotspot_error": 1.0425350513432186e-09,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 0.9685116893689113,
+        "minimum": 0.9370411995654822,
+        "maximum": 1.1360501934303537,
+        "values": [
+          0.9685116893689113,
+          1.1360501934303537,
+          0.9370411995654822
+        ]
+      },
+      "max_field_error": 0.0006628730189980059,
+      "max_hotspot_error": 2.9982880497103626e-05,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 0.5883201425917897,
+        "minimum": 0.5794594526825796,
+        "maximum": 0.6480014795045802,
+        "values": [
+          0.5883201425917897,
+          0.6480014795045802,
+          0.5794594526825796
+        ]
+      },
+      "max_field_error": 1.1488521410585317e-07,
+      "max_hotspot_error": 7.415182079473226e-10,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "fast_fom",
+      "total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_error": 0.0,
+      "max_hotspot_error": 0.0,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "fast_pod",
+      "total_ratio": {
+        "median": 9.73820102059996,
+        "minimum": 9.455062649394643,
+        "maximum": 10.86227628615547,
+        "values": [
+          9.73820102059996,
+          10.86227628615547,
+          9.455062649394643
+        ]
+      },
+      "max_field_error": 0.0023423103076348067,
+      "max_hotspot_error": 0.00014703537995955362,
+      "field_exceedances": [
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "adaptive",
+      "total_ratio": {
+        "median": 5.392288764516173,
+        "minimum": 5.335244254464977,
+        "maximum": 5.6400813100449305,
+        "values": [
+          5.392288764516173,
+          5.6400813100449305,
+          5.335244254464977
+        ]
+      },
+      "max_field_error": 1.2027833042743685e-07,
+      "max_hotspot_error": 7.415182079473226e-10,
+      "field_exceedances": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "updates_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "false_alarms_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        25,
+        25,
+        25
+      ]
+    }
+  ],
+  "scope": "Unchanged frozen finite experiment; double precision. No universal/continuous/industrial/optimality guarantee."
+}

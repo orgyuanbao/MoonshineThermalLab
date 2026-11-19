@@ -1,0 +1,24 @@
+[
+  {
+    "turn": "20261025-154412-6aa9be9f",
+    "call": "call-008-main-16760800",
+    "status": "failed",
+    "model": "gpt-6-astra",
+    "role": "main",
+    "error_type": "JSONDecodeError",
+    "error": "Invalid control character at: line 1 column 1157 (char 1156)",
+    "elapsed_seconds": 116.61,
+    "native_result_sha256": "bf9ca144f900deca1019a940ef062c18986e6ed67e088dcf79220d9fd345fdd8"
+  },
+  {
+    "turn": "20261025-164759-a39cc510",
+    "call": "call-001-main-84721938",
+    "status": "failed",
+    "model": "gpt-6-astra",
+    "role": "main",
+    "error_type": "TimeoutExpired",
+    "error": "Codex model request exceeded 300 seconds",
+    "elapsed_seconds": 300.438,
+    "native_result_sha256": "f08694589f565d9c4e4fb45fc31aae17ee1c3f01c696c99be28a3f112e9e3069"
+  }
+]

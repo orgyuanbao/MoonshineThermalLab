@@ -1,0 +1,115 @@
+{
+  "source_record_sha256": "e0419516dd63034f97f3f3dde409fa77bfe404d6b0e35ec17fa4730f3f202c2a",
+  "origin": "External independent audit, not extra native Moonshine research",
+  "created_at": "2026-10-25T08:42:41.235436+00:00",
+  "passed": true,
+  "independent_actual_work": {
+    "training_fom_solves": 72,
+    "svd_calls": 3,
+    "reference_fom_solves": 768,
+    "fixed_rom_solves": 768,
+    "adaptive_rom_solves": 768,
+    "adaptive_fallback_solves": 47,
+    "unique_basis_stream_replays": 3
+  },
+  "real_model_calls": 0,
+  "new_accuracy_parameters": 0,
+  "checks": [
+    {
+      "name": "frozen_sources_match_reviewed_driver_and_snapshots",
+      "passed": true
+    },
+    {
+      "name": "configuration_precedes_parameter_generation",
+      "passed": true
+    },
+    {
+      "name": "configuration_and_parameter_file_hashes",
+      "passed": true
+    },
+    {
+      "name": "saved_parameter_array_and_json_agree",
+      "passed": true
+    },
+    {
+      "name": "registered_protocol_constants",
+      "passed": true
+    },
+    {
+      "name": "training_provenance_unchanged",
+      "passed": true
+    },
+    {
+      "name": "final_domain_and_development_disjointness",
+      "passed": true
+    },
+    {
+      "name": "static_reference_separation_and_single_svd",
+      "passed": true
+    },
+    {
+      "name": "n24_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n24_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n24_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n48_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat1_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat2_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "n96_repeat3_hashes_and_timestamps",
+      "passed": true
+    },
+    {
+      "name": "nine_run_cost_ledgers_and_progress_evidence",
+      "passed": true
+    },
+    {
+      "name": "nine_native_timing_runs_do_not_overlap",
+      "passed": true
+    },
+    {
+      "name": "independent_numerics_match_all_nine_runs",
+      "passed": true
+    },
+    {
+      "name": "final_summary_recomputed_from_per_case_ledgers",
+      "passed": true
+    },
+    {
+      "name": "summary_source_hashes_and_completion",
+      "passed": true
+    },
+    {
+      "name": "original_moonshine_tool_execution_coverage",
+      "passed": true
+    },
+    {
+      "name": "native_artifacts_unchanged",
+      "passed": true
+    }
+  ]
+}

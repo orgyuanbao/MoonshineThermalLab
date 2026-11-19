@@ -1,0 +1,2672 @@
+{
+  "origin": "Externally supplied evaluation harness; native Moonshine kernels and native execution tracked separately.",
+  "created_at_utc": "2026-10-25T08:40:54.987662+00:00",
+  "status": "complete",
+  "required_repetitions": 9,
+  "completed_valid_repetitions": 9,
+  "missing": [],
+  "invalid": [],
+  "comparisons": [
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.045281199854798615,
+        "minimum": 0.04495329991914332,
+        "maximum": 0.04657620016951114,
+        "values": [
+          0.04657620016951114,
+          0.04495329991914332,
+          0.045281199854798615
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.045281199854798615,
+        "minimum": 0.04495329991914332,
+        "maximum": 0.04657620016951114,
+        "values": [
+          0.04657620016951114,
+          0.04495329991914332,
+          0.045281199854798615
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.4555030201680405,
+        "minimum": 0.43188343237521754,
+        "maximum": 0.46929146259030907,
+        "values": [
+          0.4555030201680405,
+          0.46929146259030907,
+          0.43188343237521754
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.4281306703282947,
+        "minimum": 0.40941494508166587,
+        "maximum": 0.4454778629713091,
+        "values": [
+          0.4281306703282947,
+          0.4454778629713091,
+          0.40941494508166587
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.02109619986731559,
+        "minimum": 0.019556200015358627,
+        "maximum": 0.021215599845163524,
+        "values": [
+          0.021215599845163524,
+          0.02109619986731559,
+          0.019556200015358627
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.01994069979991764,
+        "minimum": 0.018538799951784313,
+        "maximum": 0.020025699981488287,
+        "values": [
+          0.01994069979991764,
+          0.020025699981488287,
+          0.018538799951784313
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.001070499885827303,
+        "minimum": 0.0010174000635743141,
+        "maximum": 0.0012749000452458858,
+        "values": [
+          0.0012749000452458858,
+          0.001070499885827303,
+          0.0010174000635743141
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.0474346992559731,
+        "minimum": 0.04585900017991662,
+        "maximum": 0.05093550030142069,
+        "values": [
+          0.05093550030142069,
+          0.0474346992559731,
+          0.04585900017991662
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.028003599727526307,
+        "minimum": 0.026910500251688063,
+        "maximum": 0.028713100007735193,
+        "values": [
+          0.028003599727526307,
+          0.028713100007735193,
+          0.026910500251688063
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.018948499928228557,
+        "minimum": 0.018721599248237908,
+        "maximum": 0.02293190057389438,
+        "values": [
+          0.02293190057389438,
+          0.018721599248237908,
+          0.018948499928228557
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.42644191845950935,
+        "minimum": 0.4165189252999598,
+        "maximum": 0.44474193361011144,
+        "values": [
+          0.4165189252999598,
+          0.44474193361011144,
+          0.42644191845950935
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.6974412367906442,
+        "minimum": 0.6889058091969656,
+        "maximum": 0.7120763042587274,
+        "values": [
+          0.7120763042587274,
+          0.6974412367906442,
+          0.6889058091969656
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0005548069629049968,
+        "minimum": 0.0005548069629049968,
+        "maximum": 0.0005548069629049968,
+        "values": [
+          0.0005548069629049968,
+          0.0005548069629049968,
+          0.0005548069629049968
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 3.0261244247042907e-05,
+        "minimum": 3.0261244247042907e-05,
+        "maximum": 3.0261244247042907e-05,
+        "values": [
+          3.0261244247042907e-05,
+          3.0261244247042907e-05,
+          3.0261244247042907e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.019476900342851877,
+        "minimum": 0.01942329970188439,
+        "maximum": 0.023503199918195605,
+        "values": [
+          0.023503199918195605,
+          0.01942329970188439,
+          0.019476900342851877
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.0004713993985205889,
+        "minimum": 0.0004644003929570317,
+        "maximum": 0.0006397004472091794,
+        "values": [
+          0.0004713993985205889,
+          0.0006397004472091794,
+          0.0004644003929570317
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.019012499949894845,
+        "minimum": 0.01878359925467521,
+        "maximum": 0.023031800519675016,
+        "values": [
+          0.023031800519675016,
+          0.01878359925467521,
+          0.019012499949894845
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0040714729300266,
+        "minimum": 0.9026685693439949,
+        "maximum": 1.086128525590783,
+        "values": [
+          0.9026685693439949,
+          1.086128525590783,
+          1.0040714729300266
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 39.91986275838401,
+        "minimum": 31.304808475364354,
+        "maximum": 42.301071792832815,
+        "values": [
+          42.301071792832815,
+          31.304808475364354,
+          39.91986275838401
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0005548069629049135,
+        "minimum": 0.0005548069629049135,
+        "maximum": 0.0005548069629049135,
+        "values": [
+          0.0005548069629049135,
+          0.0005548069629049135,
+          0.0005548069629049135
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 3.0261244247049846e-05,
+        "minimum": 3.0261244247049846e-05,
+        "maximum": 3.0261244247049846e-05,
+        "values": [
+          3.0261244247049846e-05,
+          3.0261244247049846e-05,
+          3.0261244247049846e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 24,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.03245309984777123,
+        "minimum": 0.03183119895402342,
+        "maximum": 0.03715990041382611,
+        "values": [
+          0.03715990041382611,
+          0.03183119895402342,
+          0.03245309984777123
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.013462199945934117,
+        "minimum": 0.013051699730567634,
+        "maximum": 0.014177399803884327,
+        "values": [
+          0.014177399803884327,
+          0.013051699730567634,
+          0.013462199945934117
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.01899089990183711,
+        "minimum": 0.018779499223455787,
+        "maximum": 0.02298250060994178,
+        "values": [
+          0.02298250060994178,
+          0.018779499223455787,
+          0.01899089990183711
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.6025988305305658,
+        "minimum": 0.5709272524656666,
+        "maximum": 0.662752285824567,
+        "values": [
+          0.5709272524656666,
+          0.662752285824567,
+          0.6025988305305658
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.4065131882966495,
+        "minimum": 1.3771003273044864,
+        "maximum": 1.5343365534672277,
+        "values": [
+          1.4065131882966495,
+          1.5343365534672277,
+          1.3771003273044864
+        ]
+      },
+      "max_field_linf": {
+        "median": 1.2696160864716921e-06,
+        "minimum": 1.2696160864716921e-06,
+        "maximum": 1.2696160864716921e-06,
+        "values": [
+          1.2696160864716921e-06,
+          1.2696160864716921e-06,
+          1.2696160864716921e-06
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 7.710716676267992e-09,
+        "minimum": 7.710716676267992e-09,
+        "maximum": 7.710716676267992e-09,
+        "values": [
+          7.710716676267992e-09,
+          7.710716676267992e-09,
+          7.710716676267992e-09
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "updates_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "false_alarms_per_repetition": [
+        13,
+        13,
+        13
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        21,
+        21,
+        21
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.508565099327825,
+        "minimum": 0.47723389870952815,
+        "maximum": 0.5123933001887053,
+        "values": [
+          0.508565099327825,
+          0.5123933001887053,
+          0.47723389870952815
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.508565099327825,
+        "minimum": 0.47723389870952815,
+        "maximum": 0.5123933001887053,
+        "values": [
+          0.508565099327825,
+          0.5123933001887053,
+          0.47723389870952815
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.39342376184212347,
+        "minimum": 0.38367713486134275,
+        "maximum": 0.4285533798328526,
+        "values": [
+          0.38367713486134275,
+          0.39342376184212347,
+          0.4285533798328526
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.3913345466134445,
+        "minimum": 0.38117027773148676,
+        "maximum": 0.4264215110231862,
+        "values": [
+          0.38117027773148676,
+          0.3913345466134445,
+          0.4264215110231862
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.20158769970294088,
+        "minimum": 0.1951248002005741,
+        "maximum": 0.2045202002627775,
+        "values": [
+          0.1951248002005741,
+          0.20158769970294088,
+          0.2045202002627775
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.20051719981711358,
+        "minimum": 0.19384990015532821,
+        "maximum": 0.2035028001992032,
+        "values": [
+          0.19384990015532821,
+          0.20051719981711358,
+          0.2035028001992032
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.001070499885827303,
+        "minimum": 0.0010174000635743141,
+        "maximum": 0.0012749000452458858,
+        "values": [
+          0.0012749000452458858,
+          0.001070499885827303,
+          0.0010174000635743141
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.3042573998682201,
+        "minimum": 0.302550598164089,
+        "maximum": 0.31328359979670495,
+        "values": [
+          0.31328359979670495,
+          0.302550598164089,
+          0.3042573998682201
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.28530889993999153,
+        "minimum": 0.2838289989158511,
+        "maximum": 0.29035169922281057,
+        "values": [
+          0.29035169922281057,
+          0.2838289989158511,
+          0.28530889993999153
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.018948499928228557,
+        "minimum": 0.018721599248237908,
+        "maximum": 0.02293190057389438,
+        "values": [
+          0.02293190057389438,
+          0.018721599248237908,
+          0.018948499928228557
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.6662941700535304,
+        "minimum": 0.6228375833500186,
+        "maximum": 0.6721946626486628,
+        "values": [
+          0.6228375833500186,
+          0.6662941700535304,
+          0.6721946626486628
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.7064718565863046,
+        "minimum": 0.6676382493169821,
+        "maximum": 0.7132718265781598,
+        "values": [
+          0.6676382493169821,
+          0.7064718565863046,
+          0.7132718265781598
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.001971563557943007,
+        "minimum": 0.001971563557943007,
+        "maximum": 0.001971563557943007,
+        "values": [
+          0.001971563557943007,
+          0.001971563557943007,
+          0.001971563557943007
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014527950636911147,
+        "minimum": 0.00014527950636911147,
+        "maximum": 0.00014527950636911147,
+        "values": [
+          0.00014527950636911147,
+          0.00014527950636911147,
+          0.00014527950636911147
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.023815099499188364,
+        "minimum": 0.023546199197880924,
+        "maximum": 0.027590499725192785,
+        "values": [
+          0.027590499725192785,
+          0.023546199197880924,
+          0.023815099499188364
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.004762599943205714,
+        "minimum": 0.004558699205517769,
+        "maximum": 0.004802599549293518,
+        "values": [
+          0.004558699205517769,
+          0.004762599943205714,
+          0.004802599549293518
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.019012499949894845,
+        "minimum": 0.01878359925467521,
+        "maximum": 0.023031800519675016,
+        "values": [
+          0.023031800519675016,
+          0.01878359925467521,
+          0.019012499949894845
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 8.561368992456458,
+        "minimum": 7.072173470725735,
+        "maximum": 8.587837320173604,
+        "values": [
+          7.072173470725735,
+          8.561368992456458,
+          8.587837320173604
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 42.373468391537926,
+        "minimum": 42.102465503777985,
+        "maximum": 42.52307323121818,
+        "values": [
+          42.52307323121818,
+          42.102465503777985,
+          42.373468391537926
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0019715635579437285,
+        "minimum": 0.0019715635579437285,
+        "maximum": 0.0019715635579437285,
+        "values": [
+          0.0019715635579437285,
+          0.0019715635579437285,
+          0.0019715635579437285
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014527950636986087,
+        "minimum": 0.00014527950636986087,
+        "maximum": 0.00014527950636986087,
+        "values": [
+          0.00014527950636986087,
+          0.00014527950636986087,
+          0.00014527950636986087
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 24,
+      "queries": 256,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.04584539995994419,
+        "minimum": 0.04524749855045229,
+        "maximum": 0.05190650105942041,
+        "values": [
+          0.05190650105942041,
+          0.04524749855045229,
+          0.04584539995994419
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.026854500058107078,
+        "minimum": 0.026467999326996505,
+        "maximum": 0.028924000449478626,
+        "values": [
+          0.028924000449478626,
+          0.026467999326996505,
+          0.026854500058107078
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.01899089990183711,
+        "minimum": 0.018779499223455787,
+        "maximum": 0.02298250060994178,
+        "values": [
+          0.02298250060994178,
+          0.018779499223455787,
+          0.01899089990183711
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 4.455223076656153,
+        "minimum": 3.759159184650172,
+        "maximum": 4.4610844368566935,
+        "values": [
+          3.759159184650172,
+          4.455223076656153,
+          4.4610844368566935
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 7.575835156251969,
+        "minimum": 6.702043187073125,
+        "maximum": 7.577977611158989,
+        "values": [
+          6.702043187073125,
+          7.575835156251969,
+          7.577977611158989
+        ]
+      },
+      "max_field_linf": {
+        "median": 1.2696160864716921e-06,
+        "minimum": 1.2696160864716921e-06,
+        "maximum": 1.2696160864716921e-06,
+        "values": [
+          1.2696160864716921e-06,
+          1.2696160864716921e-06,
+          1.2696160864716921e-06
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 1.1322663459600868e-08,
+        "minimum": 1.1322663459600868e-08,
+        "maximum": 1.1322663459600868e-08,
+        "values": [
+          1.1322663459600868e-08,
+          1.1322663459600868e-08,
+          1.1322663459600868e-08
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.17158709978684783,
+        "minimum": 0.17017760023009032,
+        "maximum": 0.18020820012316108,
+        "values": [
+          0.17158709978684783,
+          0.18020820012316108,
+          0.17017760023009032
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.17158709978684783,
+        "minimum": 0.17017760023009032,
+        "maximum": 0.18020820012316108,
+        "values": [
+          0.17158709978684783,
+          0.18020820012316108,
+          0.17017760023009032
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.4026392437964918,
+        "minimum": 0.3843959372586196,
+        "maximum": 0.414351828255796,
+        "values": [
+          0.4026392437964918,
+          0.3843959372586196,
+          0.414351828255796
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.3844088525978435,
+        "minimum": 0.36554718333051445,
+        "maximum": 0.39503377533641915,
+        "values": [
+          0.3844088525978435,
+          0.36554718333051445,
+          0.39503377533641915
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.06927129998803139,
+        "minimum": 0.06908770010340959,
+        "maximum": 0.07051339978352189,
+        "values": [
+          0.06908770010340959,
+          0.06927129998803139,
+          0.07051339978352189
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.06595960014965385,
+        "minimum": 0.0658745999680832,
+        "maximum": 0.06722589989658445,
+        "values": [
+          0.06595960014965385,
+          0.0658745999680832,
+          0.06722589989658445
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0032874998869374394,
+        "minimum": 0.0031280999537557364,
+        "maximum": 0.0033967000199481845,
+        "values": [
+          0.0031280999537557364,
+          0.0033967000199481845,
+          0.0032874998869374394
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.1773416994838044,
+        "minimum": 0.16939880035351962,
+        "maximum": 0.18213970004580915,
+        "values": [
+          0.16939880035351962,
+          0.18213970004580915,
+          0.1773416994838044
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.10521779977716506,
+        "minimum": 0.10100620030425489,
+        "maximum": 0.11155250016599894,
+        "values": [
+          0.10100620030425489,
+          0.11155250016599894,
+          0.10521779977716506
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07058719987981021,
+        "minimum": 0.06839260004926473,
+        "maximum": 0.07212389970663935,
+        "values": [
+          0.06839260004926473,
+          0.07058719987981021,
+          0.07212389970663935
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.39761319525395367,
+        "minimum": 0.38031961165308426,
+        "maximum": 0.4078405511681898,
+        "values": [
+          0.4078405511681898,
+          0.38031961165308426,
+          0.39761319525395367
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.6389213615848123,
+        "minimum": 0.5905255361382004,
+        "maximum": 0.6530252593500966,
+        "values": [
+          0.6530252593500966,
+          0.5905255361382004,
+          0.6389213615848123
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0006247525381711666,
+        "minimum": 0.0006247525381711666,
+        "maximum": 0.0006247525381711666,
+        "values": [
+          0.0006247525381711666,
+          0.0006247525381711666,
+          0.0006247525381711666
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 2.9934859028551974e-05,
+        "minimum": 2.9934859028551974e-05,
+        "maximum": 2.9934859028551974e-05,
+        "values": [
+          2.9934859028551974e-05,
+          2.9934859028551974e-05,
+          2.9934859028551974e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.07123970007523894,
+        "minimum": 0.06911420018877834,
+        "maximum": 0.07277609989978373,
+        "values": [
+          0.06911420018877834,
+          0.07123970007523894,
+          0.07277609989978373
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.0005510002374649048,
+        "minimum": 0.0005460000829771161,
+        "maximum": 0.0005544000305235386,
+        "values": [
+          0.0005460000829771161,
+          0.0005510002374649048,
+          0.0005544000305235386
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07068869983777404,
+        "minimum": 0.06856820010580122,
+        "maximum": 0.07222169986926019,
+        "values": [
+          0.06856820010580122,
+          0.07068869983777404,
+          0.07222169986926019
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.9723693378112394,
+        "minimum": 0.968908747248373,
+        "maximum": 0.9996165753883229,
+        "values": [
+          0.9996165753883229,
+          0.9723693378112394,
+          0.968908747248373
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 120.80511012013591,
+        "minimum": 119.55457636672797,
+        "maximum": 121.25883152116852,
+        "values": [
+          120.80511012013591,
+          119.55457636672797,
+          121.25883152116852
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0006247525381717217,
+        "minimum": 0.0006247525381717217,
+        "maximum": 0.0006247525381717217,
+        "values": [
+          0.0006247525381717217,
+          0.0006247525381717217,
+          0.0006247525381717217
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 2.9934859028565852e-05,
+        "minimum": 2.9934859028565852e-05,
+        "maximum": 2.9934859028565852e-05,
+        "values": [
+          2.9934859028565852e-05,
+          2.9934859028565852e-05,
+          2.9934859028565852e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 24,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.11520110000856221,
+        "minimum": 0.11494220001623034,
+        "maximum": 0.11756299983244389,
+        "values": [
+          0.11520110000856221,
+          0.11494220001623034,
+          0.11756299983244389
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.04536990006454289,
+        "minimum": 0.04423210013192147,
+        "maximum": 0.04667459998745471,
+        "values": [
+          0.04667459998745471,
+          0.04423210013192147,
+          0.04536990006454289
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07071009988430887,
+        "minimum": 0.0685265000211075,
+        "maximum": 0.072193099767901,
+        "values": [
+          0.0685265000211075,
+          0.07071009988430887,
+          0.072193099767901
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.5997924507202163,
+        "minimum": 0.5997138924738975,
+        "maximum": 0.6026620334241903,
+        "values": [
+          0.5997138924738975,
+          0.6026620334241903,
+          0.5997924507202163
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.4817290714978295,
+        "minimum": 1.4131797630270553,
+        "maximum": 1.4892939691222744,
+        "values": [
+          1.4131797630270553,
+          1.4892939691222744,
+          1.4817290714978295
+        ]
+      },
+      "max_field_linf": {
+        "median": 2.5548642625106144e-07,
+        "minimum": 2.5548642625106144e-07,
+        "maximum": 2.5548642625106144e-07,
+        "values": [
+          2.5548642625106144e-07,
+          2.5548642625106144e-07,
+          2.5548642625106144e-07
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 9.663985583996393e-10,
+        "minimum": 9.663985583996393e-10,
+        "maximum": 9.663985583996393e-10,
+        "values": [
+          9.663985583996393e-10,
+          9.663985583996393e-10,
+          9.663985583996393e-10
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "updates_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "false_alarms_per_repetition": [
+        14,
+        14,
+        14
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        22,
+        22,
+        22
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 1.8200130003970116,
+        "minimum": 1.7979921005899087,
+        "maximum": 1.8214072992559522,
+        "values": [
+          1.7979921005899087,
+          1.8200130003970116,
+          1.8214072992559522
+        ]
+      },
+      "online_service_seconds": {
+        "median": 1.8200130003970116,
+        "minimum": 1.7979921005899087,
+        "maximum": 1.8214072992559522,
+        "values": [
+          1.7979921005899087,
+          1.8200130003970116,
+          1.8214072992559522
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.3949948481556206,
+        "minimum": 0.38487243645812597,
+        "maximum": 0.39634238944104505,
+        "values": [
+          0.38487243645812597,
+          0.39634238944104505,
+          0.3949948481556206
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.3931899251775034,
+        "minimum": 0.38313266243312916,
+        "maximum": 0.3944760840799255,
+        "values": [
+          0.38313266243312916,
+          0.3944760840799255,
+          0.3931899251775034
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.7194464995991439,
+        "minimum": 0.691997600486502,
+        "maximum": 0.7213483013911173,
+        "values": [
+          0.691997600486502,
+          0.7213483013911173,
+          0.7194464995991439
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.7161589997122064,
+        "minimum": 0.6888695005327463,
+        "maximum": 0.7179516013711691,
+        "values": [
+          0.6888695005327463,
+          0.7179516013711691,
+          0.7161589997122064
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0032874998869374394,
+        "minimum": 0.0031280999537557364,
+        "maximum": 0.0033967000199481845,
+        "values": [
+          0.0031280999537557364,
+          0.0033967000199481845,
+          0.0032874998869374394
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 1.166352000203915,
+        "minimum": 1.1319275002460927,
+        "maximum": 1.1913042000960559,
+        "values": [
+          1.1319275002460927,
+          1.1913042000960559,
+          1.166352000203915
+        ]
+      },
+      "online_service_seconds": {
+        "median": 1.0942281004972756,
+        "minimum": 1.063534900196828,
+        "maximum": 1.1207170002162457,
+        "values": [
+          1.063534900196828,
+          1.1207170002162457,
+          1.0942281004972756
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07058719987981021,
+        "minimum": 0.06839260004926473,
+        "maximum": 0.07212389970663935,
+        "values": [
+          0.06839260004926473,
+          0.07058719987981021,
+          0.07212389970663935
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.6113444547782916,
+        "minimum": 0.6055114229706857,
+        "maximum": 0.6168347972767758,
+        "values": [
+          0.6113444547782916,
+          0.6055114229706857,
+          0.6168347972767758
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.6477168736120061,
+        "minimum": 0.6406181054027361,
+        "maximum": 0.6544878525663393,
+        "values": [
+          0.6477168736120061,
+          0.6406181054027361,
+          0.6544878525663393
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.002211473035249059,
+        "minimum": 0.002211473035249059,
+        "maximum": 0.002211473035249059,
+        "values": [
+          0.002211473035249059,
+          0.002211473035249059,
+          0.002211473035249059
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014710138224560687,
+        "minimum": 0.00014710138224560687,
+        "maximum": 0.00014710138224560687,
+        "values": [
+          0.00014710138224560687,
+          0.00014710138224560687,
+          0.00014710138224560687
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.0763774000806734,
+        "minimum": 0.07438010012265295,
+        "maximum": 0.0774486999725923,
+        "values": [
+          0.07438010012265295,
+          0.0763774000806734,
+          0.0774486999725923
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.005688700242899358,
+        "minimum": 0.005227000103332102,
+        "maximum": 0.005811900016851723,
+        "values": [
+          0.005811900016851723,
+          0.005688700242899358,
+          0.005227000103332102
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07068869983777404,
+        "minimum": 0.06856820010580122,
+        "maximum": 0.07222169986926019,
+        "values": [
+          0.06856820010580122,
+          0.07068869983777404,
+          0.07222169986926019
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 9.303531446521268,
+        "minimum": 9.289329580144575,
+        "maximum": 9.444525483051208,
+        "values": [
+          9.303531446521268,
+          9.444525483051208,
+          9.289329580144575
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 126.20661499387616,
+        "minimum": 118.5274176319887,
+        "maximum": 137.01147609613977,
+        "values": [
+          118.5274176319887,
+          126.20661499387616,
+          137.01147609613977
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.002211473035250655,
+        "minimum": 0.002211473035250655,
+        "maximum": 0.002211473035250655,
+        "values": [
+          0.002211473035250655,
+          0.002211473035250655,
+          0.002211473035250655
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014710138224754976,
+        "minimum": 0.00014710138224754976,
+        "maximum": 0.00014710138224754976,
+        "values": [
+          0.00014710138224754976,
+          0.00014710138224754976,
+          0.00014710138224754976
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "n": 48,
+      "queries": 256,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.13520900066941977,
+        "minimum": 0.13509139919187874,
+        "maximum": 0.13588199962396175,
+        "values": [
+          0.13520900066941977,
+          0.13509139919187874,
+          0.13588199962396175
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.06438129930756986,
+        "minimum": 0.06368889985606074,
+        "maximum": 0.06668250064831227,
+        "values": [
+          0.06668250064831227,
+          0.06438129930756986,
+          0.06368889985606074
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.07071009988430887,
+        "minimum": 0.0685265000211075,
+        "maximum": 0.072193099767901,
+        "values": [
+          0.0685265000211075,
+          0.07071009988430887,
+          0.072193099767901
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 5.2946416860962575,
+        "minimum": 5.1179847277949095,
+        "maximum": 5.339705604548083,
+        "values": [
+          5.1179847277949095,
+          5.339705604548083,
+          5.2946416860962575
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 11.151555018193822,
+        "minimum": 10.330588892667473,
+        "maximum": 11.244643907034854,
+        "values": [
+          10.330588892667473,
+          11.151555018193822,
+          11.244643907034854
+        ]
+      },
+      "max_field_linf": {
+        "median": 2.9671185398927324e-07,
+        "minimum": 2.9671185398927324e-07,
+        "maximum": 2.9671185398927324e-07,
+        "values": [
+          2.9671185398927324e-07,
+          2.9671185398927324e-07,
+          2.9671185398927324e-07
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 1.0425350513432186e-09,
+        "minimum": 1.0425350513432186e-09,
+        "maximum": 1.0425350513432186e-09,
+        "values": [
+          1.0425350513432186e-09,
+          1.0425350513432186e-09,
+          1.0425350513432186e-09
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.7488414999097586,
+        "minimum": 0.7407622997416183,
+        "maximum": 0.7642167001031339,
+        "values": [
+          0.7488414999097586,
+          0.7407622997416183,
+          0.7642167001031339
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.7488414999097586,
+        "minimum": 0.7407622997416183,
+        "maximum": 0.7642167001031339,
+        "values": [
+          0.7488414999097586,
+          0.7407622997416183,
+          0.7642167001031339
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.4603558966710493,
+        "minimum": 0.4438027854829046,
+        "maximum": 0.5401017303531633,
+        "values": [
+          0.4603558966710493,
+          0.5401017303531633,
+          0.4438027854829046
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.4434485804820048,
+        "minimum": 0.4260154221235146,
+        "maximum": 0.5237828653586319,
+        "values": [
+          0.4434485804820048,
+          0.5237828653586319,
+          0.4260154221235146
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.3447336001554504,
+        "minimum": 0.33916150021832436,
+        "maximum": 0.40008699987083673,
+        "values": [
+          0.3447336001554504,
+          0.40008699987083673,
+          0.33916150021832436
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.33207270014099777,
+        "minimum": 0.32556810008827597,
+        "maximum": 0.38799859990831465,
+        "values": [
+          0.33207270014099777,
+          0.38799859990831465,
+          0.32556810008827597
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.012660900014452636,
+        "minimum": 0.01208839996252209,
+        "maximum": 0.013593400130048394,
+        "values": [
+          0.012660900014452636,
+          0.01208839996252209,
+          0.013593400130048394
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.7637282996438444,
+        "minimum": 0.7610862997826189,
+        "maximum": 0.7763738004723564,
+        "values": [
+          0.7637282996438444,
+          0.7610862997826189,
+          0.7763738004723564
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.4105049998033792,
+        "minimum": 0.40908649982884526,
+        "maximum": 0.41574240021873266,
+        "values": [
+          0.40908649982884526,
+          0.4105049998033792,
+          0.41574240021873266
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.3546417998149991,
+        "minimum": 0.3505812999792397,
+        "maximum": 0.3606314002536237,
+        "values": [
+          0.3546417998149991,
+          0.3505812999792397,
+          0.3606314002536237
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.45138251432638127,
+        "minimum": 0.4368533559632923,
+        "maximum": 0.5256788881695931,
+        "values": [
+          0.45138251432638127,
+          0.5256788881695931,
+          0.4368533559632923
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.8117420161260057,
+        "minimum": 0.7831005447531604,
+        "maximum": 0.9451738714367803,
+        "values": [
+          0.8117420161260057,
+          0.9451738714367803,
+          0.7831005447531604
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0006628730189994353,
+        "minimum": 0.0006628730189994353,
+        "maximum": 0.0006628730189994353,
+        "values": [
+          0.0006628730189994353,
+          0.0006628730189994353,
+          0.0006628730189994353
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 2.9982880497089748e-05,
+        "minimum": 2.9982880497089748e-05,
+        "maximum": 2.9982880497089748e-05,
+        "values": [
+          2.9982880497089748e-05,
+          2.9982880497089748e-05,
+          2.9982880497089748e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.35594159981701523,
+        "minimum": 0.35217369988095015,
+        "maximum": 0.3619494002778083,
+        "values": [
+          0.35594159981701523,
+          0.35217369988095015,
+          0.3619494002778083
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.0008329999400302768,
+        "minimum": 0.0008007000433281064,
+        "maximum": 0.0011352997971698642,
+        "values": [
+          0.0008329999400302768,
+          0.0011352997971698642,
+          0.0008007000433281064
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.35510859987698495,
+        "minimum": 0.3510384000837803,
+        "maximum": 0.3611487002344802,
+        "values": [
+          0.35510859987698495,
+          0.3510384000837803,
+          0.3611487002344802
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.9685116893689113,
+        "minimum": 0.9370411995654822,
+        "maximum": 1.1360501934303537,
+        "values": [
+          0.9685116893689113,
+          1.1360501934303537,
+          0.9370411995654822
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 398.64672754829735,
+        "minimum": 341.7587150773199,
+        "maximum": 406.60432430483394,
+        "values": [
+          398.64672754829735,
+          341.7587150773199,
+          406.60432430483394
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0006628730189980059,
+        "minimum": 0.0006628730189980059,
+        "maximum": 0.0006628730189980059,
+        "values": [
+          0.0006628730189980059,
+          0.0006628730189980059,
+          0.0006628730189980059
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 2.9982880497103626e-05,
+        "minimum": 2.9982880497103626e-05,
+        "maximum": 2.9982880497103626e-05,
+        "values": [
+          2.9982880497103626e-05,
+          2.9982880497103626e-05,
+          2.9982880497103626e-05
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 24,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.5859625996090472,
+        "minimum": 0.5853067003190517,
+        "maximum": 0.6174167999997735,
+        "values": [
+          0.5859625996090472,
+          0.6174167999997735,
+          0.5853067003190517
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.23100949986837804,
+        "minimum": 0.22435170016251504,
+        "maximum": 0.26649020006880164,
+        "values": [
+          0.23100949986837804,
+          0.26649020006880164,
+          0.22435170016251504
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.35495309974066913,
+        "minimum": 0.35092659993097186,
+        "maximum": 0.3609550001565367,
+        "values": [
+          0.35495309974066913,
+          0.35092659993097186,
+          0.3609550001565367
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.5883201425917897,
+        "minimum": 0.5794594526825796,
+        "maximum": 0.6480014795045802,
+        "values": [
+          0.5883201425917897,
+          0.6480014795045802,
+          0.5794594526825796
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.4511505812188727,
+        "minimum": 1.4374850399234766,
+        "maximum": 1.4559582296389972,
+        "values": [
+          1.4374850399234766,
+          1.4559582296389972,
+          1.4511505812188727
+        ]
+      },
+      "max_field_linf": {
+        "median": 1.1488521410585317e-07,
+        "minimum": 1.1488521410585317e-07,
+        "maximum": 1.1488521410585317e-07,
+        "values": [
+          1.1488521410585317e-07,
+          1.1488521410585317e-07,
+          1.1488521410585317e-07
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 7.415182079473226e-10,
+        "minimum": 7.415182079473226e-10,
+        "maximum": 7.415182079473226e-10,
+        "values": [
+          7.415182079473226e-10,
+          7.415182079473226e-10,
+          7.415182079473226e-10
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "updates_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "false_alarms_per_repetition": [
+        15,
+        15,
+        15
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        23,
+        23,
+        23
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "raw_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 8.197975800721906,
+        "minimum": 8.070965099148452,
+        "maximum": 8.220395499025472,
+        "values": [
+          8.070965099148452,
+          8.220395499025472,
+          8.197975800721906
+        ]
+      },
+      "online_service_seconds": {
+        "median": 8.197975800721906,
+        "minimum": 8.070965099148452,
+        "maximum": 8.220395499025472,
+        "values": [
+          8.070965099148452,
+          8.220395499025472,
+          8.197975800721906
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0,
+          0,
+          0
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.43899206063192303,
+        "minimum": 0.42619922090437584,
+        "maximum": 0.479602714817764,
+        "values": [
+          0.43899206063192303,
+          0.479602714817764,
+          0.42619922090437584
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.4374233634737866,
+        "minimum": 0.42454107986316275,
+        "maximum": 0.47813217730360724,
+        "values": [
+          0.4374233634737866,
+          0.47813217730360724,
+          0.42454107986316275
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "fast_fom",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 3.543089600163512,
+        "minimum": 3.493970899260603,
+        "maximum": 3.942523998208344,
+        "values": [
+          3.543089600163512,
+          3.942523998208344,
+          3.493970899260603
+        ]
+      },
+      "online_service_seconds": {
+        "median": 3.5304287001490593,
+        "minimum": 3.4803774991305545,
+        "maximum": 3.930435598245822,
+        "values": [
+          3.5304287001490593,
+          3.930435598245822,
+          3.4803774991305545
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.012660900014452636,
+        "minimum": 0.01208839996252209,
+        "maximum": 0.013593400130048394,
+        "values": [
+          0.012660900014452636,
+          0.01208839996252209,
+          0.013593400130048394
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 1.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "raw_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 4.702764699351974,
+        "minimum": 4.665987399988808,
+        "maximum": 4.734676898922771,
+        "values": [
+          4.702764699351974,
+          4.665987399988808,
+          4.734676898922771
+        ]
+      },
+      "online_service_seconds": {
+        "median": 4.348122899536975,
+        "minimum": 4.315406100009568,
+        "maximum": 4.3740454986691475,
+        "values": [
+          4.348122899536975,
+          4.315406100009568,
+          4.3740454986691475
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.3546417998149991,
+        "minimum": 0.3505812999792397,
+        "maximum": 0.3606314002536237,
+        "values": [
+          0.3546417998149991,
+          0.3505812999792397,
+          0.3606314002536237
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 0.7534056723381756,
+        "minimum": 0.7379533965782433,
+        "maximum": 0.8449495594904094,
+        "values": [
+          0.7534056723381756,
+          0.8449495594904094,
+          0.7379533965782433
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 0.8119431721962158,
+        "minimum": 0.7956884536728067,
+        "maximum": 0.9107915934579384,
+        "values": [
+          0.8119431721962158,
+          0.9107915934579384,
+          0.7956884536728067
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.002342310307638429,
+        "minimum": 0.002342310307638429,
+        "maximum": 0.002342310307638429,
+        "values": [
+          0.002342310307638429,
+          0.002342310307638429,
+          0.002342310307638429
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014703537996307858,
+        "minimum": 0.00014703537996307858,
+        "maximum": 0.00014703537996307858,
+        "values": [
+          0.00014703537996307858,
+          0.00014703537996307858,
+          0.00014703537996307858
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "fast_pod",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.36383409961126745,
+        "minimum": 0.3629555992083624,
+        "maximum": 0.36953439959324896,
+        "values": [
+          0.36383409961126745,
+          0.3629555992083624,
+          0.36953439959324896
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.008725499734282494,
+        "minimum": 0.008385699358768761,
+        "maximum": 0.011917199124582112,
+        "values": [
+          0.008725499734282494,
+          0.011917199124582112,
+          0.008385699358768761
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.35510859987698495,
+        "minimum": 0.3510384000837803,
+        "maximum": 0.3611487002344802,
+        "values": [
+          0.35510859987698495,
+          0.3510384000837803,
+          0.3611487002344802
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 9.73820102059996,
+        "minimum": 9.455062649394643,
+        "maximum": 10.86227628615547,
+        "values": [
+          9.73820102059996,
+          10.86227628615547,
+          9.455062649394643
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 404.61048738308966,
+        "minimum": 329.8120268997055,
+        "maximum": 415.0372378293281,
+        "values": [
+          404.61048738308966,
+          329.8120268997055,
+          415.0372378293281
+        ]
+      },
+      "max_field_linf": {
+        "median": 0.0023423103076348067,
+        "minimum": 0.0023423103076348067,
+        "maximum": 0.0023423103076348067,
+        "values": [
+          0.0023423103076348067,
+          0.0023423103076348067,
+          0.0023423103076348067
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 0.00014703537995955362,
+        "minimum": 0.00014703537995955362,
+        "maximum": 0.00014703537995955362,
+        "values": [
+          0.00014703537995955362,
+          0.00014703537995955362,
+          0.00014703537995955362
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "n": 96,
+      "queries": 256,
+      "method": "adaptive",
+      "observed_repetitions": 3,
+      "total_required_seconds": {
+        "median": 0.6570659982971847,
+        "minimum": 0.6548848998500034,
+        "maximum": 0.6990190001670271,
+        "values": [
+          0.6570659982971847,
+          0.6990190001670271,
+          0.6548848998500034
+        ]
+      },
+      "online_service_seconds": {
+        "median": 0.3021128985565156,
+        "minimum": 0.2939298996934667,
+        "maximum": 0.34809240023605525,
+        "values": [
+          0.3021128985565156,
+          0.34809240023605525,
+          0.2939298996934667
+        ]
+      },
+      "offline_seconds": {
+        "median": 0.35495309974066913,
+        "minimum": 0.35092659993097186,
+        "maximum": 0.3609550001565367,
+        "values": [
+          0.35495309974066913,
+          0.35092659993097186,
+          0.3609550001565367
+        ]
+      },
+      "fast_fom_over_method_total_ratio": {
+        "median": 5.392288764516173,
+        "minimum": 5.335244254464977,
+        "maximum": 5.6400813100449305,
+        "values": [
+          5.392288764516173,
+          5.6400813100449305,
+          5.335244254464977
+        ]
+      },
+      "fast_fom_over_method_online_ratio": {
+        "median": 11.685792685507037,
+        "minimum": 11.2913571097227,
+        "maximum": 11.840841992462035,
+        "values": [
+          11.685792685507037,
+          11.2913571097227,
+          11.840841992462035
+        ]
+      },
+      "max_field_linf": {
+        "median": 1.2027833042743685e-07,
+        "minimum": 1.2027833042743685e-07,
+        "maximum": 1.2027833042743685e-07,
+        "values": [
+          1.2027833042743685e-07,
+          1.2027833042743685e-07,
+          1.2027833042743685e-07
+        ]
+      },
+      "max_hotspot_error": {
+        "median": 7.415182079473226e-10,
+        "minimum": 7.415182079473226e-10,
+        "maximum": 7.415182079473226e-10,
+        "values": [
+          7.415182079473226e-10,
+          7.415182079473226e-10,
+          7.415182079473226e-10
+        ]
+      },
+      "field_exceedances_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "triggers_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "updates_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "false_alarms_per_repetition": [
+        17,
+        17,
+        17
+      ],
+      "missed_failures_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "final_rank_per_repetition": [
+        25,
+        25,
+        25
+      ],
+      "correlated_per_repetition": [
+        0,
+        0,
+        0
+      ],
+      "rank_cap_rejections_per_repetition": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "source_result_sha256": {
+    "n24/repeat01/result.json": "9ab8b5eb936f5a735c0362537a2f016851cac4234f7f58f5dc92cf373e847eb7",
+    "n24/repeat02/result.json": "f99697957322ba44b633e4650a709b2d57a3fba4563672cfd0e3f128f64f554a",
+    "n24/repeat03/result.json": "6fc3f1ffb5cdeaf84363381f738f1ca88026fd85e6aed324632790438228c930",
+    "n48/repeat01/result.json": "1802441467d8fe8b5b0f066ce0499ff034c8e270f470f74b1abdcb6b46cee134",
+    "n48/repeat02/result.json": "44fc453daa30542d29d646d88e9b4bd4f0f0e4854b1bc39528c4d6028a514183",
+    "n48/repeat03/result.json": "4dbee2d7ba0e68dfb1cc1af9d2f503cd51a89c5266f6ab2088eca2b3bd0bb5ca",
+    "n96/repeat01/result.json": "f21ffd617542ee756768f826b0804fb94bf43ece7372eb3d93d04a06c95878f1",
+    "n96/repeat02/result.json": "87e546a05b6b02cb7904bf55afb6cae095d615e75d1c1d02037987b13dab5040",
+    "n96/repeat03/result.json": "5aac09c48139e61fb799967d2ce684e922c242c2ba1a65ab2521aa070f2471d8"
+  },
+  "interpretation": "A total ratio >1 means faster than cached fast FOM, including full necessary offline cost. Online ratios omit offline cost. Three repetitions reuse the same 256 samples; do not count 768 independent cases.",
+  "counts_actual_executed_complete_runs": {
+    "training_fom": 216,
+    "raw_fom_service": 2304,
+    "fast_fom_service_and_reference": 2304,
+    "raw_pod": 2304,
+    "fast_pod": 2304,
+    "adaptive_rom": 2304,
+    "adaptive_trigger_fom": 141
+  }
+}
