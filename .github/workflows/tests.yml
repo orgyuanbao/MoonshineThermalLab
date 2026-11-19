@@ -9,8 +9,53 @@ permissions:
   contents: read
 
 jobs:
+  thermal:
+    name: Moonshine thermal ROM / Windows x64 / n=24
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: MoonshineThermalLab
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: MoonshineThermalLab/requirements-science.txt
+      - name: Install pinned dependencies and verify original Moonshine tools offline
+        run: python -B -X utf8 setup_environment.py
+      - name: Recompute the frozen n=24 experiment (repetition 1)
+        run: .\.venv\Scripts\python.exe -B -X utf8 reproduce_thermal.py
+      - name: Check the replay report against the frozen workload
+        run: |
+          $reports = @(Get-ChildItem -Path 'thermal/reproductions/*/reproduction_report.json' -File)
+          if ($reports.Count -ne 1) { throw "Expected one report, found $($reports.Count)." }
+          $report = Get-Content -LiteralPath $reports[0].FullName -Raw -Encoding utf8 | ConvertFrom-Json
+          if ($report.status -ne 'passed' -or $report.original_workspace_unchanged -ne $true -or
+              $report.model_calls -ne 0 -or $report.new_test_parameters_generated -ne $false -or
+              $report.runs.Count -ne 1) { throw 'The replay or preservation checks failed.' }
+          $run = $report.runs[0]
+          # 256 queries x (3 errors x 5 methods + 6 adaptive decisions).
+          if ($run.n -ne 24 -or $run.repeat -ne 1 -or $run.returncode -ne 0 -or $run.checks -ne 5376 -or
+              $null -eq $run.largest_error_statistic_difference -or
+              -not [double]::IsFinite($run.largest_error_statistic_difference) -or
+              $run.largest_error_statistic_difference -gt 1e-9) { throw 'Unexpected workload or numerical discrepancy.' }
+          "Thermal ROM: n=24, repetition 1, $($run.checks) comparisons, largest absolute difference $($run.largest_error_statistic_difference), zero model calls." >> $env:GITHUB_STEP_SUMMARY
+      - name: Save the thermal replay report and solver logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: thermal-rom-n24-replay
+          path: |
+            MoonshineThermalLab/thermal/reproductions/*/reproduction_report.json
+            MoonshineThermalLab/thermal/reproductions/*/n24-repeat1.*.txt
+          if-no-files-found: warn
+
   tests:
-    name: Python ${{ matrix.python }} on ${{ matrix.os }}
+    name: CrowdLocate archive / Python ${{ matrix.python }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:

@@ -1,4 +1,16 @@
-# 先看这里
+# 从这里开始
+
+本仓库当前项目是 **Moonshine Thermal Lab**。它用二维稳态导热算例研究一个实际问题：当四条边的散热强度变化时，怎样快速重算温度场，并判断何时需要回到完整求解器？
+
+| 我想做什么 | 从哪里开始 |
+| --- | --- |
+| 在自己的电脑上复算一次 | 按[热仿真使用指南](MoonshineThermalLab/README.md)安装环境，运行默认的 24 × 24 算例 |
+| 用 Moonshine 提出问题、继续研究 | 安装环境并登录 Codex CLI 后，打开[热仿真研究启动器](MoonshineThermalLab/启动热仿真研究.cmd) |
+| 直接查看已有实验 | 打开[三个网格的结果汇总](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/summary.json)或[最终论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) |
+
+## 历史项目：鸿蒙众包定位
+
+以下指南对应仓库早期的定位项目。项目介绍与运行示例见[众包定位归档](CROWDLOCATE_ARCHIVE.md)。
 
 这是 **CrowdLocateLab：双轮定位研究与开源 Agent 扩展版**。两轮历史智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算。[12 页 LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)已更新至 2026-10-16，包含工程复核与新增开源 Agent 的实际研究；[审查记录](docs/QUALITY_REVIEW.md)保留各阶段状态。原研究的静态退化与部分覆盖不足仍保留，不声称零缺陷。
 
@@ -30,7 +42,7 @@ python dashboard_revision.py --port 8766
 
 ## 2. 检查环境和证据
 
-数值运行使用 Python 3.11+，推荐独立虚拟环境；安装步骤见 [README](README.md)。
+数值运行使用 Python 3.11+，推荐独立虚拟环境；安装步骤见 [众包定位 README](CROWDLOCATE_ARCHIVE.md)。
 
 ```text
 python -m pip install -r requirements.txt
@@ -62,7 +74,7 @@ python locate_revision.py --input examples/observations.json --region mondrian -
 python run_research.py --output runs/my_revision --provider codex --reasoning-effort medium
 ```
 
-需要用户自己的 Codex CLI 登录和额度。新入口仍用已公开协议，不构成新盲测。replay 是旧决策回放，离线评测是重算数值，都不是新模型推理。原 `run_revision.py` 仅保留为历史入口。完整区别见 README。
+需要用户自己的 Codex CLI 登录和额度。新入口仍用已公开协议，不构成新盲测。replay 是旧决策回放，离线评测是重算数值，都不是新模型推理。原 `run_revision.py` 仅保留为历史入口。完整区别见[众包定位 README](CROWDLOCATE_ARCHIVE.md)。
 
 ## 4. 重建与提交
 
