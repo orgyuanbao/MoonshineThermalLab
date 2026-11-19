@@ -2,7 +2,7 @@
 
 CrowdLocateLab 探索 AI 智能体如何研究**异步众包定位中的误差与歧义**：从数值实验发现方法的局限，再通过数学推导、反例构造和程序验证研究这些局限。
 
-[![自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml/badge.svg)](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml)
+[![自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
 [研究报告](report/CrowdLocateLab_Quality_Review.pdf) · [Agent 研究记录](studies/creative_intelligence/mirror_ambiguity/README.md) · [快速开始](#快速开始) · [上游 Agent](https://github.com/DeepMathLLM/Creative-Intelligence)
 
@@ -123,7 +123,7 @@ python -B integrations/creative_intelligence/run_vendor_tests.py
 python -B -m unittest discover -s integrations/creative_intelligence/tests -v
 ```
 
-当前测试共 275 项，覆盖数值工具、运行控制器与接入层；这些测试不调用真实模型。云端在 Windows / Linux、Python 3.11 / 3.12 上执行检查，状态见 [GitHub Actions](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml)。
+当前测试共 275 项，覆盖数值工具、运行控制器与接入层；这些测试不调用真实模型。云端在 Windows / Linux、Python 3.11 / 3.12 上执行检查，状态见 [GitHub Actions](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)。
 
 研究结论还需结合推导、实验与复算评估。仓库保留 [原始研究证据](studies/creative_intelligence/mirror_ambiguity/evidence/)、[数学复算说明](studies/creative_intelligence/mirror_ambiguity/README.md#无模型复算)、[历史实验复现协议](docs/reproduction_revision.md)和 [质量复核记录](docs/QUALITY_REVIEW.md)。
 

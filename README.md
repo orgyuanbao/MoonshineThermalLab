@@ -4,7 +4,7 @@
 
 Moonshine Thermal Lab 提供两种入口。**热仿真求解器**先用低维模型预测温度，误差上界超过目标时调用完整求解器，并用新解更新模型。**Moonshine 研究智能体**可以接收新的实验要求、编写并运行 Python，再根据结果继续研究。
 
-[![GitHub 自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml)
+[![GitHub 自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
 ![从左到右依次为完整模型温度图、固定八维模型温度图和两者的绝对误差](MoonshineThermalLab/thermal/report/figures/development_worst_fields.png)
 
@@ -14,13 +14,16 @@ Moonshine Thermal Lab 提供两种入口。**热仿真求解器**先用低维模
 
 ## 快速开始
 
-先用现成的实验试一遍。下面以 **Windows + 64 位 Python 3.12** 为例。克隆仓库后，在仓库根目录打开 PowerShell。第一次安装依赖需要联网，随后可离线运行，无需模型账号。
+先用现成的实验试一遍。下面以 **Windows + 64 位 Python 3.12** 为例。在准备存放项目的目录打开 PowerShell，依次运行下面的命令。首次下载和安装需要联网，之后可在本地复算，无需模型账号。
 
 ```powershell
-cd MoonshineThermalLab
+git clone https://github.com/orgyuanbao/MoonshineThermalLab.git thermal-lab
+cd .\thermal-lab\MoonshineThermalLab
 .\安装环境.cmd
 .\.venv\Scripts\python.exe -B -X utf8 .\reproduce_thermal.py
 ```
+
+如果已经下载并解压了仓库，请在含有 `安装环境.cmd` 的子目录打开 PowerShell，从安装命令开始执行。
 
 这会在 24 × 24 网格上重新计算 256 组散热参数，并逐次比对温度误差和自适应更新记录。成功时终端最后一行会显示 `"status": "passed"`、`"model_calls": 0`、`"runs": 1` 和 `reproduction_report.json` 的完整路径。打开这个文件可查看比对次数及最大数值偏差。要复算全部三个网格、每个网格三次，在命令末尾加 `--full`。[复算程序](MoonshineThermalLab/reproduce_thermal.py) · [原始实验结果](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/summary.json)
 
@@ -54,4 +57,4 @@ cd MoonshineThermalLab
 
 课堂演示可将课堂目录中的三个文件下载到同一文件夹，放映 PPT 时在第 3 页进入互动演示，或直接用浏览器打开 HTML。[汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [离线演示 HTML](MoonshineThermalLab/classroom/Moonshine现场演示.html)
 
-仓库名沿用早期的鸿蒙异步众包定位项目。旧题的代码入口、实验和报告保存在[众包定位项目归档](CROWDLOCATE_ARCHIVE.md)。
+早期的鸿蒙异步众包定位项目保留了独立的[项目归档](CROWDLOCATE_ARCHIVE.md)，可以在那里找到旧题的代码、实验和报告。

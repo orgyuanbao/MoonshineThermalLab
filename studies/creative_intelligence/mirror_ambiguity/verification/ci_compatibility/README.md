@@ -1,6 +1,6 @@
 # 2026-10-16：上游显示测试的平台假设
 
-首次交付提交 `0823350ad34d732996998eda6372fdb15478bffc` 的 [CI 运行](https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393)中，两组 Windows 成功，两个 Linux 任务各有三项上游显示格式测试失败。Linux 根工程的 233 项已经通过；因后续上游测试失败，剩余步骤被跳过，不能视为已执行。
+首次交付提交 `0823350ad34d732996998eda6372fdb15478bffc` 的 [CI 运行](https://github.com/orgyuanbao/MoonshineThermalLab/actions/runs/38866371393)中，两组 Windows 成功，两个 Linux 任务各有三项上游显示格式测试失败。Linux 根工程的 233 项已经通过；因后续上游测试失败，剩余步骤被跳过，不能视为已执行。
 
 原 `agent.py` 根据宿主与命令选择 `Shell` 或 `PowerShell`，三个原测试却把裸命令的预期固定为 Windows 的 `PowerShell`。这是测试夹具的平台前提遗漏，未发现数学算法或真实研究执行错误。[失败状态快照](failed_ci.json)和[Linux 错误节选](linux_failure_excerpt.log)保留实际失败，未删除或改写。
 

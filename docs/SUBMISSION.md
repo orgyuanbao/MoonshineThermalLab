@@ -11,7 +11,7 @@
 | 学校 / 院系 | 待补充 |
 | 课程名称 / 任课教师 | 待补充 |
 | 个人 GitHub 用户名 | [orgyuanbao](https://github.com/orgyuanbao) |
-| 仓库链接 | [orgyuanbao/CrowdLocateLab](https://github.com/orgyuanbao/CrowdLocateLab) |
+| 仓库链接 | [orgyuanbao/MoonshineThermalLab](https://github.com/orgyuanbao/MoonshineThermalLab) |
 | 提交日期 | 按实际日期填写 |
 
 本版课程交付由两份 PDF 构成：52 页历史论文 `report/CrowdLocateLab_Report.pdf` 和更新后的 12 页 `report/CrowdLocateLab_Quality_Review.pdf`。后者封面已包含徐楷沅（2352163），第 8 页起报告新增 Agent 研究，对应源码为 `latex/quality_addendum.tex`。原论文与冻结证据保持归档版本；不需要为补齐封面重新调用模型。

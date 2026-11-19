@@ -2,7 +2,7 @@
 
 这轮审查确实发现并处理了原测试遗漏的缺陷。结论是“已完成下述检查与加固”，不是“零漏洞”。历史科研证据与本次工程变更分开保留，未改写模型日志、冻结核心或原论文成绩。
 
-[LaTeX 补充报告](../report/CrowdLocateLab_Quality_Review.pdf) / [源码](../latex/quality_addendum.tex) / [首轮检查](../verification/hardening/checks.json) / [权限受限复核](../verification/hardening/final_checks.json) / [恢复权限后补验](../verification/hardening/network_enabled_checks.json) / [GitHub 自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions)
+[LaTeX 补充报告](../report/CrowdLocateLab_Quality_Review.pdf) / [源码](../latex/quality_addendum.tex) / [首轮检查](../verification/hardening/checks.json) / [权限受限复核](../verification/hardening/final_checks.json) / [恢复权限后补验](../verification/hardening/network_enabled_checks.json) / [GitHub 自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions)
 
 ## 首轮已核验结果（保留原记录）
 
