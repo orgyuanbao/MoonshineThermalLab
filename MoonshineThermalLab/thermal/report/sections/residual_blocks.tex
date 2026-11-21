@@ -1,0 +1,33 @@
+\section{用位置和符号构造逐格误差区间}
+把所有单元划分为不相交的非空块 $B$。离线阶段对每个块求解
+\[
+ W_B=G_{\rm w}{\bf1}_B,\qquad V_B=G_{\rm s}{\bf1}_B .
+\]
+两次稀疏分解可供全部右端共享。由式~\eqref{eq:order-new}，
+$0\le V_B\le G_\mu{\bf1}_B\le W_B$。这些向量描述一块区域内同号偏差会传播到哪些格子。
+一次新查询只提取 $a_B=\min_{j\in B}r_j$、$b_B=\max_{j\in B}r_j$。
+记 $t^+=\max(t,0),\ t^-=\max(-t,0)$，则 $t=t^+-t^-$。
+
+\paragraph{命题 2（双端点分量包络）。}
+定义两个向量
+\begin{align}
+ L&=\sum_B\big(a_B^+ V_B-a_B^- W_B\big),&
+ U&=\sum_B\big(b_B^+ W_B-b_B^- V_B\big). \label{eq:sides-new}
+\end{align}
+则 $L\le e\le U$，故 $\eta_2=\max_i\{U_i,-L_i\}$ 是全场最大误差的上界。
+证明由 $a_B{\bf1}_B\le r{\bf1}_B\le b_B{\bf1}_B$ 出发。施加非负矩阵 $G_\mu$ 后不等号方向保持。对块下端 $a_B$，正值用较小响应 $V_B$、负值用较大响应 $W_B$；对块上端反向选择。各块求和即得式~\eqref{eq:sides-new}。同一符号覆盖整个块时，减去的那一项量化另一方向误差至少抵消的部分。
+
+\paragraph{逐步去掉信息的对照。}
+令 $p_B=b_B^+$、$q_B=a_B^-$，$m_B=\max(p_B,q_B)$。仅区分正负、只用弱散热模板时，取
+$\eta_{\pm}=\max\{\|\sum_B p_BW_B\|_\infty,\|\sum_B q_BW_B\|_\infty\}$。
+仅用位置时取 $\eta_{\rm pos}=\|\sum_Bm_BW_B\|_\infty$。于是
+\begin{equation}
+ \|e\|_\infty\ \le\ \eta_2\ \le\ \eta_{\pm}\ \le\
+ \eta_{\rm pos}\ \le\ C_n^*\|r\|_\infty\
+ \le\ C_n^{\rm old}\|r\|_\infty. \label{eq:chain-new}
+\end{equation}
+第一步来自命题 2；第二步来自丢弃的两项非负修正；第三步用 $p_B,q_B\le m_B$；第四步用 $\sum_BW_B=G_{\rm w}{\bf1}$。若细化一个块，子块下端只会提高，上端只会降低，而父块的 $V,W$ 都等于子块模板之和。因此细化后的双端点区间包含于原区间。若只知道各块最大绝对残差 $m_B$，取最弱边界，并令每个格子的残差等于其块的 $+m_B$，即可取到 $\eta_{\rm pos}$。因此位置界对这种摘要也是尖锐的；继续收紧必须保存更多信息。式~\eqref{eq:chain-new} 允许相邻两级相等。
+
+\paragraph{计算代价与适用范围。}
+本文主实验采用 $4\times4$ 个位置块（共 16 块），在三个网格上均可整齐切分。
+单端点需要 16 个模板，双端点需要 32 个；预处理在固定网格上可供不同 $\mu$ 共享，双端点存储量为 $32N$ 个标量，直接应用的在线工作量为 $O(16N)$。在 $96^2$ 网格以双精度存储两组模板约需 $2.25$ MiB。这些构造使用逆的非负性，无法直接推广到任意有负逆元素的离散算子。

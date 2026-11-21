@@ -1,0 +1,368 @@
+{
+  "arithmetic": "Exact Fraction; tolerance zero; decimals display only.",
+  "attribution": "Interval strengthening supplied by the project team.",
+  "checks": {
+    "asymmetric_interior": true,
+    "bound_comparison": true,
+    "equality_criterion": true,
+    "interval_coverage": true,
+    "inverse_ordering": true,
+    "n1_four_faces": true,
+    "offline_response_equations": true,
+    "partition_coverage": true,
+    "reference_equations": true,
+    "same_sign_no_improvement": true,
+    "scalar_coverage": true,
+    "signed_GW_counterexample": true,
+    "strict_mixed_improvement": true
+  },
+  "counterexample": {
+    "L": [
+      "-2991/665",
+      "-4001/665",
+      "-2991/665",
+      "-4001/665"
+    ],
+    "U": [
+      "4001/665",
+      "2991/665",
+      "4001/665",
+      "2991/665"
+    ],
+    "actual_error": {
+      "decimal": 1.6245353159851301,
+      "exact": "437/269"
+    },
+    "blocks": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    "error_vector": [
+      "437/269",
+      "-69/269",
+      "437/269",
+      "-69/269"
+    ],
+    "h_left_right_top_bottom": [
+      "1/5",
+      "5",
+      "1/5",
+      "1/5"
+    ],
+    "interval_bound": {
+      "decimal": 6.016541353383459,
+      "exact": "4001/665"
+    },
+    "n": 2,
+    "one_sided_bound": {
+      "decimal": 6.25,
+      "exact": "25/4"
+    },
+    "r": [
+      "46/21",
+      "-46/21",
+      "46/21",
+      "-46/21"
+    ],
+    "refutes": "Both componentwise |G_h r| <= |GW r| and norm(G_h r) <= norm(GW r).",
+    "uniform_baseline": {
+      "decimal": 11.5,
+      "exact": "23/2"
+    },
+    "unsafe_bound": {
+      "decimal": 1.0,
+      "exact": "1"
+    },
+    "unsigned_spatial_bound": {
+      "decimal": 11.5,
+      "exact": "23/2"
+    },
+    "weak_signed_response": [
+      "1",
+      "-1",
+      "1",
+      "-1"
+    ]
+  },
+  "examples": {
+    "coarse_zero_lower_envelopes": {
+      "L": [
+        "-21/4",
+        "-21/4",
+        "-21/4",
+        "-21/4"
+      ],
+      "U": [
+        "21/4",
+        "21/4",
+        "21/4",
+        "21/4"
+      ],
+      "actual_error": {
+        "decimal": 0.23863636363636365,
+        "exact": "21/88"
+      },
+      "blocks": [
+        [
+          0,
+          1,
+          2,
+          3
+        ]
+      ],
+      "error_vector": [
+        "21/88",
+        "-21/88",
+        "-21/88",
+        "21/88"
+      ],
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "interval_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "n": 2,
+      "one_sided_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "r": [
+        "1",
+        "-1",
+        "-1",
+        "1"
+      ],
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    },
+    "mixed_interior": {
+      "L": [
+        "-8973/4370",
+        "-8973/4370",
+        "-12003/4370",
+        "-12003/4370"
+      ],
+      "U": [
+        "12003/4370",
+        "12003/4370",
+        "8973/4370",
+        "8973/4370"
+      ],
+      "actual_error": {
+        "decimal": 0.3622999927399219,
+        "exact": "114777/316801"
+      },
+      "blocks": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "error_vector": [
+        "114777/316801",
+        "110495/316801",
+        "-95718/316801",
+        "-278180/950403"
+      ],
+      "h_left_right_top_bottom": [
+        "1/2",
+        "1",
+        "2",
+        "3"
+      ],
+      "interval_bound": {
+        "decimal": 2.7466819221967964,
+        "exact": "12003/4370"
+      },
+      "n": 2,
+      "one_sided_bound": {
+        "decimal": 2.8532608695652173,
+        "exact": "525/184"
+      },
+      "r": [
+        "1",
+        "1",
+        "-1",
+        "-1"
+      ],
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    },
+    "mixed_weak": {
+      "L": [
+        "-8973/4370",
+        "-8973/4370",
+        "-12003/4370",
+        "-12003/4370"
+      ],
+      "U": [
+        "12003/4370",
+        "12003/4370",
+        "8973/4370",
+        "8973/4370"
+      ],
+      "actual_error": {
+        "decimal": 0.45652173913043476,
+        "exact": "21/46"
+      },
+      "blocks": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "error_vector": [
+        "21/46",
+        "21/46",
+        "-21/46",
+        "-21/46"
+      ],
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "interval_bound": {
+        "decimal": 2.7466819221967964,
+        "exact": "12003/4370"
+      },
+      "n": 2,
+      "one_sided_bound": {
+        "decimal": 2.8532608695652173,
+        "exact": "525/184"
+      },
+      "r": [
+        "1",
+        "1",
+        "-1",
+        "-1"
+      ],
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    },
+    "positive_weak": {
+      "L": [
+        "9/20",
+        "9/20",
+        "9/20",
+        "9/20"
+      ],
+      "U": [
+        "21/4",
+        "21/4",
+        "21/4",
+        "21/4"
+      ],
+      "actual_error": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "blocks": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "error_vector": [
+        "21/4",
+        "21/4",
+        "21/4",
+        "21/4"
+      ],
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "interval_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "n": 2,
+      "one_sided_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "r": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    }
+  },
+  "online_solves": 0,
+  "online_solves_note": "Structural property of online(), not runtime instrumentation.",
+  "parameter_cases_per_grid": 82,
+  "scope": "Finite corroboration; continuous coverage requires the proof. No novelty or timing claim.",
+  "strict_interval_improvement_cases": 328,
+  "tested_parameter_residual_partition_cases": 1968,
+  "tests_passed": true
+}

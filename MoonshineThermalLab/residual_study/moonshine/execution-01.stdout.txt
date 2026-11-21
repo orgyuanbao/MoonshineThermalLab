@@ -1,0 +1,393 @@
+{
+  "arithmetic": "Exact fractions; decimal fields are display only.",
+  "checks": {
+    "candidate_le_unsigned_le_baseline": true,
+    "componentwise_coverage": true,
+    "equality_case": true,
+    "n1_four_faces": true,
+    "norm_coverage": true,
+    "offline_response_equations": true,
+    "partition_coverage": true,
+    "reference_equations_exact": true,
+    "strict_tighter_example": true
+  },
+  "examples": {
+    "center_spike": {
+      "actual_error": {
+        "decimal": 1.657769009685773,
+        "exact": "2272443596389/1370784218496"
+      },
+      "candidate_bound": {
+        "decimal": 6.212967574205299,
+        "exact": "2129159475187/342696054624"
+      },
+      "candidate_over_baseline": {
+        "decimal": 0.29245686535906146,
+        "exact": "2129159475187/7280251303292"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 4,
+      "residual": "center_spike",
+      "residual_values": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "strict_gain": true,
+      "uniform_baseline": {
+        "decimal": 21.24404761904762,
+        "exact": "3569/168"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 6.212967574205299,
+        "exact": "2129159475187/342696054624"
+      }
+    },
+    "checkerboard": {
+      "actual_error": {
+        "decimal": 0.3536418400876232,
+        "exact": "2583/7304"
+      },
+      "candidate_bound": {
+        "decimal": 21.24404761904762,
+        "exact": "3569/168"
+      },
+      "candidate_over_baseline": {
+        "decimal": 1.0,
+        "exact": "1"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 4,
+      "residual": "checkerboard",
+      "residual_values": [
+        "1",
+        "-1",
+        "1",
+        "-1",
+        "-1",
+        "1",
+        "-1",
+        "1",
+        "1",
+        "-1",
+        "1",
+        "-1",
+        "-1",
+        "1",
+        "-1",
+        "1"
+      ],
+      "strict_gain": false,
+      "uniform_baseline": {
+        "decimal": 21.24404761904762,
+        "exact": "3569/168"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 21.24404761904762,
+        "exact": "3569/168"
+      }
+    },
+    "corner_spike": {
+      "actual_error": {
+        "decimal": 1.8898066970856064,
+        "exact": "2590517196373/1370784218496"
+      },
+      "candidate_bound": {
+        "decimal": 6.212967574205299,
+        "exact": "2129159475187/342696054624"
+      },
+      "candidate_over_baseline": {
+        "decimal": 0.29245686535906146,
+        "exact": "2129159475187/7280251303292"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 4,
+      "residual": "corner_spike",
+      "residual_values": [
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "strict_gain": true,
+      "uniform_baseline": {
+        "decimal": 21.24404761904762,
+        "exact": "3569/168"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 6.212967574205299,
+        "exact": "2129159475187/342696054624"
+      }
+    },
+    "equality": {
+      "actual_error": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "candidate_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "candidate_over_baseline": {
+        "decimal": 1.0,
+        "exact": "1"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 2,
+      "residual": "constant_positive",
+      "residual_values": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "strict_gain": false,
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    },
+    "n1_equality": {
+      "actual_error": {
+        "decimal": 1.375,
+        "exact": "11/8"
+      },
+      "candidate_bound": {
+        "decimal": 1.375,
+        "exact": "11/8"
+      },
+      "candidate_over_baseline": {
+        "decimal": 1.0,
+        "exact": "1"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 1,
+      "residual": "constant_positive",
+      "residual_values": [
+        "1"
+      ],
+      "strict_gain": false,
+      "uniform_baseline": {
+        "decimal": 1.375,
+        "exact": "11/8"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 1.375,
+        "exact": "11/8"
+      }
+    },
+    "strict_sign_gain": {
+      "actual_error": {
+        "decimal": 0.45652173913043476,
+        "exact": "21/46"
+      },
+      "candidate_bound": {
+        "decimal": 2.8532608695652173,
+        "exact": "525/184"
+      },
+      "candidate_over_baseline": {
+        "decimal": 0.5434782608695652,
+        "exact": "25/46"
+      },
+      "covered": true,
+      "h_left_right_top_bottom": [
+        "1/5",
+        "1/5",
+        "1/5",
+        "1/5"
+      ],
+      "n": 2,
+      "residual": "row_sign_split",
+      "residual_values": [
+        "1",
+        "1",
+        "-1",
+        "-1"
+      ],
+      "strict_gain": true,
+      "uniform_baseline": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      },
+      "unsigned_spatial_bound": {
+        "decimal": 5.25,
+        "exact": "21/4"
+      }
+    }
+  },
+  "grids": [
+    {
+      "blocks": [
+        [
+          0
+        ]
+      ],
+      "n": 1,
+      "parameter_cases": 81,
+      "residual_cases": 8,
+      "tested_pairs": 648
+    },
+    {
+      "blocks": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "n": 2,
+      "parameter_cases": 81,
+      "residual_cases": 8,
+      "tested_pairs": 648
+    },
+    {
+      "blocks": [
+        [
+          0,
+          1,
+          3,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8
+        ]
+      ],
+      "n": 3,
+      "parameter_cases": 81,
+      "residual_cases": 8,
+      "tested_pairs": 648
+    },
+    {
+      "blocks": [
+        [
+          0,
+          1,
+          4,
+          5
+        ],
+        [
+          2,
+          3,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          12,
+          13
+        ],
+        [
+          10,
+          11,
+          14,
+          15
+        ]
+      ],
+      "n": 4,
+      "parameter_cases": 81,
+      "residual_cases": 8,
+      "tested_pairs": 648
+    }
+  ],
+  "maximum_candidate_over_baseline": {
+    "decimal": 1.0,
+    "exact": "1"
+  },
+  "minimum_coverage_slack": {
+    "decimal": 0.0,
+    "exact": "0"
+  },
+  "numerical_tolerance": 0,
+  "offline_solve_batches": 4,
+  "online_solve_calls": 0,
+  "parameter_order": [
+    "left",
+    "right",
+    "top",
+    "bottom"
+  ],
+  "parameter_values": [
+    "1/5",
+    "1",
+    "5"
+  ],
+  "reference_solve_batches": 324,
+  "scope": "Finite exact checks corroborate the continuous-parameter mathematical proof; no novelty or timing claim.",
+  "strict_gain_pairs": 1053,
+  "total_tested_pairs": 2592
+}

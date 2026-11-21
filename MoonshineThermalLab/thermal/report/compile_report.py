@@ -34,6 +34,14 @@ def main():
         "Overfull", "Missing character", "undefined references", "undefined citations"))]
     if warnings:
         raise RuntimeError("Layout/reference warnings remain: " + "\n".join(warnings))
+    # Some installations finish successfully even when their CJK font subset is empty.
+    extractor = shutil.which("pdftotext")
+    if extractor:
+        checked = subprocess.run([extractor, "-enc", "UTF-8", str(build / "main.pdf"), "-"],
+                                 capture_output=True, timeout=60, check=True)
+        extracted = "".join(checked.stdout.decode("utf-8", errors="replace").split())
+        if "徐楷沅" not in extracted or "从残差的位置与正负估计温度误差" not in extracted:
+            raise RuntimeError("The author or Chinese title is missing from the exported PDF.")
     output = build / "main.pdf" if args.draft else ROOT / "Moonshine_Thermal_Report.pdf"
     if not args.draft:
         shutil.copy2(build / "main.pdf", output)

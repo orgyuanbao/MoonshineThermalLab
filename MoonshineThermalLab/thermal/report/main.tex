@@ -1,28 +1,32 @@
-\documentclass[UTF8,fontset=fandol,11pt,a4paper]{ctexart}
-\usepackage[margin=23mm]{geometry}
+\documentclass[UTF8,11pt,a4paper]{ctexart}
+\usepackage[top=22mm,bottom=22mm,left=24mm,right=24mm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,graphicx,xcolor,hyperref,fancyhdr}
 \definecolor{ink}{HTML}{23364A}
-\definecolor{accent}{HTML}{167D9A}
-\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,pdftitle={变散热边界下的热模型降阶与误差控制},pdfauthor={徐楷沅 2352163}}
-\setlength{\parindent}{2em}
-\setlength{\parskip}{0.35em}
-\clubpenalty=10000
-\widowpenalty=10000
-\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small Moonshine 热仿真研究}\fancyhead[R]{\small 徐楷沅 · 2352163}\fancyfoot[C]{\thepage}
+\definecolor{accent}{HTML}{176D72}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,pdftitle={从残差的位置与正负估计温度误差},pdfauthor={徐楷沅 2352163}}
+\setlength{\parindent}{2em}\setlength{\parskip}{0.25em}
 \setlength{\headheight}{15pt}
-\title{\color{ink}变散热边界下的热模型降阶与误差控制\\[4mm]\large 基于 Moonshine 的可复现研究}
-\author{徐楷沅\quad 学号：2352163}
-\date{2026 年 10 月 25 日}
+\setlength{\emergencystretch}{1em}
+\setlength{\abovedisplayskip}{6pt}\setlength{\belowdisplayskip}{6pt}
+\setlength{\textfloatsep}{10pt}\setlength{\intextsep}{9pt}
+\clubpenalty=10000\widowpenalty=10000
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small 离散导热方程的后验误差估计}\fancyhead[R]{\small 徐楷沅 · 2352163}\fancyfoot[C]{\thepage}
+\ctexset{section={format=\Large\bfseries\color{ink},beforeskip=0.9em,afterskip=0.45em}}
 \begin{document}
-\maketitle
-\begin{center}\color{accent}\textbf{课程研究报告\quad 数学模型 · 真实迭代 · 冻结实验 · 独立复核}\end{center}
-\begin{abstract}
-本研究从课程 EDA 资料中的热仿真加速问题出发，在二维线性稳态导热模型上研究变化散热边界引起的降阶失效。原版 Moonshine 生成并执行求解器、POD 基线、失效分析及自适应内核，外部提供评测驱动与独立复核。冻结方法后，在三个网格、256 个参数组成的同一查询序列上各完成三次计时。固定 8 维 POD 分别有 6、6、7 例场误差超过 $10^{-3}$；带解析屏障触发和基增广的方法未观察到超标。计入必要离线成本后，自适应方法在 24 次查询时比快速完整求解更慢，在 256 次查询时的成本比中位数分别为 4.455、5.295、5.392。全部 15、15、17 次回退均为保守触发，说明误差指标仍有改进空间。结果限定于合成离散模型和本机实验，不代表连续温度认证或工业难题已完全解决。
+\begin{center}
+{\LARGE\bfseries\color{ink} 从残差的位置与正负估计温度误差}\\[3mm]
+{\large 变散热边界下离散导热方程的分块误差上界}\\[3mm]
+徐楷沅 \quad 2352163 \qquad 2026 年 11 月 21 日
+\end{center}
+\begin{abstract}\small
+在稳态导热模型中，已知近似温度场偏离平衡方程多少，能否估计温度本身最多偏离多少？本文对二维 Robin 有限体积系统求出统一残差倍数的最优值，并构造利用残差位置及正负的逐格区间。证明表明，双端点上界不大于只用位置或幅度的上界；四格有理数反例说明，直接给最弱散热逆矩阵传入带符号残差可能低估误差。原版 Moonshine 实际编写并执行了小网格检验，另用独立程序验证推导和三网格实验。在原 256 工况流上，各策略独立更新时，实际回退由 47 次降至 40 次，全部返回场达到 $10^{-3}$ 的阈值。若只比较同一批旧预测，报警由 47 次降至 29 次。固定八维预测的上界虽缩小，多数仍过于保守；双端点在本次部署计时中也未取得总耗时优势。
 \end{abstract}
-\input{sections/foundations}
-\input{sections/development}
-\input{sections/evaluation_protocol}
-\input{sections/final_results}
-\input{sections/provenance}
-\input{sections/references}
+\input{sections/residual_model}
+\clearpage\input{sections/residual_theory}
+\clearpage\input{sections/residual_blocks}
+\clearpage\input{sections/residual_example}
+\clearpage\input{sections/residual_bench}
+\clearpage\input{sections/residual_cost}
+\clearpage\input{sections/residual_agent}
+\input{sections/residual_refs}
 \end{document}

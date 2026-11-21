@@ -2,7 +2,11 @@
 
 MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615) 研究二维稳态导热。给定同一块板、两个固定热源和四条边的散热系数，程序可以求出完整温度场，也可以用少数基向量近似。自适应求解器在误差上界超过阈值时回退到完整求解，并用新解更新基底。[题面与边界条件](thermal/problem.md)
 
-## 运行第一个算例
+## 研究残差的位置与正负
+
+当前研究从格子内的热量失衡推断温度场的最大误差。先运行 `python -B residual_study/exact_audit.py` 看四格反例，再按[数学实验指南](residual_study/README.md)复算真实预测或独立更新策略。需要继续做新研究时，主菜单选 **1**、研究阶段选 **5**。上游 Moonshine 本次的实际程序与回执见[原生研究记录](residual_study/moonshine/)。
+
+## 运行前期导热基准算例
 
 在 Windows 上安装 **Python 3.12（64 位）**，下载或克隆完整仓库。进入 `MoonshineThermalLab` 目录，双击 `安装环境.cmd`。首次安装需要联网获取固定版本的依赖；安装完成后可离线复算，无需登录模型账号。
 
@@ -26,7 +30,7 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 
 在同一安装环境中准备好已登录的 Codex CLI，双击 `启动热仿真研究.cmd`。菜单 **4** 会列出当前账号可用且支持本项目推理设置的模型；选定后从下一轮生效。以下是两个常用入口：
 
-- **运行预设实验**：选 **1**，再选 **1**（建模与最小校验）。补充要求处直接回车。后续还有固定 POD 基线、失效分析和改进方法三个阶段，每次选择只推进一轮。
+- **运行预设实验**：选 **1**，再选 **1**（建模与最小校验）。补充要求处直接回车。后续还有固定 POD 基线、失效分析、改进方法和残差误差界研究，每次选择只推进一轮。
 - **提出具体问题**：选 **5**，例如输入「找出 24 × 24 网格上第一个触发回退的样本，报告四条边的系数、预测误差和误差上界，并注明结果文件。」另起一行输入 `END` 并回车提交。这个入口会把补充要求连同热仿真题面一起交给智能体。
 
 研究启动后，终端显示会话编号、工具调用和执行回执。返回菜单后选 **2** 查看最近一轮摘要，选 **3** 打开本机产物目录。首次研究创建本地会话，之后重开菜单继续同一会话。想控制模型调用预算，可以在选好模型后使用命令行：
@@ -53,7 +57,7 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 | [experiments/](thermal/home/projects/thermal-rom/workspace/experiments/) | `thermal_solver.py` 实现完整导热模型，`pod_baseline.py` 提供固定基线，`stage4_kernels_v1.py` 实现自适应方法。 |
 | [冻结配置](thermal/home/projects/thermal-rom/workspace/results/04_final_v1/frozen_configuration.json) · [结果汇总](thermal/home/projects/thermal-rom/workspace/results/04_final_v1/summary.json) | 查阅原始运行所用配置、网格尺寸及误差和耗时。 |
 
-## 可用的基准数据
+## 前期导热基准数据
 
 原始基准用 24 组散热条件训练、12 组调参，在每种网格上测试相同的 256 组新条件。目标是使全场最大绝对误差不超过 `0.001`（无量纲温升）。
 

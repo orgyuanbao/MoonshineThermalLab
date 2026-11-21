@@ -1,12 +1,12 @@
 # 从这里开始
 
-本仓库当前项目是 **Moonshine Thermal Lab**。它用二维稳态导热算例研究一个实际问题：当四条边的散热强度变化时，怎样快速重算温度场，并判断何时需要回到完整求解器？
+本仓库当前项目是 **Moonshine Thermal Lab**。它用二维稳态导热系统研究一个数学问题：只看残差，怎样判定温度最多会错多少？可从[四格精确例与五种上界](MoonshineThermalLab/residual_study/README.md)开始。
 
 | 我想做什么 | 从哪里开始 |
 | --- | --- |
-| 在自己的电脑上复算一次 | 按[热仿真使用指南](MoonshineThermalLab/README.md)安装环境，运行默认的 24 × 24 算例 |
+| 在自己的电脑上复算一次 | 按[热仿真使用指南](MoonshineThermalLab/README.md)安装环境，复算分块残差上界 |
 | 用 Moonshine 提出问题、继续研究 | 安装环境并登录 Codex CLI 后，打开[热仿真研究启动器](MoonshineThermalLab/启动热仿真研究.cmd) |
-| 直接查看已有实验 | 打开[三个网格的结果汇总](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/summary.json)或[最终论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) |
+| 直接查看已有实验 | 打开[五种误差界的逐例对比](MoonshineThermalLab/residual_study/results/summary.json)或[最终论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) |
 
 ## 历史项目：鸿蒙众包定位
 

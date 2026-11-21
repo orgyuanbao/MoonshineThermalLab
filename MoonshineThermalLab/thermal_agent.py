@@ -17,6 +17,7 @@ STAGES = {
     "2": ("完整模型与固定 POD 基线", "02_baseline.txt"),
     "3": ("寻找失效案例与误差分析", "03_failure.txt"),
     "4": ("改进方法与独立测试", "04_improve.txt"),
+    "5": ("残差的位置、正负与误差上界", "05_signed_residual.txt"),
 }
 
 
@@ -83,7 +84,7 @@ def main():
     if not 1 <= args.max_calls <= 24:
         parser.error("--max-calls 必须在 1 到 24 之间")
     if args.action == "run" and not args.stage:
-        parser.error("命令行运行时请指定 --stage 1 到 4")
+        parser.error("命令行运行时请指定 --stage 1 到 5")
     configure()
     if args.action == "check":
         print("科学计算依赖：", check_dependencies())
@@ -103,8 +104,8 @@ def main():
         return run_step(args.stage, max_calls=args.max_calls)
 
     print("Moonshine 热仿真研究")
-    print("选题：变化散热条件下的降阶模型失效识别与修正。")
-    print("建议按 1 → 2 → 3 → 4 阶段推进；未完成时重复同一阶段。")
+    print("选题：离散导热方程中的残差与温度误差。")
+    print("阶段 5 研究残差的位置和符号，可从小网格开始；阶段 1 至 4 提供原导热模型与降阶基线。")
     print("打开菜单不会发起研究；选择研究阶段或提交补充要求后才调用模型。")
     while True:
         print("\n当前模型：", runner.model_display())
@@ -116,7 +117,7 @@ def main():
             if answer == "1":
                 for key, (label, _) in STAGES.items():
                     print(key, " ", label)
-                stage = input("选择阶段 1 到 4，直接回车取消：").strip()
+                stage = input("选择阶段 1 到 5，直接回车取消：").strip()
                 if not stage:
                     continue
                 if stage not in STAGES:

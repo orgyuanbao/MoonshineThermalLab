@@ -44,6 +44,30 @@ jobs:
               -not [double]::IsFinite($run.largest_error_statistic_difference) -or
               $run.largest_error_statistic_difference -gt 1e-9) { throw 'Unexpected workload or numerical discrepancy.' }
           "Thermal ROM: n=24, repetition 1, $($run.checks) comparisons, largest absolute difference $($run.largest_error_statistic_difference), zero model calls." >> $env:GITHUB_STEP_SUMMARY
+      - name: Audit exact rational enclosures and the four-cell counterexample
+        run: .\.venv\Scripts\python.exe -B -X utf8 residual_study/exact_audit.py
+      - name: Replay five residual bounds on all 256 frozen n=24 queries
+        run: |
+          $destination = Join-Path $env:RUNNER_TEMP "thermal-residual-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          .\.venv\Scripts\python.exe -B -X utf8 residual_study/run_experiment.py --grids 24 --queries 256 --repeats 1 --check-against residual_study/results --output $destination
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $summary = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $destination 'summary.json') | ConvertFrom-Json
+          $paired = $summary.reproduction_comparison.'paired_cases.csv'
+          $closed = $summary.reproduction_comparison.'closed_loop_cases.csv'
+          if ($summary.status -ne 'passed' -or $paired.rows -ne 512 -or $closed.rows -ne 1280) {
+            throw 'Unexpected residual-study output or row counts.'
+          }
+          "Residual bounds: 256 frozen queries, $($paired.rows) paired predictions and $($closed.rows) closed-loop rows checked against published results." >> $env:GITHUB_STEP_SUMMARY
+      - name: Verify decisions on the additional 128-query n=48 stream
+        run: .\.venv\Scripts\python.exe -B -X utf8 residual_study/fresh_stream.py
+      - name: Replay the original Moonshine signed-residual research programs
+        run: .\.venv\Scripts\python.exe -B -X utf8 residual_study/moonshine/replay.py
+      - name: Save the signed-residual replay results
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-residual-n24-replay
+          path: ${{ runner.temp }}/thermal-residual-${{ github.run_id }}-${{ github.run_attempt }}/
+          if-no-files-found: error
       - name: Save the thermal replay report and solver logs
         if: always()
         uses: actions/upload-artifact@v4

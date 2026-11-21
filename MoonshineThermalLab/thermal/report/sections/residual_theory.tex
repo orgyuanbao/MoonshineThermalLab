@@ -1,0 +1,31 @@
+\section{只知道最大残差时，能做到多好？}
+所有不等号在矩阵和向量间均按元素解释。边界系数严格为正，因此 $A_\mu$ 对称正定。若 $A_\mu x\ge0$ 而 $x$ 有负最小值，则在内部单元，相邻差分项均非正；若要保持非负，该最小值必须传播到所有邻接单元，最终到达边界并与正边界系数矛盾。于是 $G_\mu\ge0$。
+记 $A_{\rm w}$ 为四边最弱散热（均为 $1/5$），$A_{\rm s}$ 为四边最强散热（均为 $5$），相应的逆记为 $G_{\rm w},G_{\rm s}$。$\beta$ 随 $h$ 增大而增大，所以两端的算子差均为非负对角矩阵。由
+\begin{equation}
+ G_{\rm w}-G_\mu=G_{\rm w}(A_\mu-A_{\rm w})G_\mu,\qquad
+ G_\mu-G_{\rm s}=G_\mu(A_{\rm s}-A_\mu)G_{\rm s}
+ \label{eq:order-new}
+\end{equation}
+得到 $0\le G_{\rm s}\le G_\mu\le G_{\rm w}$。此处利用的是每个矩阵元素的序关系。
+
+\paragraph{命题 1（最小安全倍数）。}
+在固定网格上，若对每个许可的 $\mu$ 和每个近似向量要求
+$\|e\|_\infty\le C_n\|r\|_\infty$，最小的 $C_n$ 正好等于
+\begin{equation}
+ C_n^*=\|G_{\rm w}{\bf 1}\|_\infty . \label{eq:best-new}
+\end{equation}
+确实，$|G_\mu r|\le\|r\|_\infty G_{\rm w}{\bf1}$。反过来，取最弱边界和 $r={\bf1}$ 就取到等号；对固定载荷 $b$，这个残差可由 $\widetilde T=G_{\rm w}(b-{\bf1})$ 产生。此最优性针对全部近似向量。特定降阶模型产生的残差还可能有额外结构。
+
+\begin{table}[ht]\centering\small
+\caption{原解析屏障倍数与式~\eqref{eq:best-new} 的数值，均对应积分形式的单元方程。}
+\begin{tabular}{rrr}\toprule
+$n$ & 原解析屏障 $C_n^{\rm old}$ & $C_n^*$（数值近似）\\\midrule
+24 & 791.875 & 767.6866\\
+48 & 3167.875 & 3070.9964\\
+96 & 12671.875 & 12284.2353\\\bottomrule\end{tabular}
+\end{table}
+
+原屏障可取 $z_{ij}=[5+x_i(1-x_i)+y_j(1-y_j)]/(4\Delta^2)$，
+满足 $A_\mu z\ge{\bf1}$，从而 $C_n^{\rm old}=\|z\|_\infty\ge C_n^*$。
+以 $n=24$ 为例，只替换常数，上界最多缩小约 $3.05\%$。
+这给出了保留残差空间信息的定量理由。

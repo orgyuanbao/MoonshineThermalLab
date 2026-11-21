@@ -1,0 +1,673 @@
+{
+  "scope": "Selected fields from genuine upstream Moonshine event and provider receipts. Raw machine-specific logs are retained in the local A-drive research workspace.",
+  "turns": [
+    {
+      "turn_id": "20261121-223241-b5576042",
+      "session_id": "session-800649d740",
+      "started_at_utc": "2026-11-21T13:32:41.339304+00:00",
+      "model": "gpt-6-astra",
+      "upstream_commit": "bb0e4aa025fdcc5297fff1025ab4876f120ed615",
+      "source_preserved": true,
+      "turn_seconds": 1238.609,
+      "outcome": {
+        "final_reason": "assistant_text",
+        "runtime_failure": false,
+        "successful_python_executions": 1,
+        "passed_verifications": 1,
+        "archived_records": 8,
+        "accepted_local_research_step": true,
+        "industrial_problem_solved_asserted": false
+      },
+      "provider_calls": [
+        {
+          "call_number": 1,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 72.219,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "9bb66b765ef3e39e8441a42f74d5e90f94ad04cf4c105cf0d416dd0621da6933"
+        },
+        {
+          "call_number": 2,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 58.5,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "b81886cecbe4507f373c0fb82a871280d4ed4dfa5b5ceabb94d3c84c96ef77db"
+        },
+        {
+          "call_number": 3,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 81.594,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "c42787358aa8e48bfdf38b85736c89b304e6b593fb10464e8c253acf72e41cd1"
+        },
+        {
+          "call_number": 4,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 144.375,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "b7c3320209d27d455b6bb1f1f02422f5df03402fa79203f89d51df0a136b9378"
+        },
+        {
+          "call_number": 5,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 129.672,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "79448a28782b2e21661adf53d1aced4bd0a4b36693dcc96312505672df7a4574"
+        },
+        {
+          "call_number": 6,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 65.781,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "ba27c4b8ef5732974ac331aa3e99ea2c501024d45cb3b909e49c7462bfda13b1"
+        },
+        {
+          "call_number": 7,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 74.0,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "8d1dca85297fb76b918726a9c8a6e2811bfa7bbbefbdc3e5e20cba661137070a"
+        },
+        {
+          "call_number": 8,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 62.922,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "8ee1200de4ddc22f1f5769a93562b1320be0544c90acad97f183dab447b83620"
+        },
+        {
+          "call_number": 9,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 51.235,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "47682c59700af0c3415d8d4b518215190e03c7aecc4c4c538ab61cd636b82c1d"
+        },
+        {
+          "call_number": 10,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 136.672,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "febd44daa4a7642d29b6c41637bfdfb9f7cce0c03118209cd7c5135137986910"
+        },
+        {
+          "call_number": 11,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 61.954,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "6247f257a64d7b395ef71b75bd7c6863cdeacbb53e47cbe6258769708075dbf9"
+        },
+        {
+          "call_number": 12,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 93.531,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "cbe15338c6e3f34b44d710042fad4f39663f4638d11e568ec3954248746ab6a2"
+        },
+        {
+          "call_number": 13,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 52.922,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "8f71b7a755d08886fa85363c79dd0b3d2a8dc06d96923958f282b3a91fa84ad6"
+        },
+        {
+          "call_number": 14,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 56.453,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "dd77c8f1b5e0734266d53ce283e8d00b11c9719f0f776b9190a86f6cbce64538"
+        },
+        {
+          "call_number": 15,
+          "role": "archival",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 95.531,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "4728b86c21ebdccc4a741a1971fde86003ceccad0cc6dc4c211532154a284eb7"
+        }
+      ],
+      "native_tool_results": [
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-b486305537c44ee19e4b6e95134e821f",
+          "tool_reported_error": false,
+          "skill_slug": "query-memory"
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-8d3fc48374204f64a56d50764ebf649d",
+          "tool_reported_error": false,
+          "skill_slug": "quality-assessor"
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-98ff47ef10c84041af9cab20c58f3b29",
+          "tool_reported_error": false,
+          "skill_slug": "direct-proving"
+        },
+        {
+          "tool": "query_memory",
+          "tool_call_id": "moonshine-f79a5a8c9e9f4f38b0d60a7408f04054",
+          "tool_reported_error": false
+        },
+        {
+          "tool": "read_runtime_file",
+          "tool_call_id": "moonshine-375a0efbf75f4d42a90a0b192dc2d3b6",
+          "tool_reported_error": false
+        },
+        {
+          "tool": "assess_problem_quality",
+          "tool_call_id": "moonshine-0fe2380c5fe14c10a9bc6efbb20e8f55",
+          "tool_reported_error": false,
+          "status": "completed",
+          "passed": true,
+          "archived": false
+        },
+        {
+          "tool": "mcp_filesystem_write_file",
+          "tool_call_id": "moonshine-5541788270cf4c76a3146825e6b62b30",
+          "tool_reported_error": false,
+          "status": "ok",
+          "filename": "moonshine_bound.py",
+          "content_sha256_utf8": "02fc9ec911af3134041127d7e6d0823ca82f9d1e0a68eab0a5fca820e838ffd8"
+        },
+        {
+          "tool": "run_python_script",
+          "tool_call_id": "moonshine-742f330971eb48eb8750dfccbd2f1ec5",
+          "tool_reported_error": false,
+          "status": "ok",
+          "script": "moonshine_bound.py",
+          "returncode": 0,
+          "stdout_sha256": "55714b6519c251c79fd439f21d8153abe9f8da0dc67be75e2738ea8a0aa24b32"
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-f832b9a0567f456ca1d33edbac8862b4",
+          "tool_reported_error": false,
+          "skill_slug": "verify-overall"
+        },
+        {
+          "tool": "mcp_filesystem_write_file",
+          "tool_call_id": "moonshine-cdc78589b5664bf48c2510ff2dad390b",
+          "tool_reported_error": false,
+          "status": "ok",
+          "filename": "residual_proof.md",
+          "content_sha256_utf8": "b617cf26cf15626ea450a8b96d4af79e9a275ba8ca514e5ad20e5fae403c5a03"
+        },
+        {
+          "tool": "verify_overall",
+          "tool_call_id": "moonshine-96855c845c1d4b13b07efab674465987",
+          "tool_reported_error": false,
+          "status": "completed",
+          "scope": "intermediate",
+          "passed": false,
+          "overall_verdict": "incorrect",
+          "review_context_characters": 942,
+          "review_context_sha256_utf8": "8f2e4d87119c12faae35b9f8c7f1cc42ea052a59509796dbf3a97c924243dc95",
+          "review_dimensions": {
+            "assumption_result": "assumption_correct",
+            "computation_result": "calculation_incorrect",
+            "logic_result": "logic_correct"
+          },
+          "reviewers": {
+            "assumption_result": [
+              {
+                "reviewer_id": "assumption-usage-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ],
+            "computation_result": [
+              {
+                "reviewer_id": "calculation-consistency-reviewer",
+                "verdict": "inconclusive",
+                "error_count": 0
+              }
+            ],
+            "logic_result": [
+              {
+                "reviewer_id": "logical-chain-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ]
+          }
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-a0aeceeeb00043d89564bc88b9cb782b",
+          "tool_reported_error": false,
+          "skill_slug": "proof-corrector"
+        },
+        {
+          "tool": "verify_overall",
+          "tool_call_id": "moonshine-a44344345b584ef4afcd95f256463173",
+          "tool_reported_error": false,
+          "status": "completed",
+          "scope": "intermediate",
+          "passed": true,
+          "overall_verdict": "correct",
+          "review_context_characters": 11277,
+          "review_context_sha256_utf8": "fa2eaa90f62d03e83ad40098f0220d743f108b54b752fc78a2944620f1c298b4",
+          "review_dimensions": {
+            "assumption_result": "assumption_correct",
+            "computation_result": "calculation_correct",
+            "logic_result": "logic_correct"
+          },
+          "reviewers": {
+            "assumption_result": [
+              {
+                "reviewer_id": "assumption-usage-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ],
+            "computation_result": [
+              {
+                "reviewer_id": "calculation-consistency-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ],
+            "logic_result": [
+              {
+                "reviewer_id": "logical-chain-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ]
+          }
+        }
+      ],
+      "raw_sha256": {
+        "moonshine_events.jsonl": "815e17a31a1db0a19098b45c52e92bb7be2d8d312e375670fc9e8253866b1e9e",
+        "turn_summary.json": "d4c7a4c23be34a93baae49a253e4fdc020b849ffb9e85609f2cd21f9503c6b14",
+        "input.txt": "174f594eec2299c4cef48fb1c7396e44611ecae69fabaa06a8c80591ad1d7c90",
+        "integration.json": "bb707e568b1b5fd9cfb4c01661b79c8e50e89bc3b7b57b261a0ce34ac9dc4a9e"
+      },
+      "tool_counts": {
+        "load_skill_definition": 5,
+        "query_memory": 1,
+        "read_runtime_file": 1,
+        "assess_problem_quality": 1,
+        "mcp_filesystem_write_file": 2,
+        "run_python_script": 1,
+        "verify_overall": 2
+      },
+      "loaded_skill_slugs_in_order": [
+        "query-memory",
+        "quality-assessor",
+        "direct-proving",
+        "verify-overall",
+        "proof-corrector"
+      ]
+    },
+    {
+      "turn_id": "20261121-225324-d2d0316a",
+      "session_id": "session-800649d740",
+      "started_at_utc": "2026-11-21T13:53:24.600985+00:00",
+      "model": "gpt-6-astra",
+      "upstream_commit": "bb0e4aa025fdcc5297fff1025ab4876f120ed615",
+      "source_preserved": true,
+      "turn_seconds": 753.172,
+      "outcome": {
+        "final_reason": "assistant_text",
+        "runtime_failure": false,
+        "successful_python_executions": 1,
+        "passed_verifications": 1,
+        "archived_records": 5,
+        "accepted_local_research_step": true,
+        "industrial_problem_solved_asserted": false
+      },
+      "provider_calls": [
+        {
+          "call_number": 1,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 56.734,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "dfb5a74fdebd6a3ae0fafb914b8325cbc415bcfdf2401b92e9ea192274d0b9b1"
+        },
+        {
+          "call_number": 2,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 49.61,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "0ad5844916e69373c5bed2910378601fd2595f56c4e851e1596fee7d529c2fe7"
+        },
+        {
+          "call_number": 3,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 101.187,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "a6b67bec0caa2c18070282f53807dc939c7615445c4a167617ca6b9396c02d1d"
+        },
+        {
+          "call_number": 4,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 173.797,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "9ba287a6acd81c978ab8c1c4e7d08b4af9b027c25faf86f41cc8e0213144180e"
+        },
+        {
+          "call_number": 5,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 45.375,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "58ed993849ea7dd18f452b757c1c3febaa605403fb32023b2195f045e2e3fa3d"
+        },
+        {
+          "call_number": 6,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 55.125,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "8be8e0cc643a739b7ad50a89bb9631e29079adb093945c1edc0afb0e402bd687"
+        },
+        {
+          "call_number": 7,
+          "role": "verification",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 35.0,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "7eed02144257a327ecf25a458c6ac3e29832719d74f67d426cfd33b43bd29df9"
+        },
+        {
+          "call_number": 8,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 84.093,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "c6ef3e295ba7d423dfaedf0dbf816e1f51c39038825fb0942e0d7af4fed6efe3"
+        },
+        {
+          "call_number": 9,
+          "role": "main",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 52.157,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "1c86c42d363f8af719602a552810eb91250ae1b8a5f25709d0c8de64414aeaf7"
+        },
+        {
+          "call_number": 10,
+          "role": "archival",
+          "model": "gpt-6-astra",
+          "status": "accepted",
+          "exit_code": 0,
+          "elapsed_seconds": 99.297,
+          "error_type": null,
+          "native_tool_audit": "passed",
+          "native_tools_allowed": false,
+          "raw_receipt_sha256": "2b8e72e060cf30b79c4df5d90e54ae2a2fbac1266db55430d5018a3fbf4f51d4"
+        }
+      ],
+      "native_tool_results": [
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-89d75b1f2b7e4dd795ad5eeeda0f0cfc",
+          "tool_reported_error": false,
+          "skill_slug": "query-memory"
+        },
+        {
+          "tool": "query_memory",
+          "tool_call_id": "moonshine-f8104bb003d341b494766b1f800a05d5",
+          "tool_reported_error": false
+        },
+        {
+          "tool": "read_runtime_file",
+          "tool_call_id": "moonshine-8dcaeb3d8b544398b297db5884ac5eb3",
+          "tool_reported_error": false
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-68073ee94e304045ad1f20cc0e5a399e",
+          "tool_reported_error": false,
+          "skill_slug": "lemma-prover"
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-fe1a18d22dfe411185dd8aff6486935d",
+          "tool_reported_error": false,
+          "skill_slug": "construct-counterexamples"
+        },
+        {
+          "tool": "load_skill_definition",
+          "tool_call_id": "moonshine-e5e99a2c6d04468582bc26b14a71e510",
+          "tool_reported_error": false,
+          "skill_slug": "verify-overall"
+        },
+        {
+          "tool": "mcp_filesystem_write_file",
+          "tool_call_id": "moonshine-069ead9861e44c4294e3f9226d36ffd0",
+          "tool_reported_error": false,
+          "status": "ok",
+          "filename": "moonshine_interval.py",
+          "content_sha256_utf8": "0a66cb9f3b0c05841500d949945c3b874e53ba503767e0ad03ff65ad7a50bf3b"
+        },
+        {
+          "tool": "run_python_script",
+          "tool_call_id": "moonshine-7b35ed8dc5084ba0974a2164ca9222bd",
+          "tool_reported_error": false,
+          "status": "ok",
+          "script": "moonshine_interval.py",
+          "returncode": 0,
+          "stdout_sha256": "1a1e603ccc3a986268440cbc32fe029d052980ee517b523b03500142fd9df9ac"
+        },
+        {
+          "tool": "mcp_filesystem_write_file",
+          "tool_call_id": "moonshine-2fa171f53f53404c829b946155d87985",
+          "tool_reported_error": false,
+          "status": "ok",
+          "filename": "residual_interval_proof.md",
+          "content_sha256_utf8": "f27abf645698ef4543e0603c4dcfcda93597d8d49efee36c396932334682a8c5"
+        },
+        {
+          "tool": "verify_overall",
+          "tool_call_id": "moonshine-5726bb2d91bf49e484cdeec3df3217c1",
+          "tool_reported_error": false,
+          "status": "completed",
+          "scope": "intermediate",
+          "passed": true,
+          "overall_verdict": "correct",
+          "review_context_characters": 7621,
+          "review_context_sha256_utf8": "3da1b827d8a9a050b27888d96cccfd52c8113af7002d790e717900d9c9cd56fc",
+          "review_dimensions": {
+            "assumption_result": "assumption_correct",
+            "computation_result": "calculation_correct",
+            "logic_result": "logic_correct"
+          },
+          "reviewers": {
+            "assumption_result": [
+              {
+                "reviewer_id": "assumption-usage-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ],
+            "computation_result": [
+              {
+                "reviewer_id": "calculation-consistency-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ],
+            "logic_result": [
+              {
+                "reviewer_id": "logical-chain-reviewer",
+                "verdict": "correct",
+                "error_count": 0
+              }
+            ]
+          }
+        },
+        {
+          "tool": "mcp_filesystem_write_file",
+          "tool_call_id": "moonshine-c655ba060f30491c8ac64aaec61bccb8",
+          "tool_reported_error": false,
+          "status": "ok",
+          "filename": "residual_interval_verification.md",
+          "content_sha256_utf8": "1ada6ad4606af198b17032309ab87b1ca6e8abc48ef8215725d3a8d3ed5a5f7e"
+        }
+      ],
+      "raw_sha256": {
+        "moonshine_events.jsonl": "180e30aaf885439f84428968c4e7b2c6d638d360648fb6d8d3b9dcf558af0766",
+        "turn_summary.json": "0b1cc09b34431c4837b1d00dedabc02066d5b22eb7146f976bb49493a41cf80d",
+        "input.txt": "13a53921045300a02f9e6b4ffa3a1f818020da8c36be10c494ff67cf6ffb468b",
+        "integration.json": "62d68ab0432d5a6073cc694cebf8168fc8e3aff5538b2c28133c1049893990a2"
+      },
+      "tool_counts": {
+        "load_skill_definition": 4,
+        "query_memory": 1,
+        "read_runtime_file": 1,
+        "mcp_filesystem_write_file": 3,
+        "run_python_script": 1,
+        "verify_overall": 1
+      },
+      "loaded_skill_slugs_in_order": [
+        "query-memory",
+        "lemma-prover",
+        "construct-counterexamples",
+        "verify-overall"
+      ]
+    }
+  ],
+  "published_stdout": [
+    {
+      "script": "moonshine_bound.py",
+      "stdout_file": "execution-01.stdout.txt",
+      "sha256": "55714b6519c251c79fd439f21d8153abe9f8da0dc67be75e2738ea8a0aa24b32"
+    },
+    {
+      "script": "moonshine_interval.py",
+      "stdout_file": "execution-02.stdout.txt",
+      "sha256": "1a1e603ccc3a986268440cbc32fe029d052980ee517b523b03500142fd9df9ac"
+    }
+  ],
+  "public_artifacts_sha256": {
+    "execution-01.stdout.txt": "55714b6519c251c79fd439f21d8153abe9f8da0dc67be75e2738ea8a0aa24b32",
+    "execution-02.stdout.txt": "1a1e603ccc3a986268440cbc32fe029d052980ee517b523b03500142fd9df9ac",
+    "followup_02.md": "14dc522f0eacf09be03b5750a0a537527d36ab573a057bb830b5c5127cb7894e",
+    "replay.py": "aaaa16d22cd003f4b1e64f6a63b682fc81652a35bb9486b84a75649914cfdb71",
+    "research_prompt.md": "d532aeced92ee8986bebfe93d7abca43a700fe91766567a03f01c97d999aa977",
+    "workspace/experiments/moonshine_bound.py": "755902c9f0857cc04a12f89d13eeacbaedf8b419a8c6c224b15cac401b8a5ee7",
+    "workspace/experiments/moonshine_interval.json": "e64adba0f0f39e0d922e656c1a4b4c428edcfeb18f1e530880da3d147c768249",
+    "workspace/experiments/moonshine_interval.py": "c3fe333dc9f7817a4da9fca68c6462324b3a2e354684fcadf02d323e6c8eaab2",
+    "workspace/residual_interval_proof.md": "6d0af53ed86fbc4d97dd3c8005db6a7373b44f4e92f04b4e5b0967c7206f7641",
+    "workspace/residual_interval_verification.md": "4211db78bf102c4c3859e8bcf500fb2fc7502b9d8b17cb9b121b36dac7d6da17",
+    "workspace/residual_proof.md": "97d49c56e7097acd23db1f056d4b53d82bdda1add3d4cca1e658d23adf2f3797"
+  }
+}

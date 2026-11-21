@@ -1,0 +1,43 @@
+{
+  "three_by_three_positive_impulse": {
+    "corner": {
+      "actual_at_strong_boundary": "2252723/7061460",
+      "singleton_position_bound_all_boundaries": "24008911/13630980"
+    },
+    "center": {
+      "actual_at_strong_boundary": "661/1720",
+      "singleton_position_bound_all_boundaries": "1213/760"
+    }
+  },
+  "unsafe_shortcut_counterexample": {
+    "weak_signed_norm": "1",
+    "actual_norm": "437/269"
+  },
+  "arithmetic": "rational, standard-library Fraction",
+  "grid": [
+    2,
+    2
+  ],
+  "boundary_parameter_cases": 18,
+  "ternary_residual_patterns": 81,
+  "nested_partitions": [
+    1,
+    2,
+    4
+  ],
+  "case_pattern_pairs": 1458,
+  "cell_partition_enclosures": 17496,
+  "weak_boundary_example": {
+    "boundary_coefficients": [
+      "1/5",
+      "1/5",
+      "1/5",
+      "1/5"
+    ],
+    "residual_infinity_norm": 1,
+    "uniform_residual_true_error": "21/4",
+    "checkerboard_residual_true_error": "21/88",
+    "error_ratio": "22"
+  },
+  "status": "passed"
+}

@@ -1,60 +1,46 @@
 # Moonshine Thermal Lab
 
-两处热源固定在一块板上。反复改变四条边的散热强度，怎样快速算出温度场，又能知道哪一次预测需要重算？
+给定一张近似的温度图，怎样判断最不准确的那个格子究竟会错多少？Moonshine Thermal Lab 用二维稳态导热方程研究这一问题。这里可以复算同一组温度预测、检查每个误差上界，也可以启动开源 Moonshine，要求它推导一个命题、寻找反例并执行验证程序。
 
-Moonshine Thermal Lab 提供两种入口。**热仿真求解器**先用低维模型预测温度，误差上界超过目标时调用完整求解器，并用新解更新模型。**Moonshine 研究智能体**可以接收新的实验要求、编写并运行 Python，再根据结果继续研究。
+[![自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
-[![GitHub 自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
+[复算与开发指南](MoonshineThermalLab/residual_study/README.md) · [研究智能体](MoonshineThermalLab/thermal_agent.py) · [Moonshine 实际研究记录](MoonshineThermalLab/residual_study/moonshine/) · [论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf)
 
-![从左到右依次为完整模型温度图、固定八维模型温度图和两者的绝对误差](MoonshineThermalLab/thermal/report/figures/development_worst_fields.png)
+## 先试一个四格算例
 
-上图取自四条边散热都较弱的一组开发算例。前两张温度图看起来几乎相同，右图却显示误差集中在角点，已经超过 `0.001` 的目标。这正是求解器要检查的情况。
-
-[快速开始](#快速开始) · [用智能体做新实验](#用智能体做新实验) · [七轮运行记录](MoonshineThermalLab/evidence/iterations.json) · [实验代码](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/experiments/) · [使用手册](MoonshineThermalLab/README.md)
-
-## 快速开始
-
-先用现成的实验试一遍。下面以 **Windows + 64 位 Python 3.12** 为例。在准备存放项目的目录打开 PowerShell，依次运行下面的命令。首次下载和安装需要联网，之后可在本地复算，无需模型账号。
+同一块板、同一组散热条件，四个格子的残差都取 +1 时，最大温度误差等于 5.25；将符号按棋盘交错排列，误差降为 21/88，恰好小了 22 倍。两个例子的最大残差均为 1。用 Python 3.12 和标准库可以精确核对这两组数。
 
 ```powershell
 git clone https://github.com/orgyuanbao/MoonshineThermalLab.git thermal-lab
 cd .\thermal-lab\MoonshineThermalLab
-.\安装环境.cmd
-.\.venv\Scripts\python.exe -B -X utf8 .\reproduce_thermal.py
+python -B .\residual_study\exact_audit.py
 ```
 
-如果已经下载并解压了仓库，请在含有 `安装环境.cmd` 的子目录打开 PowerShell，从安装命令开始执行。
+成功时最后一行包含 `"error_ratio": "22"` 和 `"status": "passed"`。检查程序还会验证 17,496 组单元与分块的有理数区间，以及一个把带符号残差直接传入弱散热逆矩阵会低估误差的反例。[检验代码](MoonshineThermalLab/residual_study/exact_audit.py)
 
-这会在 24 × 24 网格上重新计算 256 组散热参数，并逐次比对温度误差和自适应更新记录。成功时终端最后一行会显示 `"status": "passed"`、`"model_calls": 0`、`"runs": 1` 和 `reproduction_report.json` 的完整路径。打开这个文件可查看比对次数及最大数值偏差。要复算全部三个网格、每个网格三次，在命令末尾加 `--full`。[复算程序](MoonshineThermalLab/reproduce_thermal.py) · [原始实验结果](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/summary.json)
+## 怎样用到实际预测
 
-## 用智能体做新实验
+程序把残差按位置分成 4 × 4 块，读取每块的最小值和最大值，调用预计算的响应模板估计整张温度图的误差区间。若上界超过阈值，策略可以重做完整求解并用结果更新降阶模型。在 48 × 48 网格上，旧轨迹的第 11 个预测仅用位置得到的上界是 0.001022，加上正负后是 0.000926；阈值 0.001 刚好位于二者之间，该次实际误差约为 0.00000173。
 
-要让 Moonshine 编写代码、运行 Python 并根据输出继续研究，需在同一台电脑上安装 Codex CLI，登录有模型访问权限的账号。完成上面的环境安装后，在 `MoonshineThermalLab` 目录运行以下命令。
+![不同网格的实际回退次数和误差上界收紧幅度](MoonshineThermalLab/thermal/report/figures/residual_comparison.png)
+
+三个网格各自使用相同的 256 个工况。固定旧预测做配对比较，原方法报警 47 次，分块符号界报警 29 次；独立部署并更新模型时，实际回退从 47 次降为 40 次，各方法的最终输出均达标。双端点界与单端符号界在这些实际预测上数值相同，增加端点模板后总耗时在本机三个网格上均未下降。[五种方法的实现](MoonshineThermalLab/residual_study/bounds.py) · [逐例数据与运行时间](MoonshineThermalLab/residual_study/results/)
+
+## 复算全部数据，或让 Moonshine 做新实验
+
+在上面进入的子目录，Windows 首次安装需要联网及 64 位 Python 3.12。安装后可离线完成以下数值复算。
 
 ```powershell
-.\启动热仿真研究.cmd
+.\安装环境.cmd
+.\.venv\Scripts\python.exe -B .\residual_study\run_experiment.py --check-against .\residual_study\results
+.\.venv\Scripts\python.exe -B .\residual_study\fresh_stream.py
+.\.venv\Scripts\python.exe -B .\residual_study\moonshine\replay.py
 ```
 
-菜单按 `4` 选本机可用的模型，按 `1` 选择阶段。首次可以选阶段 `1`（建模与最小校验），直接回车使用预设任务。想给这道热仿真题增加一个实验，按 `5` 输入补充要求，例如“比较左右两边散热强度互换前后的最高温度”，另起一行输入 `END` 提交。每次推进一轮，按 `2` 查看进展，按 `3` 打开研究文件夹。
+想让智能体继续研究，在已登录本机 Codex CLI 的环境中双击 `启动热仿真研究.cmd`，在主菜单选 **1**，再选研究阶段 **5**。可以补充自己的问题，例如「找一组同样大小、位置不同的残差，说明为什么某个上界会改变」。新一轮的工具回执和实验文件保存在本机。项目使用上游 Moonshine 的证明、反例搜索、审核和归档流程；本地实现题目入口、模型接入、会话恢复和证据保存。两轮原生研究分别进行了 2,592 和 1,968 组精确检查。论文和 PPT 由 Codex 在研究运行外整理，本项目没有给 Moonshine 增加报告生成 Skill。[使用指南](MoonshineThermalLab/README.md) · [数学研究任务](MoonshineThermalLab/thermal/prompts/05_signed_residual.txt) · [上游源码](https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615)
 
-项目使用开源 Moonshine 的研究循环和工具，通过项目内的适配器调用模型。已归档的七轮运行使用 `gpt-6-astra`；其中第四轮首个模型请求超时，第五轮恢复同一会话并继续检验求解代码。[智能体入口](MoonshineThermalLab/thermal_agent.py) · [模型适配](MoonshineThermalLab/integration/codex_provider.py) · [上游 Moonshine](https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615) · [故障回执](MoonshineThermalLab/evidence/failed-calls.json)
+## 论文与课堂演示
 
-## 什么时候值得用降阶模型？
+徐楷沅（2352163），应用数学课程项目。论文给出最优标量倍数、分块符号包络的推导、真实反例与实验边界。课堂演示将 PPT 和同目录的 HTML 放在一起，可点击四格切换符号或查看实际报警发生变化的工况。[论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [LaTeX 源码](MoonshineThermalLab/thermal/report/main.tex) · [可编辑 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
 
-两处热源固定，改变板的四条边的散热强度。以完整离散解为参照，温度场最大绝对误差目标取 `0.001`（无量纲温升）。下表采用同一序列的 256 组参数，分别在三个网格上运行。
-
-| 网格 | 固定八维模型超标 | 自适应模型超标 | 256 次查询整体加速比 |
-|---|---:|---:|---:|
-| 24 × 24 | 6 / 256 | 0 / 256 | 4.46× |
-| 48 × 48 | 6 / 256 | 0 / 256 | 5.29× |
-| 96 × 96 | 7 / 256 | 0 / 256 | 5.39× |
-
-加速比为快速完整求解耗时除以自适应方法耗时，计入训练、回退和更新，取三次配对计时的中位数。只算前 24 次查询时，三个网格的比值都约为 0.6，直接完整求解更快。自适应方法在三个网格分别触发了 15、15、17 次回退，而事后复核发现这些预测都已达标。数据反映这一算例及参数序列上的表现。[研究题面](MoonshineThermalLab/thermal/problem.md) · [实验说明](MoonshineThermalLab/README.md)
-
-## 论文与演示
-
-应用数学课程项目，徐楷沅（2352163）。最终选题为**基于 Moonshine 的变化散热边界热模型降阶与误差控制**，源自 EDA 专题的热仿真加速问题。[论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [LaTeX 源码](MoonshineThermalLab/thermal/report/main.tex)
-
-课堂演示可将课堂目录中的三个文件下载到同一文件夹，放映 PPT 时在第 3 页进入互动演示，或直接用浏览器打开 HTML。[汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [离线演示 HTML](MoonshineThermalLab/classroom/Moonshine现场演示.html)
-
-早期的鸿蒙异步众包定位项目保留了独立的[项目归档](CROWDLOCATE_ARCHIVE.md)，可以在那里找到旧题的代码、实验和报告。
+前一期的导热求解器、原七轮记录和冻结输入均可查阅。更早的鸿蒙众包定位项目另有归档。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [原七轮记录](MoonshineThermalLab/evidence/iterations.json) · [上一版导热论文](https://github.com/orgyuanbao/MoonshineThermalLab/blob/ef9273d2a64242344af26b609807e5249172b565/MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [众包定位归档](CROWDLOCATE_ARCHIVE.md)
