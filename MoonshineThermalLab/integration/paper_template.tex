@@ -2,13 +2,11 @@
 \documentclass[UTF8,a4paper,12pt]{ctexart}
 \usepackage[left=23.5mm,right=23.5mm,top=22mm,bottom=22mm,headheight=15pt,headsep=6mm,footskip=10mm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,array,tabularx,tikz,xcolor,fancyhdr,hyperref,needspace}
-\definecolor{ink}{HTML}{142B45}
-\definecolor{accent}{HTML}{245C81}
-\definecolor{umber}{HTML}{A4422D}
-\definecolor{muted}{HTML}{536475}
-\definecolor{hair}{HTML}{C9D3DC}
-\definecolor{tint}{HTML}{F0F4F6}
-\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,
+\definecolor{ink}{gray}{0}
+\definecolor{muted}{gray}{.26}
+\definecolor{hair}{gray}{.62}
+\definecolor{tint}{gray}{.96}
+\hypersetup{hidelinks,
  pdftitle={变散热边界下离散温度场的残差误差上界},pdfauthor={徐楷沅 2352163}}
 \IfFontExistsTF{STZhongsong}
   {\newCJKfontfamily\paperdisplay{STZhongsong}[FakeBold=1.7]}
@@ -27,21 +25,21 @@
 \fancypagestyle{firstpage}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}
   \fancyfoot[R]{{\runningface\color{ink}\bfseries\thepage}}}
 \ctexset{section={format=\raggedright\normalfont\paperdisplay\fontsize{19}{24}\selectfont\color{ink},
- number={\textcolor{umber}{\sffamily\bfseries\arabic{section}}},aftername=\hspace{.75em},
+ number={\normalfont\bfseries\arabic{section}},aftername=\hspace{.75em},
  beforeskip=1.65ex plus .35ex minus .2ex,afterskip=1.15ex plus .15ex},
  subsection={format=\raggedright\normalfont\bfseries\color{ink}\large}}
 \newcommand{\papersectionbreak}{\par\addvspace{4.5mm}\Needspace{5\baselineskip}}
 \newcommand{\para}[1]{\par\addvspace{.62\baselineskip}\noindent
   {\paperlabel\sffamily\bfseries\fontsize{10.7}{15}\selectfont\color{ink}#1}\hspace{.66em}\ignorespaces}
 \newcommand{\resulthead}[2]{\par\addvspace{.7\baselineskip}\Needspace{4\baselineskip}\noindent
-  {\sffamily\paperlabel\bfseries\fontsize{10.5}{15}\selectfont\color{umber}#1}\hspace{.82em}
+  {\sffamily\paperlabel\bfseries\fontsize{10.5}{15}\selectfont#1}\hspace{.82em}
   {\paperdisplay\fontsize{14}{19}\selectfont\color{ink}#2}\par\nobreak\vspace{.17\baselineskip}\noindent}
 \newcommand{\prooflead}{\par\smallskip\noindent{\sffamily\paperlabel\bfseries\fontsize{10}{14}\selectfont\color{ink}证明}\hspace{.64em}}
 \newcommand{\subhead}[1]{\par\addvspace{.87\baselineskip}\Needspace{3.2\baselineskip}\noindent
  {\paperlabel\sffamily\bfseries\fontsize{12.2}{17}\selectfont\color{ink}#1}\par\nobreak\vspace{.13\baselineskip}\noindent}
 \newcommand{\source}[1]{\par\smallskip\noindent{\footnotesize\color{muted}#1}\par}
 \newcommand{\capline}[2]{\par\noindent
- {\sffamily\paperlabel\bfseries\fontsize{9.6}{14}\selectfont\color{umber}#1}\hspace{.75em}
+ {\sffamily\paperlabel\bfseries\fontsize{9.6}{14}\selectfont#1}\hspace{.75em}
  {\sffamily\paperlabel\bfseries\fontsize{10.2}{15}\selectfont\color{ink}#2}\par\nobreak}
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert_\infty}
 \newcommand{\one}{\boldsymbol 1}
@@ -60,9 +58,9 @@
 \linespread{1.19}
 \begin{document}
 \thispagestyle{firstpage}
-\noindent{\runningface\bfseries\color{umber}应用数学课程论文}\hfill
-{\runningface\bfseries\color{ink}MOONSHINE THERMAL LAB}\par
-\vspace{2mm}\noindent{\color{ink}\rule{\linewidth}{1.05pt}}\par
+\noindent{\runningface 应用数学课程论文}\hfill
+{\normalfont\small\scshape Moonshine Thermal Lab}\par
+\vspace{2mm}\noindent{\color{ink}\rule{\linewidth}{.55pt}}\par
 \vspace{3.0mm}
 \noindent\begin{minipage}[c]{.715\linewidth}
 {\parindent=0pt\raggedright\color{ink}\paperdisplay\fontsize{26.4}{34}\selectfont
@@ -73,10 +71,10 @@
 \begin{minipage}[c]{.26\linewidth}\centering
 \begin{tikzpicture}[x=2.15cm,y=2.15cm,font=\fontsize{8.2}{10}\selectfont]
 \fill[tint] (0,0) rectangle (1,1);
-\draw[step=.2,color=hair!65,line width=.23pt] (0,0) grid (1,1);
+\draw[step=.2,color=hair,line width=.33pt] (0,0) grid (1,1);
 \draw[ink,line width=.65pt] (0,0) rectangle (1,1);
-\fill[umber!40] (.2,.2) rectangle (.4,.4);
-\fill[umber!85] (.6,.6) rectangle (.8,.8);
+\filldraw[fill=black!18,draw=ink,line width=.42pt] (.2,.2) rectangle (.4,.4);
+\filldraw[fill=ink,draw=ink,line width=.42pt] (.6,.6) rectangle (.8,.8);
 \node[ink,inner sep=0pt] at (.3,.3){\sffamily\bfseries 1};
 \node[white,inner sep=0pt] at (.7,.7){\sffamily\bfseries 2};
 \node[ink,above,inner sep=2pt] at (.5,1){$h_U$};
@@ -89,7 +87,7 @@
 \vspace{2.2mm}
 \noindent{\color{hair}\rule{\linewidth}{.45pt}}\par\vspace{1.0mm}
 \noindent\begin{tabularx}{\linewidth}{@{}p{.105\linewidth}@{}X@{}}
-{\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont\color{umber}摘\hspace{.26em}要} &
+{\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont 摘\hspace{.26em}要} &
 {\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，热量守恒方程的逐格失衡可以直接计算，真实误差却通常需要完整求解才能知道。本文针对四边 Robin 系数可变的离散导热系统，证明统一残差倍数的最优值，并用各空间块的残差极值和强弱散热两端的响应给出逐格误差区间。在固定四格问题中，横条纹和棋盘格均有两正两负的单位残差，最大温度误差分别为 $@@STRIPE@@$ 和 $@@CHECKER@@$。在三个大网格上，对旧轨迹中的同一批预测替换判据，报警数由 @@OLDPAIRED@@ 减至 @@NEWPAIRED@@；各策略自行更新降阶基后，实际回退数由 @@OLDCLOSED@@ 减至 @@NEWCLOSED@@。双端点界在精确算例中可严格收紧，但在归档大网格预测上与单端符号界@@EQUIV@@；减少回退也未转化为本次测试的双端点总耗时优势。\par}\\[2.2mm]
 {\sffamily\paperlabel\bfseries\fontsize{9.4}{14}\selectfont\color{muted}关键词} &
 {\fontsize{9.6}{14.8}\selectfont\color{muted}后验误差估计；离散导热；逆非负矩阵；残差符号；降阶模型}
@@ -125,7 +123,7 @@
 
 \para{三种信息量} 记 $p_B=u_B^+$，$q_B=\ell_B^-$，$m_B=\max(p_B,q_B)$。只用位置时取 $\eta_{\rm pos}=\norm{\sum m_BW_B}$；再区分正负时取 $\eta_{\pm}=\max\{\norm{\sum p_BW_B},\norm{\sum q_BW_B}\}$。完整包络的标量值为 $\eta_2=\max_i(U_i,-L_i)$。去掉式~\eqref{interval} 中由 $V_B$ 带来的抵消，再用 $p_B,q_B\le m_B\le\norm r$，得到
 \begin{equation}
- \norm e\le\eta_2\le\eta_\pm\le\eta_{\rm pos}\le C_n^\star\norm r. \label{chain}
+ \boxed{\;\norm e\le\eta_2\le\eta_\pm\le\eta_{\rm pos}\le C_n^\star\norm r\;} . \label{chain}
 \end{equation}
 仅保留 $m_B$ 时，在弱边界令每块残差恒为 $+m_B$ 即取到 $\eta_{\rm pos}$。这说明只凭这些块幅度不能再统一收紧。若细化块，子块极差收窄，且父块响应等于子块之和，故双端点区间只会缩小或保持。
 \source{两份归档推导和相应的精确执行输出见 \hyperref[materials]{材料 B}。}
@@ -136,7 +134,7 @@
 @@MODE_PICTURE@@
 \par\raggedright\vspace{2.4mm}
 \capline{图 1}{三种残差排列以及各自的精确最大误差}
-\figurenote{暖色为 $+1$，冷色为 $-1$。每种排列均来自同一轮原生程序的输出（材料 C）。}\end{minipage}\par
+\figurenote{浅底格为 $+1$，深底格为 $-1$。每种排列均来自同一轮原生程序的输出（材料 C）。}\end{minipage}\par
 \para{固定矩阵上的精确解} 取常量向量 $v_0$、两种方向的条纹 $v_1,v_2$ 和棋盘格 $v_3$，每个分量均为 $\pm1$。从格图计算得 $Kv_j=\lambda_jv_j$，其中 $\lambda_j$ 依次为 $0,2,2,4$。四个向量两两正交，故 $r=\sum_j a_jv_j$，$a_j=v_j^\top r/4$。于是
 \[
  e=\sum_{j=0}^3\frac{a_j}{\lambda_j+4/21}\,v_j,\qquad

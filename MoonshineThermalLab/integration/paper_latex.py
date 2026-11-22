@@ -43,7 +43,7 @@ def four_patterns(modes):
         for k, sign in enumerate(record["residual"]):
             left = x + cell * (k % 2)
             bottom = .12 + cell * (k // 2)
-            fill, foreground = ("umber!15", "ink") if sign > 0 else ("accent!86", "white")
+            fill, foreground = ("white", "black") if sign > 0 else ("black!72", "white")
             symbol = "+" if sign > 0 else "-"
             parts.extend([
                 fr"\fill[{fill}] ({left:.3f},{bottom:.3f}) rectangle ++({cell},{cell});",
@@ -51,9 +51,9 @@ def four_patterns(modes):
                 + r"{$\boldsymbol{" + symbol + r"}$};",
             ])
         parts.extend([
-            fr"\draw[draw=ink!38,line width=.40pt] ({x:.3f},.12) rectangle ++({2*cell:.3f},{2*cell:.3f});",
-            fr"\draw[white,line width=.8pt] ({x+cell:.3f},.12) -- ++(0,{2*cell:.3f});",
-            fr"\draw[white,line width=.8pt] ({x:.3f},{cell+.12:.3f}) -- ++({2*cell:.3f},0);",
+            fr"\draw[black,line width=.55pt] ({x:.3f},.12) rectangle ++({2*cell:.3f},{2*cell:.3f});",
+            fr"\draw[black!48,line width=.45pt] ({x+cell:.3f},.12) -- ++(0,{2*cell:.3f});",
+            fr"\draw[black!48,line width=.45pt] ({x:.3f},{cell+.12:.3f}) -- ++({2*cell:.3f},0);",
         ])
         text_x = x + 2.12
         value = Fraction(record["error_inf"])
@@ -63,7 +63,7 @@ def four_patterns(modes):
             fr"\node[anchor=west,text=ink,font=\small\sffamily\bfseries] at ({text_x:.3f},1.70) "
             + "{" + labels[record["name"]] + "};",
             fr"\node[anchor=west,text=ink,font=\Large] at ({text_x:.3f},1.03) "
-            + "{$" + str(value) + "$};",
+            + "{$" + frac(value) + "$};",
             fr"\node[anchor=west,text=muted,font=\small] at ({text_x:.3f},.37) "
             + "{$" + relation + " " + printed + "$};",
         ])
@@ -101,7 +101,7 @@ def threshold_chart(case, tolerance):
     for offset in range(first, last+1):
         tick = 1 + offset * step
         x = coordinate(tick)
-        style = r"ink,line width=.70pt,densely dashed" if offset == 0 else r"hair,line width=.35pt"
+        style = r"black,line width=.80pt,dash pattern=on 4pt off 2pt on 1pt off 2pt" if offset == 0 else r"black!28,line width=.35pt"
         top = 1.70
         out.append(fr"\draw[{style}] ({x:.3f},-.16) -- ({x:.3f},{top});")
         out.append(fr"\node[anchor=north,text=ink,font=\footnotesize] at ({x:.3f},-.23) "
@@ -111,14 +111,15 @@ def threshold_chart(case, tolerance):
         y = 1.33 - index * .83
         x = coordinate(ratio)
         exceeds = ratio > 1
-        color, decision = ("umber", "报警") if exceeds else ("accent", "接受")
+        decision = "报警" if exceeds else "接受"
+        line_style = "dash pattern=on 3pt off 1.6pt" if index == 0 else "solid"
         out.extend([
             fr"\node[anchor=west,text=ink,font=\small] at (0,{y:.3f}) {{{label}}};",
-            fr"\draw[{color},line width=2pt] ({threshold_x:.3f},{y:.3f}) -- ({x:.3f},{y:.3f});",
-            fr"\node[draw={color},fill={color if exceeds else 'white'},line width=1.15pt,"
-            + ("rectangle" if exceeds else "circle") + fr",minimum size=5.5pt] at ({x:.3f},{y:.3f}) {{}};",
+            fr"\draw[black,{line_style},line width=1.35pt] ({threshold_x:.3f},{y:.3f}) -- ({x:.3f},{y:.3f});",
+            fr"\node[draw=black,fill={'black' if exceeds else 'white'},line width=1.1pt,"
+            + ("rectangle" if exceeds else "circle") + fr",minimum size=6pt] at ({x:.3f},{y:.3f}) {{}};",
             fr"\node[anchor=west,text=ink,font=\normalsize] at (11.0,{y:.3f}) " + "{$" + f"{ratio:.3f}$" + "};",
-            fr"\node[anchor=west,text={color},font=\small\sffamily\bfseries] at (13.17,{y:.3f}) {{{decision}}};",
+            fr"\node[anchor=west,text=black,font=\small\sffamily\bfseries] at (13.17,{y:.3f}) {{{decision}}};",
         ])
     return "\n".join(out + [r"\end{tikzpicture}"])
 
@@ -144,7 +145,7 @@ def material_links(evidence):
     ]
     for code, title, files in groups:
         links = r"\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}".join(link(p,l) for p,l in files)
-        out.append(row([r"\textcolor{accent}{\sffamily\bfseries " + code + "}", esc(title), links]))
+        out.append(row([r"{\sffamily\bfseries " + code + "}", esc(title), links]))
     out.extend([
         r"\bottomrule\end{tabularx}\par\endgroup",
         r"\para{三份原生推导的原式} 下表保留草稿记号，行号链接到原文。",

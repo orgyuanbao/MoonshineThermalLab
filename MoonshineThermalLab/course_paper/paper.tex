@@ -2,13 +2,11 @@
 \documentclass[UTF8,a4paper,12pt]{ctexart}
 \usepackage[left=23.5mm,right=23.5mm,top=22mm,bottom=22mm,headheight=15pt,headsep=6mm,footskip=10mm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,array,tabularx,tikz,xcolor,fancyhdr,hyperref,needspace}
-\definecolor{ink}{HTML}{142B45}
-\definecolor{accent}{HTML}{245C81}
-\definecolor{umber}{HTML}{A4422D}
-\definecolor{muted}{HTML}{536475}
-\definecolor{hair}{HTML}{C9D3DC}
-\definecolor{tint}{HTML}{F0F4F6}
-\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,
+\definecolor{ink}{gray}{0}
+\definecolor{muted}{gray}{.26}
+\definecolor{hair}{gray}{.62}
+\definecolor{tint}{gray}{.96}
+\hypersetup{hidelinks,
  pdftitle={变散热边界下离散温度场的残差误差上界},pdfauthor={徐楷沅 2352163}}
 \IfFontExistsTF{STZhongsong}
   {\newCJKfontfamily\paperdisplay{STZhongsong}[FakeBold=1.7]}
@@ -27,21 +25,21 @@
 \fancypagestyle{firstpage}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}
   \fancyfoot[R]{{\runningface\color{ink}\bfseries\thepage}}}
 \ctexset{section={format=\raggedright\normalfont\paperdisplay\fontsize{19}{24}\selectfont\color{ink},
- number={\textcolor{umber}{\sffamily\bfseries\arabic{section}}},aftername=\hspace{.75em},
+ number={\normalfont\bfseries\arabic{section}},aftername=\hspace{.75em},
  beforeskip=1.65ex plus .35ex minus .2ex,afterskip=1.15ex plus .15ex},
  subsection={format=\raggedright\normalfont\bfseries\color{ink}\large}}
 \newcommand{\papersectionbreak}{\par\addvspace{4.5mm}\Needspace{5\baselineskip}}
 \newcommand{\para}[1]{\par\addvspace{.62\baselineskip}\noindent
   {\paperlabel\sffamily\bfseries\fontsize{10.7}{15}\selectfont\color{ink}#1}\hspace{.66em}\ignorespaces}
 \newcommand{\resulthead}[2]{\par\addvspace{.7\baselineskip}\Needspace{4\baselineskip}\noindent
-  {\sffamily\paperlabel\bfseries\fontsize{10.5}{15}\selectfont\color{umber}#1}\hspace{.82em}
+  {\sffamily\paperlabel\bfseries\fontsize{10.5}{15}\selectfont#1}\hspace{.82em}
   {\paperdisplay\fontsize{14}{19}\selectfont\color{ink}#2}\par\nobreak\vspace{.17\baselineskip}\noindent}
 \newcommand{\prooflead}{\par\smallskip\noindent{\sffamily\paperlabel\bfseries\fontsize{10}{14}\selectfont\color{ink}证明}\hspace{.64em}}
 \newcommand{\subhead}[1]{\par\addvspace{.87\baselineskip}\Needspace{3.2\baselineskip}\noindent
  {\paperlabel\sffamily\bfseries\fontsize{12.2}{17}\selectfont\color{ink}#1}\par\nobreak\vspace{.13\baselineskip}\noindent}
 \newcommand{\source}[1]{\par\smallskip\noindent{\footnotesize\color{muted}#1}\par}
 \newcommand{\capline}[2]{\par\noindent
- {\sffamily\paperlabel\bfseries\fontsize{9.6}{14}\selectfont\color{umber}#1}\hspace{.75em}
+ {\sffamily\paperlabel\bfseries\fontsize{9.6}{14}\selectfont#1}\hspace{.75em}
  {\sffamily\paperlabel\bfseries\fontsize{10.2}{15}\selectfont\color{ink}#2}\par\nobreak}
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert_\infty}
 \newcommand{\one}{\boldsymbol 1}
@@ -60,9 +58,9 @@
 \linespread{1.19}
 \begin{document}
 \thispagestyle{firstpage}
-\noindent{\runningface\bfseries\color{umber}应用数学课程论文}\hfill
-{\runningface\bfseries\color{ink}MOONSHINE THERMAL LAB}\par
-\vspace{2mm}\noindent{\color{ink}\rule{\linewidth}{1.05pt}}\par
+\noindent{\runningface 应用数学课程论文}\hfill
+{\normalfont\small\scshape Moonshine Thermal Lab}\par
+\vspace{2mm}\noindent{\color{ink}\rule{\linewidth}{.55pt}}\par
 \vspace{3.0mm}
 \noindent\begin{minipage}[c]{.715\linewidth}
 {\parindent=0pt\raggedright\color{ink}\paperdisplay\fontsize{26.4}{34}\selectfont
@@ -73,10 +71,10 @@
 \begin{minipage}[c]{.26\linewidth}\centering
 \begin{tikzpicture}[x=2.15cm,y=2.15cm,font=\fontsize{8.2}{10}\selectfont]
 \fill[tint] (0,0) rectangle (1,1);
-\draw[step=.2,color=hair!65,line width=.23pt] (0,0) grid (1,1);
+\draw[step=.2,color=hair,line width=.33pt] (0,0) grid (1,1);
 \draw[ink,line width=.65pt] (0,0) rectangle (1,1);
-\fill[umber!40] (.2,.2) rectangle (.4,.4);
-\fill[umber!85] (.6,.6) rectangle (.8,.8);
+\filldraw[fill=black!18,draw=ink,line width=.42pt] (.2,.2) rectangle (.4,.4);
+\filldraw[fill=ink,draw=ink,line width=.42pt] (.6,.6) rectangle (.8,.8);
 \node[ink,inner sep=0pt] at (.3,.3){\sffamily\bfseries 1};
 \node[white,inner sep=0pt] at (.7,.7){\sffamily\bfseries 2};
 \node[ink,above,inner sep=2pt] at (.5,1){$h_U$};
@@ -89,7 +87,7 @@
 \vspace{2.2mm}
 \noindent{\color{hair}\rule{\linewidth}{.45pt}}\par\vspace{1.0mm}
 \noindent\begin{tabularx}{\linewidth}{@{}p{.105\linewidth}@{}X@{}}
-{\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont\color{umber}摘\hspace{.26em}要} &
+{\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont 摘\hspace{.26em}要} &
 {\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，热量守恒方程的逐格失衡可以直接计算，真实误差却通常需要完整求解才能知道。本文针对四边 Robin 系数可变的离散导热系统，证明统一残差倍数的最优值，并用各空间块的残差极值和强弱散热两端的响应给出逐格误差区间。在固定四格问题中，横条纹和棋盘格均有两正两负的单位残差，最大温度误差分别为 $\tfrac{21}{46}$ 和 $\tfrac{21}{88}$。在三个大网格上，对旧轨迹中的同一批预测替换判据，报警数由 47 减至 29；各策略自行更新降阶基后，实际回退数由 47 减至 40。双端点界在精确算例中可严格收紧，但在归档大网格预测上与单端符号界逐例相同；减少回退也未转化为本次测试的双端点总耗时优势。\par}\\[2.2mm]
 {\sffamily\paperlabel\bfseries\fontsize{9.4}{14}\selectfont\color{muted}关键词} &
 {\fontsize{9.6}{14.8}\selectfont\color{muted}后验误差估计；离散导热；逆非负矩阵；残差符号；降阶模型}
@@ -125,7 +123,7 @@
 
 \para{三种信息量} 记 $p_B=u_B^+$，$q_B=\ell_B^-$，$m_B=\max(p_B,q_B)$。只用位置时取 $\eta_{\rm pos}=\norm{\sum m_BW_B}$；再区分正负时取 $\eta_{\pm}=\max\{\norm{\sum p_BW_B},\norm{\sum q_BW_B}\}$。完整包络的标量值为 $\eta_2=\max_i(U_i,-L_i)$。去掉式~\eqref{interval} 中由 $V_B$ 带来的抵消，再用 $p_B,q_B\le m_B\le\norm r$，得到
 \begin{equation}
- \norm e\le\eta_2\le\eta_\pm\le\eta_{\rm pos}\le C_n^\star\norm r. \label{chain}
+ \boxed{\;\norm e\le\eta_2\le\eta_\pm\le\eta_{\rm pos}\le C_n^\star\norm r\;} . \label{chain}
 \end{equation}
 仅保留 $m_B$ 时，在弱边界令每块残差恒为 $+m_B$ 即取到 $\eta_{\rm pos}$。这说明只凭这些块幅度不能再统一收紧。若细化块，子块极差收窄，且父块响应等于子块之和，故双端点区间只会缩小或保持。
 \source{两份归档推导和相应的精确执行输出见 \hyperref[materials]{材料 B}。}
@@ -136,52 +134,52 @@
 \par\medskip\noindent\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[x=1cm,y=1cm,inner sep=0pt]
 \path[use as bounding box] (0,-.10) rectangle (14.85,2.28);
-\fill[umber!15] (0.160,0.120) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (0.625,0.585) {$\boldsymbol{+}$};
-\fill[umber!15] (1.090,0.120) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (1.555,0.585) {$\boldsymbol{+}$};
-\fill[umber!15] (0.160,1.050) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (0.625,1.515) {$\boldsymbol{+}$};
-\fill[umber!15] (1.090,1.050) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (1.555,1.515) {$\boldsymbol{+}$};
-\draw[draw=ink!38,line width=.40pt] (0.160,.12) rectangle ++(1.860,1.860);
-\draw[white,line width=.8pt] (1.090,.12) -- ++(0,1.860);
-\draw[white,line width=.8pt] (0.160,1.050) -- ++(1.860,0);
+\fill[white] (0.160,0.120) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (0.625,0.585) {$\boldsymbol{+}$};
+\fill[white] (1.090,0.120) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (1.555,0.585) {$\boldsymbol{+}$};
+\fill[white] (0.160,1.050) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (0.625,1.515) {$\boldsymbol{+}$};
+\fill[white] (1.090,1.050) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (1.555,1.515) {$\boldsymbol{+}$};
+\draw[black,line width=.55pt] (0.160,.12) rectangle ++(1.860,1.860);
+\draw[black!48,line width=.45pt] (1.090,.12) -- ++(0,1.860);
+\draw[black!48,line width=.45pt] (0.160,1.050) -- ++(1.860,0);
 \node[anchor=west,text=ink,font=\small\sffamily\bfseries] at (2.280,1.70) {同号};
-\node[anchor=west,text=ink,font=\Large] at (2.280,1.03) {$21/4$};
+\node[anchor=west,text=ink,font=\Large] at (2.280,1.03) {$\tfrac{21}{4}$};
 \node[anchor=west,text=muted,font=\small] at (2.280,.37) {$= 5.25$};
-\fill[umber!15] (5.160,0.120) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (5.625,0.585) {$\boldsymbol{+}$};
-\fill[umber!15] (6.090,0.120) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (6.555,0.585) {$\boldsymbol{+}$};
-\fill[accent!86] (5.160,1.050) rectangle ++(0.93,0.93);
+\fill[white] (5.160,0.120) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (5.625,0.585) {$\boldsymbol{+}$};
+\fill[white] (6.090,0.120) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (6.555,0.585) {$\boldsymbol{+}$};
+\fill[black!72] (5.160,1.050) rectangle ++(0.93,0.93);
 \node[text=white,font=\Large] at (5.625,1.515) {$\boldsymbol{-}$};
-\fill[accent!86] (6.090,1.050) rectangle ++(0.93,0.93);
+\fill[black!72] (6.090,1.050) rectangle ++(0.93,0.93);
 \node[text=white,font=\Large] at (6.555,1.515) {$\boldsymbol{-}$};
-\draw[draw=ink!38,line width=.40pt] (5.160,.12) rectangle ++(1.860,1.860);
-\draw[white,line width=.8pt] (6.090,.12) -- ++(0,1.860);
-\draw[white,line width=.8pt] (5.160,1.050) -- ++(1.860,0);
+\draw[black,line width=.55pt] (5.160,.12) rectangle ++(1.860,1.860);
+\draw[black!48,line width=.45pt] (6.090,.12) -- ++(0,1.860);
+\draw[black!48,line width=.45pt] (5.160,1.050) -- ++(1.860,0);
 \node[anchor=west,text=ink,font=\small\sffamily\bfseries] at (7.280,1.70) {横条纹};
-\node[anchor=west,text=ink,font=\Large] at (7.280,1.03) {$21/46$};
+\node[anchor=west,text=ink,font=\Large] at (7.280,1.03) {$\tfrac{21}{46}$};
 \node[anchor=west,text=muted,font=\small] at (7.280,.37) {$\approx 0.457$};
-\fill[umber!15] (10.160,0.120) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (10.625,0.585) {$\boldsymbol{+}$};
-\fill[accent!86] (11.090,0.120) rectangle ++(0.93,0.93);
+\fill[white] (10.160,0.120) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (10.625,0.585) {$\boldsymbol{+}$};
+\fill[black!72] (11.090,0.120) rectangle ++(0.93,0.93);
 \node[text=white,font=\Large] at (11.555,0.585) {$\boldsymbol{-}$};
-\fill[accent!86] (10.160,1.050) rectangle ++(0.93,0.93);
+\fill[black!72] (10.160,1.050) rectangle ++(0.93,0.93);
 \node[text=white,font=\Large] at (10.625,1.515) {$\boldsymbol{-}$};
-\fill[umber!15] (11.090,1.050) rectangle ++(0.93,0.93);
-\node[text=ink,font=\Large] at (11.555,1.515) {$\boldsymbol{+}$};
-\draw[draw=ink!38,line width=.40pt] (10.160,.12) rectangle ++(1.860,1.860);
-\draw[white,line width=.8pt] (11.090,.12) -- ++(0,1.860);
-\draw[white,line width=.8pt] (10.160,1.050) -- ++(1.860,0);
+\fill[white] (11.090,1.050) rectangle ++(0.93,0.93);
+\node[text=black,font=\Large] at (11.555,1.515) {$\boldsymbol{+}$};
+\draw[black,line width=.55pt] (10.160,.12) rectangle ++(1.860,1.860);
+\draw[black!48,line width=.45pt] (11.090,.12) -- ++(0,1.860);
+\draw[black!48,line width=.45pt] (10.160,1.050) -- ++(1.860,0);
 \node[anchor=west,text=ink,font=\small\sffamily\bfseries] at (12.280,1.70) {棋盘格};
-\node[anchor=west,text=ink,font=\Large] at (12.280,1.03) {$21/88$};
+\node[anchor=west,text=ink,font=\Large] at (12.280,1.03) {$\tfrac{21}{88}$};
 \node[anchor=west,text=muted,font=\small] at (12.280,.37) {$\approx 0.239$};
 \end{tikzpicture}
 \par\raggedright\vspace{2.4mm}
 \capline{图 1}{三种残差排列以及各自的精确最大误差}
-\figurenote{暖色为 $+1$，冷色为 $-1$。每种排列均来自同一轮原生程序的输出（材料 C）。}\end{minipage}\par
+\figurenote{浅底格为 $+1$，深底格为 $-1$。每种排列均来自同一轮原生程序的输出（材料 C）。}\end{minipage}\par
 \para{固定矩阵上的精确解} 取常量向量 $v_0$、两种方向的条纹 $v_1,v_2$ 和棋盘格 $v_3$，每个分量均为 $\pm1$。从格图计算得 $Kv_j=\lambda_jv_j$，其中 $\lambda_j$ 依次为 $0,2,2,4$。四个向量两两正交，故 $r=\sum_j a_jv_j$，$a_j=v_j^\top r/4$。于是
 \[
  e=\sum_{j=0}^3\frac{a_j}{\lambda_j+4/21}\,v_j,\qquad
@@ -242,25 +240,25 @@
 \node[anchor=west,text=muted,font=\footnotesize\sffamily] at (11.0,2.02) {相对上界};
 \node[anchor=west,text=muted,font=\footnotesize\sffamily] at (13.17,2.02) {判定};
 \draw[hair,line width=.45pt] (2.46,-.10) -- (10.17,-.10);
-\draw[hair,line width=.35pt] (2.460,-.16) -- (2.460,1.7);
+\draw[black!28,line width=.35pt] (2.460,-.16) -- (2.460,1.7);
 \node[anchor=north,text=ink,font=\footnotesize] at (2.460,-.23) {$0.90$};
-\draw[hair,line width=.35pt] (5.030,-.16) -- (5.030,1.7);
+\draw[black!28,line width=.35pt] (5.030,-.16) -- (5.030,1.7);
 \node[anchor=north,text=ink,font=\footnotesize] at (5.030,-.23) {$0.95$};
-\draw[ink,line width=.70pt,densely dashed] (7.600,-.16) -- (7.600,1.7);
+\draw[black,line width=.80pt,dash pattern=on 4pt off 2pt on 1pt off 2pt] (7.600,-.16) -- (7.600,1.7);
 \node[anchor=north,text=ink,font=\footnotesize] at (7.600,-.23) {$1.00$};
-\draw[hair,line width=.35pt] (10.170,-.16) -- (10.170,1.7);
+\draw[black!28,line width=.35pt] (10.170,-.16) -- (10.170,1.7);
 \node[anchor=north,text=ink,font=\footnotesize] at (10.170,-.23) {$1.05$};
 \node[anchor=south,text=muted,font=\scriptsize\sffamily] at (7.600,1.73) {阈值};
 \node[anchor=west,text=ink,font=\small] at (0,1.330) {仅用位置};
-\draw[umber,line width=2pt] (7.600,1.330) -- (8.710,1.330);
-\node[draw=umber,fill=umber,line width=1.15pt,rectangle,minimum size=5.5pt] at (8.710,1.330) {};
+\draw[black,dash pattern=on 3pt off 1.6pt,line width=1.35pt] (7.600,1.330) -- (8.710,1.330);
+\node[draw=black,fill=black,line width=1.1pt,rectangle,minimum size=6pt] at (8.710,1.330) {};
 \node[anchor=west,text=ink,font=\normalsize] at (11.0,1.330) {$1.022$};
-\node[anchor=west,text=umber,font=\small\sffamily\bfseries] at (13.17,1.330) {报警};
+\node[anchor=west,text=black,font=\small\sffamily\bfseries] at (13.17,1.330) {报警};
 \node[anchor=west,text=ink,font=\small] at (0,0.500) {位置与正负};
-\draw[accent,line width=2pt] (7.600,0.500) -- (3.773,0.500);
-\node[draw=accent,fill=white,line width=1.15pt,circle,minimum size=5.5pt] at (3.773,0.500) {};
+\draw[black,solid,line width=1.35pt] (7.600,0.500) -- (3.773,0.500);
+\node[draw=black,fill=white,line width=1.1pt,circle,minimum size=6pt] at (3.773,0.500) {};
 \node[anchor=west,text=ink,font=\normalsize] at (11.0,0.500) {$0.926$};
-\node[anchor=west,text=accent,font=\small\sffamily\bfseries] at (13.17,0.500) {接受};
+\node[anchor=west,text=black,font=\small\sffamily\bfseries] at (13.17,0.500) {接受};
 \end{tikzpicture}\par\raggedright\vspace{2.2mm}
 \capline{图 2}{空间上界刚越过阈值，正负分离后可直接接受}
 \source{逐次数据、参数和计时口径见 \hyperref[materials]{材料 D}。}\end{minipage}\par
@@ -290,10 +288,10 @@ $96^2$ & 0.5917 & 0.5790 & 0.6159 & 2.250 \\
 \par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}
 \noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}
 \toprule\multicolumn{2}{@{}l}{\sffamily\bfseries 研究材料} & \sffamily\bfseries 原始记录 \\ \midrule
-\textcolor{accent}{\sffamily\bfseries A} & 早期求解器与冻结实验 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/evidence/iterations.json}{七轮执行与审核}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/evidence/independent-checks.json}{独立复核}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/thermal/independent_review/theory_oracle.md}{标量屏障推导} \\
-\textcolor{accent}{\sffamily\bfseries B} & 两轮残差界研究 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/workspace/residual_proof.md}{单端证明}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/workspace/residual_interval_proof.md}{双端证明}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/run_receipts.json}{审核回执}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/execution-02.stdout.txt}{精确反例} \\
-\textcolor{accent}{\sffamily\bfseries C} & 四格模态研究 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/mode_proof.md}{模态推导}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/mode_results.json}{逐格分数解}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/run_evidence.json}{执行与审核} \\
-\textcolor{accent}{\sffamily\bfseries D} & 独立大网格与补充复核 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/paired_cases.csv}{配对预测}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/closed_loop_cases.csv}{独立部署}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/summary.json}{汇总与计时}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/fresh_stream.json}{追加参数流}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/exact_audit.json}{四格穷举} \\
+{\sffamily\bfseries A} & 早期求解器与冻结实验 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/evidence/iterations.json}{七轮执行与审核}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/evidence/independent-checks.json}{独立复核}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/thermal/independent_review/theory_oracle.md}{标量屏障推导} \\
+{\sffamily\bfseries B} & 两轮残差界研究 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/workspace/residual_proof.md}{单端证明}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/workspace/residual_interval_proof.md}{双端证明}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/run_receipts.json}{审核回执}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/moonshine/execution-02.stdout.txt}{精确反例} \\
+{\sffamily\bfseries C} & 四格模态研究 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/mode_proof.md}{模态推导}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/mode_results.json}{逐格分数解}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/report_example/run_evidence.json}{执行与审核} \\
+{\sffamily\bfseries D} & 独立大网格与补充复核 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/paired_cases.csv}{配对预测}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/closed_loop_cases.csv}{独立部署}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/summary.json}{汇总与计时}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/fresh_stream.json}{追加参数流}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/exact_audit.json}{四格穷举} \\
 \bottomrule\end{tabularx}\par\endgroup
 \para{三份原生推导的原式} 下表保留草稿记号，行号链接到原文。
 \par\smallskip\begingroup\small
