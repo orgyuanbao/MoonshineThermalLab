@@ -25,7 +25,7 @@ LLM_MODEL=
 .\.venv\Scripts\python.exe -B -X utf8 thermal_agent.py investigate --model --goal "四格残差有正有负时，检验弱散热端点上界；如果找到反例，再检验双端点式。"
 ```
 
-模型模式有一份可离线核验的真实记录。我们要求阿里云百炼上的 DeepSeek 4.1 先检验弱端点公式，遇到反例后改验指定的双端点公式。第一轮工具返回了第 90 组反例，第二轮模型请求按原搜索范围复查修正式，工具检查了 1,296 组。运行 `python -B residual_study/agent_extension/verify_live_trace.py` 可用有理数重新计算这两次工具结果。另有一份三轮本地策略研究，以及一项独立的模拟 HTTP 接口测试。[真实模型记录](residual_study/agent_extension/live_trace.json) · [本地策略记录](residual_study/agent_extension/trace.json) · [模拟接口记录](residual_study/agent_extension/http_fixture.json)
+模型模式有一份可离线核验的真实记录。我们通过阿里云百炼请求模型 `deepseek-v4.1-flash`（DeepSeek 4.1 Flash，公开回执简写为 DeepSeek 4.1），并要求它先检验弱端点公式，遇到反例后改验指定的双端点公式。第一轮工具返回了第 90 组反例，第二轮模型请求按原搜索范围复查修正式，工具检查了 1,296 组。运行 `python -B residual_study/agent_extension/verify_live_trace.py` 可用有理数重新计算这两次工具结果。另有一份三轮本地策略研究，以及一项独立的模拟 HTTP 接口测试。[真实模型记录](residual_study/agent_extension/live_trace.json) · [本地策略记录](residual_study/agent_extension/trace.json) · [模拟接口记录](residual_study/agent_extension/http_fixture.json)
 
 ## 运行前期导热基准算例
 
@@ -124,6 +124,6 @@ LLM_MODEL=
 
 ## 论文与演示
 
-徐楷沅（2352163） · EDA 热仿真加速专题。[最终课程论文 PDF](course_paper/paper.pdf) · [LaTeX 源码](course_paper/paper.tex) · [11 月 21 日的课程论文](thermal/report/Moonshine_Thermal_Report.pdf) · [汇报 PPT](classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](classroom/备讲稿与研究总结.pdf) · [离线交互演示](classroom/Moonshine现场演示.html)
+徐楷沅（2352163） · EDA 热仿真加速专题。[最终课程论文 PDF](course_paper/paper.pdf) · [LaTeX 源码](course_paper/paper.tex) · [11 月 21 日的课程论文](thermal/report/Moonshine_Thermal_Report.pdf) · [汇报 PPT](classroom/Moonshine热仿真课堂汇报.pptx) · [逐字稿 PDF](classroom/Moonshine课堂汇报_逐字稿.pdf) · [逐字稿 Word](classroom/Moonshine课堂汇报_逐字稿.docx) · [早期备讲稿与操作截图](classroom/备讲稿与研究总结.pdf) · [离线交互演示](classroom/Moonshine现场演示.html)
 
 在本机演示时，将 [classroom](classroom/) 里的 PPT、HTML 和 `moonshine-report.pdf` 下载到同一文件夹。四格示例可离线打开。讲自研智能体时，可沿着 PPT 中的原始任务、第一轮返回的反例和第二轮的新调用，逐步解释模型怎样选择下一步。

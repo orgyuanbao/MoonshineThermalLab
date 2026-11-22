@@ -1,18 +1,20 @@
 # Moonshine Thermal Lab
 
-给定一张近似的温度图，误差最大的一格究竟会错多少？本项目开发了一个残差上界研究智能体。它提出一个候选上界，用精确分数找反例，读回真实误差并决定下一次检验。研究控制器和数学工具由项目实现，工具注册与执行复用开源 Moonshine。仓库还保留了早期 Moonshine 的推导、记录和三个大网格上的实际预测。
+一张快速算出的温度图，误差最大的一格究竟会错多少？Moonshine Thermal Lab 提供一个用反例检验温度误差上界的数学研究智能体。研究者给定候选公式与检验条件，DeepSeek 4.1 Flash 根据实算结果决定下一步。项目实现模型接口、研究控制器与精确检验器，复用 Moonshine 的工具管理器。
 
 [![自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
-[《人工智能与数学》课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [自研智能体源码](MoonshineThermalLab/integration/bound_agent.py) · [两轮真实调用记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [复算指南](START_HERE.md)
+[《人工智能与数学》课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [逐字稿 PDF](MoonshineThermalLab/classroom/Moonshine课堂汇报_逐字稿.pdf) · [可编辑逐字稿 Word](MoonshineThermalLab/classroom/Moonshine课堂汇报_逐字稿.docx)
+
+[自研智能体源码](MoonshineThermalLab/integration/bound_agent.py) · [两轮真实调用记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [复算指南](START_HERE.md)
 
 ## 智能体是怎样开发的
 
 项目先将四格导热问题写成可枚举的精确试验，再把它封装成工具 `check_residual_bound`。工具逐组比较真实误差和候选上界，返回首个反例或完成枚举的组数。我们用 Moonshine 的工具管理器注册和调用这个工具，并编写控制器保存每次调用的候选式、参数和结果。[数学检验工具](MoonshineThermalLab/integration/residual_tool.py) · [研究控制器](MoonshineThermalLab/integration/bound_agent.py)
 
-我们还编写了模型适配器，把上一轮的工具结果连同原始目标交给 DeepSeek 4.1，由模型选择下一次检验或结束。在真实的两轮实验中，第二次仍使用同一个工具，只把候选式从 `weak_signed` 改为 `block_two_endpoint`。课堂汇报用流程图标出了这条反馈路径。[模型适配器](MoonshineThermalLab/integration/bound_agent_model.py) · [离线复核这两次运算](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
+模型接口通过阿里云百炼调用 DeepSeek 4.1 Flash，请求模型标识为 `deepseek-v4.1-flash`，公开回执简写为 `DeepSeek 4.1`。自研控制器校验模型提出的请求，Moonshine 工具管理器将请求分派给检验器。检验器把搜到的反例或穷举结果交回控制器，模型读到结果后再选择检验或结束。[模型适配器](MoonshineThermalLab/integration/bound_agent_model.py) · [离线复核这两次运算](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
 
-![研究者给定条件，DeepSeek 4.1 选择检验或结束，自研控制器经 Moonshine 调用精确检验工具，并把结果送回模型](MoonshineThermalLab/classroom/residual-bound-agent-flow.png)
+![研究者给定条件，DeepSeek 4.1 Flash 选择检验或结束，自研控制器经 Moonshine 调用精确检验工具，并把结果送回模型](MoonshineThermalLab/classroom/residual-bound-agent-flow.png)
 
 ## 运行残差上界研究智能体
 
@@ -20,7 +22,7 @@
 
 选 **8 → 2** 可让模型阅读每次反例并选择下一步。打开子目录里的 `.env`，填写 `LLM_BASE_URL`、`LLM_API_KEY` 和 `LLM_MODEL`。从 GitHub 克隆时可先把 `.env.example` 复制为 `.env`。接口采用支持工具调用的 Chat Completions 协议，模型选择检验，矩阵求解与分数比较在本机执行。[空白配置模板](MoonshineThermalLab/.env.example) · [模型接口和命令行示例](MoonshineThermalLab/README.md#运行自研残差上界研究智能体)
 
-一次通过阿里云百炼运行的研究展示了这个循环。我们要求 **DeepSeek 4.1** 先检验弱端点公式，遇到反例再检验双端点公式。第 90 组中，真实误差为 399/538，超过原式给出的 21/46。模型读到这条工具结果后，提交了双端点公式；本机检查同一有限域中的全部 1,296 组，未发现反例。公开记录保留了原任务、两个工具调用和模型的结束说明。[两轮模型运行记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [离线复核](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
+在线实验预先规定先查简化公式，遇到反例再查双端点式。第一轮，DeepSeek 请求检验 `weak_signed`。自研检验器在第 90 组算出真实误差 399/538，大于公式给出的 21/46，控制器将反例送回模型。第二轮，DeepSeek 依约改查 `block_two_endpoint`。Moonshine 分派给同一检验器，边界取值、分块和搜索范围保持一致。检验器查完有限域内 1,296 组，未见反例。DeepSeek 读到回执后结束。[两轮模型运行记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [离线复核](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
 
 ## 先试一个四格算例
 
@@ -53,10 +55,12 @@ python -B .\residual_study\exact_audit.py
 .\.venv\Scripts\python.exe -B .\residual_study\moonshine\replay.py
 ```
 
-想让智能体继续研究，在已登录本机 Codex CLI 的环境中双击 `启动热仿真研究.cmd`，在主菜单选 **1**，再选研究阶段 **5**。可以补充自己的问题，例如「找一组同样大小、位置不同的残差，说明为什么某个上界会改变」。新一轮的工具回执和实验文件保存在本机。项目使用上游 Moonshine 的证明、反例搜索、审核和归档流程；本地实现题目入口、模型接入、会话恢复和证据保存。两轮原生研究分别进行了 2,592 和 1,968 组精确检查。11 月 21 日的课程论文和 PPT 由 Codex 依据归档材料整理。同一个 LaTeX 报告技能也可生成最终课程论文，把七轮先期记录、两轮残差研究、四格验证与三网格独立实验放入同一篇文章。[项目技能定义](MoonshineThermalLab/project_skills/latex-research-report/SKILL.md) · [自动报告与本轮证据](MoonshineThermalLab/report_example/)。[使用指南](MoonshineThermalLab/README.md) · [数学研究任务](MoonshineThermalLab/thermal/prompts/05_signed_residual.txt) · [上游源码](https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615)
+想让智能体继续研究，在已登录本机 Codex CLI 的环境中双击 `启动热仿真研究.cmd`，在主菜单选 **1**，再选研究阶段 **5**。可以补充自己的问题，例如「找一组同样大小、位置不同的残差，说明为什么某个上界会改变」。新一轮的工具回执和实验文件保存在本机。项目使用上游 Moonshine 的证明、反例搜索、审核和归档流程；本地实现题目入口、模型接入、会话恢复和证据保存。前期运行原版 Moonshine 时，经本机 Codex 适配器调用 `gpt-6-astra`，两轮分别进行了 2,592 和 1,968 组精确检查。11 月 21 日的课程论文和 PPT 由 Codex 依据归档材料整理。同一个 LaTeX 报告技能也可生成最终课程论文，把七轮先期记录、两轮残差研究、四格验证与三网格独立实验放入同一篇文章。[项目技能定义](MoonshineThermalLab/project_skills/latex-research-report/SKILL.md) · [自动报告与本轮证据](MoonshineThermalLab/report_example/)。[使用指南](MoonshineThermalLab/README.md) · [数学研究任务](MoonshineThermalLab/thermal/prompts/05_signed_residual.txt) · [上游源码](https://github.com/DeepMathLLM/Moonshine/tree/bb0e4aa025fdcc5297fff1025ab4876f120ed615)
 
 ## 论文与课堂演示
 
-《人工智能与数学》课程论文（徐楷沅，2352163）给出误差界的推导、自研智能体与 DeepSeek 4.1 的两轮检验，以及大网格上的预测和部署实验。主菜单选 **7** 可从归档生成整篇论文。课堂 PPT 的演讲者备注解释了控制器、模型和数学工具各自完成的工作。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [早期备讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
+徐楷沅（2352163）的课程论文给出分块误差界的推导、两轮模型决策与精确回执，以及三个大网格的独立数值实验。主菜单选 **7** 可根据归档证据重新生成论文。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex)
+
+课堂演示共 18 张幻灯片，主讲 16 张，约 8 分钟。第 7、8 页展示三个自研模块，第 9、10 页依次展示反例和后续检验。第 16、17 页为隐藏的历史操作演示。现场放映时将 PPT、HTML 与四格实验报告 PDF 保存在同一个文件夹，演示按钮即可找到两个本地文件。[课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [打印逐字稿 PDF](MoonshineThermalLab/classroom/Moonshine课堂汇报_逐字稿.pdf) · [可编辑逐字稿 Word](MoonshineThermalLab/classroom/Moonshine课堂汇报_逐字稿.docx) · [离线演示 HTML](MoonshineThermalLab/classroom/Moonshine现场演示.html) · [四格实验示例报告](MoonshineThermalLab/classroom/moonshine-report.pdf) · [早期备讲稿与研究总结](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf)
 
 论文采用的前期导热求解器、七轮研究记录和冻结输入均可查阅。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [七轮研究记录](MoonshineThermalLab/evidence/iterations.json)

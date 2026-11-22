@@ -2,7 +2,7 @@
 
 《人工智能与数学》课程论文，徐楷沅（2352163）。给定一张近似温度图，哪些残差信息能帮助我们估计最大误差？论文给出分块误差界的证明，展示自研智能体怎样从一个精确反例决定下一轮检验，再用大网格检查实际回退次数。[阅读论文 PDF](paper.pdf) · [可独立编译的 LaTeX 源码](paper.tex)
 
-开发过程一节从本地有理数求解器写起，说明我们怎样将它注册为 Moonshine 工具、编写研究控制器和模型接口，再用真实回执检验整个流程。论文和课堂汇报的流程图沿用同样的分工标识，读者可以把图上的每一步与两次模型调用对照阅读。[课堂汇报 PPT](../classroom/Moonshine热仿真课堂汇报.pptx) · [研究控制器](../integration/bound_agent.py) · [真实模型决策与工具结果](../residual_study/agent_extension/live_trace.json)
+开发过程一节从本地有理数求解器写起，说明我们怎样将它注册为 Moonshine 工具、编写研究控制器和模型接口，再用真实回执检验整个流程。论文和课堂汇报的流程图沿用同样的分工标识，读者可以把图上的每一步与两次模型调用对照阅读。[课堂汇报 PPT](../classroom/Moonshine热仿真课堂汇报.pptx) · [逐字稿 PDF](../classroom/Moonshine课堂汇报_逐字稿.pdf) · [逐字稿 Word](../classroom/Moonshine课堂汇报_逐字稿.docx) · [研究控制器](../integration/bound_agent.py) · [真实模型决策与工具结果](../residual_study/agent_extension/live_trace.json)
 
 ## 论文采用哪些研究材料
 
@@ -12,7 +12,7 @@
 | [两轮原生数学研究](../residual_study/moonshine/) | 对照单端符号界、双端点区间及反例，追踪首轮补交证据后的复审。 |
 | [四格符号模式](../report_example/) | 从同号、条纹和棋盘三种精确解解释位置与符号的作用。 |
 | [自研智能体的本地策略](../residual_study/agent_extension/trace.json) | 三轮精确实验检验原猜想、双端点修正式与统一缩放倍数。 |
-| [阿里云百炼两轮真实调用](../residual_study/agent_extension/live_trace.json)与[复核程序](../residual_study/agent_extension/verify_live_trace.py) | 自研智能体保存任务、行动与反馈；DeepSeek 4.1 收到第一轮反例后，按题设条件提交第二次检验并总结有限域结论。 |
+| [阿里云百炼两轮真实调用](../residual_study/agent_extension/live_trace.json)与[复核程序](../residual_study/agent_extension/verify_live_trace.py) | 自研智能体保存任务、行动与反馈；DeepSeek 4.1 Flash 收到第一轮反例后，按题设条件提交第二次检验并总结有限域结论。 |
 | [三网格逐例数据及留出实验](../residual_study/results/) | 区分固定预测上的报警与每种策略独立回退，比较预测精度、代价和适用范围。 |
 
 从同一批旧预测出发，原判据与双端点界分别发出 47 次、29 次报警。每种策略独立更新降阶基时，实际回退分别为 47 次、40 次。三网格计时均未显示双端点策略的总耗时优势。

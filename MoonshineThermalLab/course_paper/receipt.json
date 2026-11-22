@@ -4,7 +4,7 @@
   "invocation": "requested_course_paper",
   "skill": "latex-research-report",
   "project": "thermal-rom",
-  "session_id": "paper-export-20261122-133233-5fe71c0d91a5",
+  "session_id": "paper-export-20261122-171616-b409b62dbc45",
   "sections": [
     "problem",
     "bounds",
@@ -26,17 +26,17 @@
     "integration/paper_evidence.py": "c22de51d62f1f27d6812bda5c5ad3959a1e063125c6ea12284efc683ef512e3d",
     "integration/paper_sources.sha256": "f487ddfe54b54f6e14aea3bb94a569eb63240e34cc99d367e22cfca1b6611058",
     "integration/paper_latex.py": "7e0ad0d7c52730bdf22cdb1e3413e7963565d8e14310c2f0312c0e15ddcfa6bf",
-    "integration/paper_template.tex": "8c4d766ec85ae1479dc6888c2157fbe75e040b728f67c87646982440495ab698",
+    "integration/paper_template.tex": "5e744aa87112946500af80f9f3d91b8982c66e947137d8c79e09a854237fabb2",
     "source_manifest.json": "f5b2dd4ce458ec12500716817c2f2500cb1b037e32091e622b1e8881fadef6a4"
   },
   "outputs": {
-    "load_skill_definition.json": "96dc1f2e2397b2f0a809a45a6e63ab312fd6f07052779d59c28f64cbc20db6c3",
-    "paper.pdf": "92ca17f0793bf28b6df839a3c8bf22234b0d2592b211269d55336dfab29584a5",
-    "paper.tex": "9826a821867da350747d4288192bd21a68cfb32dca8cc2605add20f1768963e6",
+    "load_skill_definition.json": "cc4549c3a49f854fe41a049a0925245f8f42805543c9cbb4e8f2c04ecf59cdf7",
+    "paper.pdf": "af7e47306a07f34399ef7225bd9f18b15b093351f462530b55cb5df446a4bb3c",
+    "paper.tex": "7561f0ae5451971ca1d7d2270bcdbddb47b5d567a3f38f4265e0addef1f2dbfe",
     "paper_input.json": "9d158bf0179407ad2ef90bb17ecd3cde85af841f260ac781d5b9955ccbb1b310"
   },
   "status": "compiled",
   "compile_status": "compiled",
   "message": "LaTeX 源文件及 PDF 均已生成。",
-  "finished_at_utc": "2026-11-22T13:32:41.075843+00:00"
+  "finished_at_utc": "2026-11-22T17:16:26.773339+00:00"
 }
