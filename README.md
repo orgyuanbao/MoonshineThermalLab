@@ -12,6 +12,8 @@
 
 我们还编写了模型适配器，把上一轮的工具结果连同原始目标交给 DeepSeek 4.1，由模型选择下一次检验或结束。在真实的两轮实验中，第二次仍使用同一个工具，只把候选式从 `weak_signed` 改为 `block_two_endpoint`。课堂汇报用流程图标出了这条反馈路径。[模型适配器](MoonshineThermalLab/integration/bound_agent_model.py) · [离线复核这两次运算](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
 
+![研究者给定条件，DeepSeek 4.1 选择检验或结束，自研控制器经 Moonshine 调用精确检验工具，并把结果送回模型](MoonshineThermalLab/classroom/residual-bound-agent-flow.png)
+
 ## 运行残差上界研究智能体
 
 进入 `MoonshineThermalLab` 子目录，首次使用先运行 `安装环境.cmd`。双击 `启动热仿真研究.cmd`，选 **8**，再回车，即可看见智能体依次检验原猜想、修正式和收紧后的倍数。终端逐轮显示精确值，并给出本次研究记录的位置。这一模式可以离线运行。[控制器](MoonshineThermalLab/integration/bound_agent.py) · [三轮实际记录](MoonshineThermalLab/residual_study/agent_extension/trace.json)

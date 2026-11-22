@@ -68,7 +68,8 @@ def check_export(folder, *, published):
                 "residual_study/results/closed_loop_cases.csv", "residual_study/results/fresh_stream.json",
                 "integration/residual_tool.py", "integration/bound_agent.py", "residual_study/agent_extension/trace.json",
                 "residual_study/agent_extension/replay.py", "residual_study/agent_extension/live_trace.json",
-                "residual_study/agent_extension/verify_live_trace.py"}
+                "residual_study/agent_extension/verify_live_trace.py","integration/bound_agent_cli.py",
+                "integration/test_residual_tool.py","integration/test_bound_agent.py"}
     require(required <= sources.keys(), "Missing research histories or benchmark data.")
     check_files(ROOT, sources)
 

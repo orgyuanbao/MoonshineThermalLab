@@ -29,6 +29,9 @@ class PaperEvidenceTests(unittest.TestCase):
         self.assertEqual(extension["mode"], "deterministic_controller")
         self.assertEqual(extension["model_calls"], 0)
         self.assertTrue(all(path in evidence["source_sha256"] for path in extension["citation_paths"]))
+        self.assertEqual(set(evidence["development_sources"]),
+                         {"integration/bound_agent_cli.py","integration/test_residual_tool.py","integration/test_bound_agent.py"})
+        self.assertTrue(set(evidence["development_sources"]) <= evidence["source_sha256"].keys())
         live = evidence["live_model_study"]
         self.assertEqual(live["model"], "DeepSeek 4.1")
         self.assertEqual([s["result"]["checked_cases"] for s in live["steps"]], [90, 1296])

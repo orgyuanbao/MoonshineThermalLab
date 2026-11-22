@@ -11,6 +11,7 @@ SECTION_ORDER = ("problem","bounds","four_cell","research","agent_extension","ex
 BASE = "https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/"
 NATIVE_EXTENSION_REVISION = "de5b7fb28e46a1749973d6d0a9c36d77a25c08ef"
 LIVE_STUDY_REVISION = "2dcd69b437bc5320c67c68d2010bd85d07e7715f"
+DEVELOPMENT_REVISION = "8304becd729d999fa364f6ec7e869a3d229c5ab8"
 METHODS = {"analytic":"原解析标量", "sharp_scalar":"最优统一标量", "block_abs":"分块幅度",
            "block_sign":"单端符号", "two_endpoint":"双端点符号"}
 HISTORY = ("求解器校验、修复与产物检查", "复核热求解器并补做审核", "构造 POD 基线与失效分析",
@@ -136,6 +137,8 @@ def material_links(evidence):
                 if path in evidence["agent_extension"]["citation_paths"] else BASE)
         if path in (live["source_path"], live["verifier_path"]):
             base = f"https://github.com/orgyuanbao/MoonshineThermalLab/blob/{LIVE_STUDY_REVISION}/MoonshineThermalLab/"
+        if path in evidence["development_sources"]:
+            base = f"https://github.com/orgyuanbao/MoonshineThermalLab/blob/{DEVELOPMENT_REVISION}/MoonshineThermalLab/"
         address = base + quote(path,safe="/") + (fr"\#L{line}" if line else "")
         return r"\href{" + address + "}{" + esc(label) + "}"
     turns = evidence["signed"]["turns"]
@@ -153,6 +156,11 @@ def material_links(evidence):
                     (evidence["agent_extension"]["http_path"], "接口自测")]))
     groups.append(("F", "真实模型的两轮检验",
                    [(live["source_path"], "任务、工具回执与结束结论"), (live["verifier_path"], "精确复核程序")]))
+    groups.append(("G", "智能体开发与验证",
+                   [("integration/bound_agent_model.py", "模型适配器"),
+                    ("integration/bound_agent_cli.py", "逐轮保存"),
+                    ("integration/test_residual_tool.py", "数学工具测试"),
+                    ("integration/test_bound_agent.py", "控制器测试")]))
     out = [
         r"\par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}",
         r"\noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}",
@@ -200,7 +208,7 @@ def extension_values(trace):
     scaled_witness = scaled["witness"]
     def vector(values):
         return r"\bigl(" + ",".join(frac(v) for v in values) + r"\bigr)"
-    return {"TOOL_STEPS": "\n".join(rows), "TOOL_MODEL_CALLS": trace["model_calls"],
+    return {"TOOL_STEPS": "\n".join(rows), "TOOL_MODEL_CALLS": trace["model_calls"], "HTTP_REQUESTS": trace["http_requests"],
             "SCALE_FACTOR": frac(scaled["scale"]),
             "SCALE_R": vector(scaled_witness["residual"]), "SCALE_ERROR": frac(scaled_witness["true_error_inf"]),
             "SCALE_BOUND": frac(scaled_witness["candidate_bound"])}

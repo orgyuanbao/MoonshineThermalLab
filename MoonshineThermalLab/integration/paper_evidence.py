@@ -378,13 +378,15 @@ def build_paper_evidence(root: Path) -> dict:
     archived = signed["turns"][1]["stdout"]["counterexample"]
     require(Fraction(exact["unsafe_shortcut_counterexample"]["actual_norm"]) == Fraction(archived["actual_error"]["exact"]),
             "Independent and native counterexample magnitudes differ")
+    development_sources = ["integration/bound_agent_cli.py","integration/test_residual_tool.py",
+                           "integration/test_bound_agent.py"]
     for path in ("residual_study/bounds.py","residual_study/exact_audit.py","residual_study/run_experiment.py",
-                 "residual_study/fresh_stream.py"):
+                 "residual_study/fresh_stream.py",*development_sources):
         archive.bytes(path)
     require(set(archive.hashes) == set(archive.expected), "The course paper used a different set of archived inputs")
     sources = [{"path": key, "sha256": value} for key, value in sorted(archive.hashes.items())]
     return {"schema_version":3, "history":history, "signed":signed, "four_cell":four_cell, "agent_extension":extension,
-            "live_model_study":live,
+            "live_model_study":live, "development_sources":development_sources,
             "benchmark":benchmark, "summary":summary, "receipts":receipts, "fresh":fresh, "exact":exact,
             "sources": sources, "source_sha256": dict(sorted(archive.hashes.items()))}
 

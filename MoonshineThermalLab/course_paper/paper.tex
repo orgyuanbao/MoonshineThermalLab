@@ -2,6 +2,7 @@
 \documentclass[UTF8,a4paper,12pt]{ctexart}
 \usepackage[left=23.5mm,right=23.5mm,top=22mm,bottom=22mm,headheight=15pt,headsep=6mm,footskip=10mm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,array,tabularx,tikz,xcolor,fancyhdr,hyperref,needspace}
+\usetikzlibrary{arrows.meta}
 \definecolor{ink}{gray}{0}
 \definecolor{muted}{gray}{.26}
 \definecolor{hair}{gray}{.62}
@@ -218,26 +219,38 @@
 \papersectionbreak
 \clearpage
 \section{自研残差上界研究智能体}\label{extension}
-早期研究中，Moonshine 为不同猜想编写并运行 Python 程序。为了让同一个程序根据反例继续试验，我们开发了残差上界研究智能体（Residual Bound Agent）。自研控制器保存目标、已检验的候选式和工具回执，把最新观测交给决策策略，再执行下一次检验或结束研究。每完成一次数学检验，控制器便将结果写入本轮记录。
+早期研究中，Moonshine 为不同猜想分别编写并运行 Python 程序。要比较两个候选式，我们希望第二次检验能读到第一次的反例，并沿用完全相同的数学问题。为此，我们开发了残差上界研究智能体（Residual Bound Agent）。
 
-\para{工具怎样检验一个猜想} 我们编写的 \texttt{check\_residual\_bound} 通过 Moonshine 的工具管理器注册和执行。令 $H(r,\mu)$ 为待测上界。在 $2\times2$ 网格上，工具枚举边界系数和残差，以有理数运算计算 $e=G_\mu r$。一旦发现 $\norm e>H(r,\mu)$，就返回这组工况、真实误差和候选上界；遍历结束则报告检查的范围及数量。默认四边各取 $\{1/5,5\}$，四格残差各取 $\{-1,0,1\}$，共 $2^4\,3^4=1296$ 组。
+\para{把数学问题写成可重复调用的工具} 我们从四格检验程序中复用有理数矩阵求逆和分块包络计算，编写 \texttt{check\_residual\_bound}。输入是候选界 $H(r,\mu)$ 的名称、分块、缩放倍数与枚举域。程序逐组比较 $\norm{G_\mu r}$ 与 $H(r,\mu)$。若前者更大，它返回边界、残差、精确解和差额；若枚举完毕，则返回已检查数与总数。我们将工具定义及处理函数注册到 Moonshine 的 \texttt{ToolManager}，两轮检验都通过它调度同一个本地函数。
 
-\para{两种决策策略} 直接运行 \texttt{python thermal\_agent.py investigate}，本地策略遇到反例后会尝试双端点界，再根据通过的倍数和已有见证选择新的缩放倍数。增加 \texttt{-{}-model} 参数则启用模型策略。控制器从 \texttt{.env} 读取服务配置，将目标和工具回执交给模型，模型返回下一次工具调用或结束说明。两种策略共用控制器和有理数工具。研究结束后，报告技能从归档记录提取推导和实测数值。
+\para{让下一步取决于已完成的检验} 我们编写控制器维护研究目标、剩余轮数和有序历史，另写适配器把可用工具和前几轮结果送入 DeepSeek 4.1。模型可选检验或结束。控制器核对行动、重复候选与预算；收到工具结果后校验其完整性，保存记录。适配器用调用标识将结果与相应请求配对，交给模型选择下一步。
 
-\par\medskip\noindent\begin{minipage}{\linewidth}
-\capline{表 2}{本地策略的三轮精确检验（模型调用 0 次）}
-\vspace{2mm}\tabletype
-\begin{tabular*}{\linewidth}{@{}c@{\extracolsep{\fill}}lrrl@{}}
-\toprule {\columnhead 次序}&{\columnhead 候选式}&{\columnhead 实查}&{\columnhead 域内总数}&{\columnhead 结果}\\\midrule
-1 & $\norm{G_w r}$ & 90 & 1296 & 找到反例 \\
-2 & $\eta_2$ & 1296 & 1296 & 域内未见反例 \\
-3 & $\tfrac{1}{2}\,\eta_2$ & 1 & 1296 & 找到反例 \\
-\bottomrule\end{tabular*}\end{minipage}\par
-
-
-
-\para{能否再乘一个小于 1 的常数？} 智能体接着将同一双端点上界乘以 $\tfrac{1}{2}$。在四边均取弱端点、$r=\bigl(-1,-1,-1,-1\bigr)^\top$ 时，实测 $\norm e=\tfrac{21}{4}$，缩放上界仅为 $\tfrac{21}{8}$。由这一见证反推，原双端点上界在此例恰好等于真实误差。因此对本模型的单格分块，统一下调所有工况的倍数会失效；其他工况仍可有余量。
-\source{智能体控制程序、反例工具、实际调用顺序及复算入口见 \hyperref[materials]{材料 E}。}
+\par\medskip\noindent\begin{minipage}{\linewidth}\centering
+\begin{tikzpicture}[
+ x=1cm,y=1cm,
+ actor/.style={draw=ink,fill=white,line width=.54pt,minimum width=4.28cm,minimum height=1.07cm,align=center,inner sep=3pt,font=\small},
+ ours/.style={actor,fill=tint,line width=.85pt},
+ link/.style={-{Stealth[length=2.1mm,width=1.35mm]},line width=.65pt,draw=ink},
+ labeltext/.style={font=\footnotesize\paperlabel,fill=white,inner sep=1.6pt}]
+\node[actor] (task) at (0,0) {\textbf{研究者}\\给定候选式与切换条件};
+\node[actor] (model) at (5.15,0) {\textbf{DeepSeek 4.1}\\选择检验或结束};
+\node[ours] (control) at (10.30,0) {\textbf{自研控制器}\\核对行动与轮数预算};
+\node[actor] (moon) at (10.30,-2.70) {\textbf{Moonshine 工具管理器}\\按已注册的定义分派调用};
+\node[ours] (tool) at (5.15,-2.70) {\textbf{自研精确检验工具}\\有理数枚举并产生结果};
+\node[ours] (record) at (0,-2.70) {\textbf{自研控制器与适配器}\\核验、保存并回传结果};
+\node[draw=ink,fill=tint,rounded corners=2mm,inner xsep=4mm,inner ysep=1.4mm,font=\small] (stop) at (5.15,1.53) {自研控制器保存结束结论};
+\draw[link] (task.east)--(model.west);
+\draw[link] (model.east)--node[midway,above,font=\scriptsize]{检验}(control.west);
+\draw[link] (model.north)--node[midway,right,labeltext]{结束}(stop.south);
+\draw[link] (control.south)--(moon.north);
+\draw[link] (moon.west)--(tool.east);
+\draw[link] (tool.west)--(record.east);
+\draw[link] (record.north)--(0,-1.35)--node[midway,above,labeltext]{上轮的实际结果}(5.15,-1.35)--(model.south);
+\end{tikzpicture}
+\par\raggedright\vspace{2mm}\capline{图 2}{自研智能体从候选式检验到结果反馈的流程}
+\figurenote{浅灰框为项目实现。第一次回传第 90 组反例，模型随后请求检验双端点式；第二次回传检查完 1296 组的结果，模型选择结束。}\end{minipage}\par
+\para{把接口接到同一条研究循环} 为了单独调试决策与计算，我们让本地规则直接返回候选名；换用模型后，适配器从模型响应中解析相同格式的候选名和参数。控制器因而可以原样复用检验工具。例如，第一轮回传的精确差额是 $\tfrac{1764}{6187}$。模型接收这条反例后请求下一次检验，自研工具再按候选式和边界参数重新求解。两轮的误差数值均来自本机计算。
+\source{开发所用的控制器、模型适配器、数学工具与校验用例见 \hyperref[materials]{材料 E、G}。}
 
 \clearpage
 \subsection*{模型实测：DeepSeek 4.1 如何根据反例进入第二轮}
@@ -262,8 +275,28 @@
 
 \para{何时停止} 收到第二份回执后，模型结束研究，报告原式的具体反例，并将对修正式的判断限定在给定工况。结束答复的原文节选如下：
 \begin{quote}\small 这只是有限离散搜索得到的证据，并不构成连续参数上的证明。\end{quote}
-\noindent 连续参数盒上的保证来自命题二。此会话留下两次工具调用和一次结束决策；上一页的半倍试验属于另外运行的本地策略。
+\noindent 连续参数盒上的保证来自命题二。图 2 的反馈路径在此会话中实际走过两次，最终留档两次工具调用和一次结束决策。
 \source{原始任务、模型选择的参数、逐轮有理数结果与结束答复均见 \hyperref[materials]{材料 F}。所附复核程序可在本机重新计算两轮数学结果。}
+
+\clearpage
+\subsection*{开发验证与独立的本地策略试验}
+\para{从数学工具查到模型接口} 我们先用工具返回的边界和四格误差向量重算 $A_\mu e$，逐格核对是否还原了输入残差。再给控制器一个声称“搜索完毕”但只查过一组的结果，检查它能否停止并保留此前已验证的步骤。最后用本机模拟服务检查调用标识与工具结果是否正确配对；其中 3 次 HTTP 交互由测试程序应答。上一页的在线实验才使用阿里云百炼上的 DeepSeek 4.1。结束在线实验后，可以离线重算原记录中的两个工具结果，逐项核对分数和计数。
+
+\para{让运行可以中断和复核} 在交互入口，每完成一次数学检验，程序先写入临时文件，再替换本轮的 JSON 记录。这样，即使在下一次响应到来前按下中断键，已经完成的轮次仍可查看。记录包含目标、模型选过的参数、工具返回值与结束原因。报告技能在事后读取这些材料生成论文。
+
+\para{用另一种策略单独检查停止规则} 直接运行 \texttt{python thermal\_agent.py investigate} 会使用项目编写的本地策略。在默认域中，四边各取 $\{1/5,5\}$，四格残差各取 $\{-1,0,1\}$，共有 $2^4\,3^4=1296$ 组。该策略遇到反例后选择修正式，再由已知可行倍数与见证给出的下限选择下一次缩放倍数。表 2 记录这次独立运行。
+
+\par\medskip\noindent\begin{minipage}{\linewidth}\capline{表 2}{本地策略的三轮精确检验（模型调用 0 次）}
+\vspace{2mm}\tabletype
+\begin{tabular*}{\linewidth}{@{}c@{\extracolsep{\fill}}lrrl@{}}
+\toprule {\columnhead 次序}&{\columnhead 候选式}&{\columnhead 实查}&{\columnhead 域内总数}&{\columnhead 结果}\\\midrule
+1 & $\norm{G_w r}$ & 90 & 1296 & 找到反例 \\
+2 & $\eta_2$ & 1296 & 1296 & 域内未见反例 \\
+3 & $\tfrac{1}{2}\,\eta_2$ & 1 & 1296 & 找到反例 \\
+\bottomrule\end{tabular*}\end{minipage}\par
+
+\para{能否再乘一个小于 1 的常数？} 本地策略第三次调用将双端点上界乘以 $\tfrac{1}{2}$。在四边均取弱端点、$r=\bigl(-1,-1,-1,-1\bigr)^\top$ 时，实测 $\norm e=\tfrac{21}{4}$，缩放上界仅为 $\tfrac{21}{8}$。由这一见证反推，原双端点上界在此例恰好等于真实误差。因此对本模型的单格分块，统一下调所有工况的倍数会失效；其他工况仍可有余量。
+\source{本地策略的数学结果见 \hyperref[materials]{材料 E}，写盘、异常处理与测试入口见材料 G。}
 
 \papersectionbreak
 \clearpage
@@ -283,7 +316,7 @@
 \bottomrule\end{tabular*}\end{minipage}\par\smallskip
 旧轨迹对照中，新界令报警减少 18 次。策略独立学习后，实际少做 7 次完整求解。初期增广一次基会改变多个后续工况，因此不能用一组计数替代另一组。
 \para{一次恰好改变决定的预测} 第 11 次 $48^2$ 网格预测的四边系数为\par\centerline{$(h_L,h_R,h_D,h_U)=(1.8110, 1.0467, 3.4027, 3.7954)$。}
-\noindent 图 2 将两个上界除以阈值；原值分别为 $0.00102159$ 和 $0.00092555$。同一行的完整参照解给出最大误差约为 $1.73\times 10^{-6}$。
+\noindent 图 3 将两个上界除以阈值；原值分别为 $0.00102159$ 和 $0.00092555$。同一行的完整参照解给出最大误差约为 $1.73\times 10^{-6}$。
 \par\medskip\noindent\begin{minipage}{\linewidth}\centering \begin{tikzpicture}[x=1cm,y=1cm,inner sep=0pt]
 \path[use as bounding box] (0,-.67) rectangle (14.85,2.25);
 \node[anchor=west,text=muted,font=\footnotesize\sffamily] at (0,2.02) {残差信息};
@@ -311,7 +344,7 @@
 \node[anchor=west,text=ink,font=\normalsize] at (11.0,0.500) {$0.926$};
 \node[anchor=west,text=black,font=\small\sffamily\bfseries] at (13.17,0.500) {接受};
 \end{tikzpicture}\par\raggedright\vspace{2.2mm}
-\capline{图 2}{空间上界刚越过阈值，正负分离后可直接接受}
+\capline{图 3}{空间上界刚越过阈值，正负分离后可直接接受}
 \source{逐次数据、参数和计时口径见 \hyperref[materials]{材料 D}。}\end{minipage}\par
 
 \papersectionbreak
@@ -335,7 +368,7 @@ $96^2$ & 0.5917 & 0.5790 & 0.6159 & 2.250 \\
 \papersectionbreak
 \clearpage
 \section{复核材料与文献}\label{materials}
-材料 B 和 C 保存原生研究推导，D 保存大网格的逐次结果；E 和 F 分别记录自研智能体的本地策略、真实模型会话。模型会话中的两次工具运算可离线复核。论文表格均从归档取值。
+材料 B 和 C 保存原生推导，D 保存大网格逐次结果。E、F 分别记录本地策略和真实模型会话，G 列出开发时的运行入口与测试。论文表格从归档取值。
 \par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}
 \noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}
 \toprule\multicolumn{2}{@{}l}{\sffamily\bfseries 研究材料} & \sffamily\bfseries 原始记录 \\ \midrule
@@ -345,6 +378,7 @@ $96^2$ & 0.5917 & 0.5790 & 0.6159 & 2.250 \\
 {\sffamily\bfseries D} & 独立大网格与补充复核 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/paired_cases.csv}{配对预测}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/closed_loop_cases.csv}{独立部署}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/summary.json}{汇总与计时}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/fresh_stream.json}{追加参数流}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/residual_study/results/exact_audit.json}{四格穷举} \\
 {\sffamily\bfseries E} & 自研智能体与反例检验 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/integration/bound_agent.py}{控制程序}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/integration/residual_tool.py}{反例工具}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/residual_study/agent_extension/trace.json}{调用记录}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/residual_study/agent_extension/replay.py}{复放程序}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/residual_study/agent_extension/http_fixture.json}{接口自测} \\
 {\sffamily\bfseries F} & 真实模型的两轮检验 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/2dcd69b437bc5320c67c68d2010bd85d07e7715f/MoonshineThermalLab/residual_study/agent_extension/live_trace.json}{任务、工具回执与结束结论}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/2dcd69b437bc5320c67c68d2010bd85d07e7715f/MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py}{精确复核程序} \\
+{\sffamily\bfseries G} & 智能体开发与验证 & \href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/de5b7fb28e46a1749973d6d0a9c36d77a25c08ef/MoonshineThermalLab/integration/bound_agent_model.py}{模型适配器}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/8304becd729d999fa364f6ec7e869a3d229c5ab8/MoonshineThermalLab/integration/bound_agent_cli.py}{逐轮保存}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/8304becd729d999fa364f6ec7e869a3d229c5ab8/MoonshineThermalLab/integration/test_residual_tool.py}{数学工具测试}\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}\href{https://github.com/orgyuanbao/MoonshineThermalLab/blob/8304becd729d999fa364f6ec7e869a3d229c5ab8/MoonshineThermalLab/integration/test_bound_agent.py}{控制器测试} \\
 \bottomrule\end{tabularx}\par\endgroup
 \para{三份原生推导的原式} 下表保留草稿记号，行号链接到原文。
 \par\smallskip\begingroup\small

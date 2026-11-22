@@ -5340,6 +5340,11 @@
     "source_path": "residual_study/agent_extension/live_trace.json",
     "verifier_path": "residual_study/agent_extension/verify_live_trace.py"
   },
+  "development_sources": [
+    "integration/bound_agent_cli.py",
+    "integration/test_residual_tool.py",
+    "integration/test_bound_agent.py"
+  ],
   "benchmark": {
     "grids": [
       24,
@@ -9140,6 +9145,10 @@
       "sha256": "fee37ce90db5c3491facee6697c3470f67da5492df0b61f7a44cc76ad18bfb23"
     },
     {
+      "path": "integration/bound_agent_cli.py",
+      "sha256": "2829f7f8c6e09d6ba8314c5ed9ea7150393fc1165ea1a37d3b3133e3e2f8bd87"
+    },
+    {
       "path": "integration/bound_agent_model.py",
       "sha256": "1e2731987e9feb4fdde317c2f2512c3fb7a4ffa9da88aa58c3903cb788c92bb4"
     },
@@ -9148,8 +9157,16 @@
       "sha256": "e3b1cbdfbf7239c669cf151605217ddda8998005c20abf3cc6105d2adf11bddc"
     },
     {
+      "path": "integration/test_bound_agent.py",
+      "sha256": "9e8673250019c8e6f81af31c831b4cbcb66a8fa5d87756218ac9eaa17cc23b4b"
+    },
+    {
       "path": "integration/test_bound_agent_http.py",
       "sha256": "5f19a4750bf86b5f6ec35245c0f11cc0e431b21f3648e80d65d9e7077b0f4a35"
+    },
+    {
+      "path": "integration/test_residual_tool.py",
+      "sha256": "6809b10b2e9c2d08be6cdf1268b6842445e96e967ba65840fa0ed65d4e46b0f9"
     },
     {
       "path": "report_example/input.txt",
@@ -9389,9 +9406,12 @@
     "evidence/independent-checks.json": "effbf0d50c32802e5604735a32d1b85b0229545370ed83c5104381e3c383fafb",
     "evidence/iterations.json": "80998079c65c30f6d51533e6a10295fd1adc916ea3788e44ae0d8e76565e107a",
     "integration/bound_agent.py": "fee37ce90db5c3491facee6697c3470f67da5492df0b61f7a44cc76ad18bfb23",
+    "integration/bound_agent_cli.py": "2829f7f8c6e09d6ba8314c5ed9ea7150393fc1165ea1a37d3b3133e3e2f8bd87",
     "integration/bound_agent_model.py": "1e2731987e9feb4fdde317c2f2512c3fb7a4ffa9da88aa58c3903cb788c92bb4",
     "integration/residual_tool.py": "e3b1cbdfbf7239c669cf151605217ddda8998005c20abf3cc6105d2adf11bddc",
+    "integration/test_bound_agent.py": "9e8673250019c8e6f81af31c831b4cbcb66a8fa5d87756218ac9eaa17cc23b4b",
     "integration/test_bound_agent_http.py": "5f19a4750bf86b5f6ec35245c0f11cc0e431b21f3648e80d65d9e7077b0f4a35",
+    "integration/test_residual_tool.py": "6809b10b2e9c2d08be6cdf1268b6842445e96e967ba65840fa0ed65d4e46b0f9",
     "report_example/input.txt": "3e206c62d33439497603e3d8cd424b0057c2f87145002eca2d8959153cdb84f1",
     "report_example/installed_skill.md": "3effd8e4a1f7cfcf60cab4262bc4a2740aac82df85f382cc8ce402ee8fd13bc6",
     "report_example/load_skill_definition.json": "ec08171a27179477ba336778f163432ebe03d0e0a58d1142decebd91f3c0020e",
