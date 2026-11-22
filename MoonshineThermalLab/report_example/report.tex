@@ -1,0 +1,127 @@
+% Created by MoonshineThermalLab report_latex
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[margin=25mm,top=24mm,bottom=24mm]{geometry}
+\usepackage{amsmath,amssymb,xcolor,booktabs,array,longtable,fancyhdr}
+\definecolor{ink}{HTML}{162F40}
+\definecolor{accent}{HTML}{176563}
+\definecolor{muted}{HTML}{4D616B}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\color{muted}Moonshine\quad 数学研究记录}
+\fancyfoot[C]{\small\color{muted}\thepage}
+\setlength{\headheight}{16pt}
+\ctexset{section={format=\Large\bfseries\color{ink}},subsection={format=\large\bfseries\color{accent}}}
+\setlength{\parskip}{.38em}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{4em}
+\raggedbottom
+\begin{document}
+
+{\small\sffamily\bfseries\color{accent} MOONSHINE \quad / \quad RESEARCH REPORT}\par
+\vspace{.45em}{\LARGE\bfseries\color{ink} 四格散热算例：残差位置与正负对最大误差有什么影响？}\par
+\vspace{.25em}{\color{accent}\rule{\linewidth}{.8pt}}\par
+{\small\color{muted} 项目\enspace four-\allowbreak{}cell-\allowbreak{}re\allowbreak{}sidual-\allowbreak{}modes\allowbreak{}\quad 研究轮次\enspace 20261122-\allowbreak{}144\allowbreak{}417-\allowbreak{}c47f26d4\allowbreak{}\quad 模型\enspace gpt-\allowbreak{}6-\allowbreak{}astra\quad 任务状态\enspace 本轮局部结果已执行、审核\allowbreak{}并归档。}\par
+{\small\color{muted} 会话\enspace session-\allowbreak{}952a\allowbreak{}9aabdb}\par
+\section{研究问题}
+四格散热算例：残差位置与正负对最大误差有什么影响？
+
+在 2\ensuremath{\times }2 单位正方形有限体积网格上，固定四条边的 Robin 系数 h=1/5。格号从下到上按行排列为 1、2、3、4。离散误差 e 满足 A e = r。A 为正方形的无权图拉普拉斯加 (4/21)I，边集为 (1,2)、(1,3)、(2,4)、(3,4)。研究本轮三个等幅残差向量 (1,1,1,1)、(1,1,-1,-1)、(1,-1,-1,1)。只有本题指定的边界及网格属于本次严格证明范围。
+
+请推导三个向量对应的精确 ||e||\ensuremath{\infty }；比较统一界 ||A\ensuremath{{}^{-1}}1||\ensuremath{\infty } ||r||\ensuremath{\infty } 是否能区分三者。若利用残差的位置和符号，你能给出多紧的界？解释哪两个例子仅靠正负数量无法区分，说明推广到任意残差或变化边界时还需要什么。请自行推导数值。
+
+本轮用 Moonshine 原生工具完成。先把标准库 Fraction 精确解或回代检查程序写到 workspace/experiments/mode\_check.py，再用 run\_python\_script 真正执行。标准输出用简洁 JSON 对象，含每种模式的英文短名称、精确解的无穷范数、基线和验证结果，勿输出巨大矩阵。将独立可读的中文推导保存为 workspace/mode\_proof.md，数学可用单行 \(...\)。用 verify\_overall(scope="intermediate", review\_count=1) 审核该局部结论，给审核器具体路径、执行数值、假设和局限；保存可复查的归档。高效使用一轮研究：可将脚本与推导的写操作合并在同一轮，再运行、审核。研究成功后，宿主将用 Moonshine 原生加载器调用扩展技能 latex-research-report 整理 LaTeX 报告；本轮专注写出可供该技能引用的已审核推导、数据和局限。
+\section{推导与数学结论}
+\subsection*{审核对应的推导 1}
+\subsubsection*{四格散热算例：残差的位置、符号与最大误差}
+
+本文是固定离散系统的局部推导，供后续 LaTeX 报告引用。当前文件写入时尚未执行程序或完成独立审核；执行证据以 workspace/mode\_results.json 及原生工具返回为准，审核状态以后续审核归档为准。
+
+\subsubsection*{1. 假设、编号与可逆性}
+
+单位正方形采用 2\ensuremath{\times }2 有限体积网格，下排从左到右为 1、2，上排从左到右为 3、4。四条边的 Robin 系数固定为 h=1/5。本推导以题目直接给出的矩阵为依据，不额外推断从 Robin 条件到矩阵系数的离散过程。令边集 E=\{(1,2),(1,3),(2,4),(3,4)\}，无权图拉普拉斯为 L，A=L+(4/21)I，误差与残差满足 Ae=r，r 属于实四维空间。每个顶点度数为 2，故 A 对角元为 46/21，相邻顶点间的元素为 -1，其余元素为 0。无穷范数定义为各分量绝对值的最大值。
+
+任意非零实向量 x 满足 \(x^T A x=\sum_{(i,\allowbreak{}j)\in E}(x_i-x_j)^2+(4/21)\sum_i x_i^2>0\)，所以 A 对称正定，方程解唯一。
+
+\subsubsection*{2. 三个模式的精确误差}
+
+记常量模式 \(u=(1,\allowbreak{}1,\allowbreak{}1,\allowbreak{}1)^T\)，横条纹模式 \(s=(1,\allowbreak{}1,\allowbreak{}-1,\allowbreak{}-1)^T\)，棋盘格模式 \(q=(1,\allowbreak{}-1,\allowbreak{}-1,\allowbreak{}1)^T\)。拉普拉斯的分量公式为 \((Lv)_i=\sum_{j\sim i}(v_i-v_j)\)。
+
+常量模式中，每条边两端相等，因此 Lu=0。横条纹模式中，每个顶点的一名邻居同号，另一名邻居异号，所以 Ls=2s。棋盘格模式中，每个顶点的两名邻居均异号，所以 Lq=4q。这些计算直接使用了正负号的空间位置。
+
+于是 \(Au=(4/21)u\)、\(As=(46/21)s\)、\(Aq=(88/21)q\)。通过唯一性，残差分别取 u、s、q 时，解分别为 \(e_u=(21/4)u\)、\(e_s=(21/46)s\)、\(e_q=(21/88)q\)。因为三个残差的无穷范数都为 1，对应精确误差范数分别是 \(21/4\)、\(21/46\)、\(21/88\)。这些数值来自代数推导，程序执行前不作为实验结果陈述。
+
+\subsubsection*{3. 统一基线的有效性与信息损失}
+
+先证明 A 的逆逐项非负。若 Ax=b 且 b 逐项非负，假设 x 的最小分量 x\_k<0，则每个邻居满足 x\_j\ensuremath{\ge }x\_k，因此 \((Ax)_k=\sum_{j\sim k}(x_k-x_j)+(4/21)x_k<0\)，与 b\_k\ensuremath{\ge }0 矛盾。所以 x\ensuremath{\ge }0。将 b 依次取坐标单位向量，就得到 A\ensuremath{{}^{-1}} 逐项非负。
+
+由 \(Au=(4/21)u\) 得到 \(A^{-1}u=(21/4)u\)。逐分量三角不等式与非负性给出 \(|A^{-1}r|\le A^{-1}|r|\le (21/4)\Vert r\Vert_{\infty}u\)，从而统一基线为 \(B(r)=\Vert A^{-1}u\Vert_{\infty}\Vert r\Vert_{\infty}=(21/4)\Vert r\Vert_{\infty}\)。对本题三个残差，基线均为 21/4，无法区分。对所有实残差而言，这个仅使用残差无穷范数的常数不能改小，因为常量模式已经取等。
+
+横条纹的基线与真实误差之比为 \((21/4)/(21/46)=23/2\)，棋盘格为 \((21/4)/(21/88)=22\)。即使使用逐位置幅值界 \(\Vert A^{-1}|r|\Vert_{\infty}\)，本题也仍得到相同的 21/4，因为三者逐位置绝对值均为 1。要区分它们，必须保留符号与位置的对应关系。
+
+\subsubsection*{4. 利用有符号空间结构的界及取等范围}
+
+补充另一方向条纹 \(t=(1,\allowbreak{}-1,\allowbreak{}1,\allowbreak{}-1)^T\)，同样有 Lt=2t。四个向量 u、s、t、q 两两正交，平方长度均为 4，因此构成实四维空间的完整基。任意实残差唯一分解为 \(r=a u+b s+c t+d q\)，其中 \(a=(r_1+r_2+r_3+r_4)/4\)，\(b=(r_1+r_2-r_3-r_4)/4\)，\(c=(r_1-r_2+r_3-r_4)/4\)，\(d=(r_1-r_2-r_3+r_4)/4\)。这些系数使用了残差的幅值、符号与格号位置。
+
+对本题固定矩阵，完整解公式为 \(e=\alpha u+\beta s+\gamma t+\delta q\)，其中 \(\alpha =21a/4\)、\(\beta =21b/46\)、\(\gamma =21c/46\)、\(\delta =21d/88\)。故精确表达式为 \(\Vert e\Vert_{\infty}=\max\{|\alpha +\beta +\gamma +\delta |,\allowbreak{}|\alpha +\beta -\gamma -\delta |,\allowbreak{}|\alpha -\beta +\gamma -\delta |,\allowbreak{}|\alpha -\beta -\gamma +\delta |\}\)。这是完整解公式，不把它误称为无需解算信息的普适估计。
+
+另由三角不等式得到真正的模态上界 \(\Vert e\Vert_{\infty}\le M(r)=(21/4)|a|+(21/46)(|b|+|c|)+(21/88)|d|\)。它对该固定矩阵下的任意实残差成立，计算只需四个有符号投影，不必逐次消元。结合原有基线，可使用 \(\Vert e\Vert_{\infty}\le \min\{B(r),\allowbreak{}M(r)\}\)，避免声称 M 对任意混合残差都优于基线。
+
+取等条件也可精确陈述：M 取等，当且仅当存在某个格号 i，使得 \ensuremath{\alpha }u\_i、\ensuremath{\beta }s\_i、\ensuremath{\gamma }t\_i、\ensuremath{\delta }q\_i 中所有非零项具有同一符号；零向量亦取等。这是对应坐标上三角不等式取等的充要条件。三个指定残差各自只有一个非零模态系数，因此 M 分别为 21/4、21/46、21/88，全部等于真实误差，达到逐例最紧上界。每个模态权重也都不能单独减小并仍对所有残差有效，因为取对应纯模式即可检验。对混合模式，三角不等式仍可能丢失抵消，故 M 不保证普遍取等；需要精确值时应使用上面的四分量最大值公式。
+
+\subsubsection*{5. 为什么正负数量不够}
+
+横条纹 s 和棋盘格 q 均有两个 +1、两个 -1，残差无穷范数均为 1，且分量和均为零。然而 \(\Vert e_s\Vert_{\infty}/\Vert e_q\Vert_{\infty}=(21/46)/(21/88)=44/23\)，二者不同。横条纹每个顶点只有一条异号相邻边，棋盘格每个顶点有两条；因此它们激发不同特征值，后者受到更强的离散扩散抑制。正负数量相同，乃至平均残差同为零，都不足以唯一确定最大误差。这里的比较固定了幅值与矩阵，差别来自空间排列。
+
+\subsubsection*{6. 适用范围与推广所需条件}
+
+本轮严格证明对象是题设固定四格矩阵及其离散误差 Ae=r；未证明连续温度场的误差界，也未包含建模误差或网格离散误差的额外估计。h=1/5 是题面背景，实际代数证明依赖给定的 A；不能将 4/21 不经重新离散就替换成一般 h 的函数。
+
+任意残差推广不能仅凭三个模式外推。本文已经补上第四个模式、证明完备性，并给出完整分解，因此在同一固定矩阵内对任意实残差的公式与上界有独立代数依据；程序对坐标基的精确检查提供补充证据，而不是用有限数值样本代替一般证明。若只有正负数量而不知道每格的幅值和位置，则这些模态系数并未确定，不能据此使用对应纯模式的误差常数。
+
+若改变边界条件、Robin 系数、网格或离散约定，应先构造新的矩阵，再检查可逆性或零空间及相容条件，检查所需的逆矩阵非负性，重新求解比较向量 A\ensuremath{{}^{-1}}u，并建立新的模态分解或 Green 函数论证。原有对称性及上述四个特征模式不保证保留；若逆矩阵非负性不成立，则以 \ensuremath{\Vert }A\ensuremath{{}^{-1}}u\ensuremath{\Vert }\ensuremath{\infty } 为系数的统一界也不能直接沿用，一般需要诱导范数 \ensuremath{\Vert }A\ensuremath{{}^{-1}}\ensuremath{\Vert }\ensuremath{\infty }。本文不声称已完成这些变化边界的推广。
+
+\subsubsection*{7. 可复核程序与证据路径}
+
+程序 workspace/experiments/mode\_check.py 仅使用 Python 标准库，从边集重新组装 A，以 Fraction 高斯—若尔当消元独立求解，再进行逐分量精确回代、模态公式比对、逆矩阵非负性及行和检查。程序还在完整坐标基上检查模态逆公式与消元结果一致。断言全部成功后，标准输出打印简洁 JSON，并将精确残差、解、误差范数、基线、模态界、检查标志以及脚本和本文的 SHA-256 保存到 workspace/mode\_results.json。
+
+本文件不预写运行成功或审核通过的状态。运行结果必须由 run\_python\_script 实际产生；独立局部审核须使用 verify\_overall(scope=intermediate, review\_count=1)，并同时检查假设、计算、逻辑三个维度。后续报告应引用实际运行归档与审核证据，不能将问题质量评估通过等同于证明审核通过。
+\par\noindent{\footnotesize\color{muted} 证据\enspace [E3]\enspace L32（workspac\allowbreak{}e/\allowbreak{}mode\_\allowbreak{}proof\allowbreak{}.md）}\par
+\section{实验与计算结果}
+\subsection*{workspace/experiments/mode\_check.py}
+{\small\color{muted} 记录状态\enspace 成功}\par
+\textbf{标准输出}\par
+\par\textbf{modes}\par
+\begin{longtable}{@{}p{0.237\linewidth}@{\hspace{.01\linewidth}}p{0.237\linewidth}@{\hspace{.01\linewidth}}p{0.237\linewidth}@{\hspace{.01\linewidth}}p{0.237\linewidth}@{}}
+\toprule 字段 & constant & stripes & checkerboard\allowbreak{} \\\midrule\endhead
+error\_\allowbreak{}inf & 21/\allowbreak{}4 & 21/\allowbreak{}46 & 21/\allowbreak{}88 \\
+baseline & 21/\allowbreak{}4 & 21/\allowbreak{}4 & 21/\allowbreak{}4 \\
+modal\_\allowbreak{}bound & 21/\allowbreak{}4 & 21/\allowbreak{}46 & 21/\allowbreak{}88 \\
+verified & true & true & true \\
+\bottomrule\end{longtable}
+\begin{longtable}{@{}p{0.475\linewidth}@{\hspace{.01\linewidth}}p{0.475\linewidth}@{}}
+\toprule 字段 & 记录值 \\\midrule\endhead
+all\_\allowbreak{}checks\_\allowbreak{}p\allowbreak{}assed & true \\
+archive & workspace/\allowbreak{}mo\allowbreak{}de\_\allowbreak{}results.j\allowbreak{}son \\
+\bottomrule\end{longtable}
+\begin{longtable}{@{}p{.47\linewidth}p{.46\linewidth}@{}}
+\toprule 指标 & 工具记录值\\\midrule\endhead
+退出码 & 0 \\
+\bottomrule\end{longtable}
+\par\noindent{\footnotesize\color{muted} 证据\enspace [E3]\enspace L38}\par
+\section{审核与局限}
+\subsection*{第 1 次审核（intermediate）}
+{\small\color{muted} 记录状态\enspace 通过}\par
+Overall verification passed: assumption use, calculation correctness, and logical correctness all passed.
+\par\noindent{\footnotesize\color{muted} 证据\enspace [E3]\enspace L44}\par
+\subsection*{本轮归档}
+{\small\color{muted} 记录状态\enspace 已记录}\par
+原生结束回执记录 9 条归档。
+\par\noindent{\footnotesize\color{muted} 证据\enspace [E4]}\par
+\section{证据索引}
+\noindent\textbf{[E1] input.txt}\par
+{\footnotesize\color{muted} SHA-256\quad 3e206c62d334\allowbreak{}39497603e3d8\allowbreak{}cd424b0057c2\allowbreak{}f87145002eca\allowbreak{}2d8959153cdb\allowbreak{}84f1}\par
+\noindent\textbf{[E2] integration.json}\par
+{\footnotesize\color{muted} SHA-256\quad 7e14f27b8a8e\allowbreak{}a21716ca9e66\allowbreak{}79439880135c\allowbreak{}6bd0a6dcddc5\allowbreak{}857dec2ae0c7\allowbreak{}4c47}\par
+\noindent\textbf{[E3] moonshine\_events.jsonl}\par
+{\footnotesize\color{muted} SHA-256\quad 42a7e276e41f\allowbreak{}ee1829d2064c\allowbreak{}4b4bf0b60faf\allowbreak{}fb63e05d341a\allowbreak{}9a27daa73a09\allowbreak{}71b0}\par
+\noindent\textbf{[E4] turn\_summary.json}\par
+{\footnotesize\color{muted} SHA-256\quad 41ce3ce980aa\allowbreak{}1dba771d85a5\allowbreak{}05194cf3d86f\allowbreak{}29dee8dfcfdf\allowbreak{}d4754833fe18\allowbreak{}26c7}\par
+\end{document}

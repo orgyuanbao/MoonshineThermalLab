@@ -33,3 +33,8 @@ thermal/home/projects/*/memory/
 thermal/evidence/
 thermal/checkpoints/
 thermal/requests/
+
+# Locally created Moonshine tools, skills, settings, and knowledge stores
+thermal/home/*
+!thermal/home/projects/
+thermal/home/projects/general/

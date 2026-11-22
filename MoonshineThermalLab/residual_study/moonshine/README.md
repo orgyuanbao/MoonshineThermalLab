@@ -32,4 +32,4 @@ python -B replay.py
 
 ## 研究技能和成品制作
 
-第一轮实际加载了 `query-memory`、`quality-assessor`、`direct-proving`、`verify-overall` 和 `proof-corrector`。第二轮实际加载了 `query-memory`、`lemma-prover`、`construct-counterexamples` 和 `verify-overall`。这些名字来自两轮成功的 `load_skill_definition` 回执。本项目沿用固定版本 Moonshine 自带的技能，没有新增或调用报告生成技能。两份英文推导 Markdown 是上游文件工具按模型指令写入的研究产物。中文 LaTeX 论文、PPT 和大网格独立评测由项目侧另外整理。
+第一轮实际加载了 `query-memory`、`quality-assessor`、`direct-proving`、`verify-overall` 和 `proof-corrector`。第二轮实际加载了 `query-memory`、`lemma-prover`、`construct-counterexamples` 和 `verify-overall`。这些名字来自两轮成功的 `load_skill_definition` 回执。11 月 21 日的这两轮沿用固定版本 Moonshine 自带的技能。当时尚未安装后续开发的 [LaTeX 报告技能](../../project_skills/latex-research-report/SKILL.md)。两份英文推导 Markdown 是上游文件工具按模型指令写入的研究产物。中文 LaTeX 论文、PPT 和大网格独立评测由项目侧另外整理。

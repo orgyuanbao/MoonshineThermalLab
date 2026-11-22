@@ -262,11 +262,36 @@ def show_status():
                                                    [item for item in events if item.get("type") == "tool_result"])
             print("最近一轮：", "局部研究步骤已验证并归档" if data["outcome"]["accepted_local_research_step"]
                   else "存在失败或尚缺执行、审核、归档证据，请查看记录。")
+            receipt = evidence / "report" / "receipt.json"
+            if receipt.is_file():
+                report = json.loads(receipt.read_text(encoding="utf-8"))
+                print("LaTeX 报告：", report["status"], receipt.parent)
         else:
             print("最近一轮：尚无结束摘要，可能仍在运行，或这份副本未包含该历史记录。")
     else:
         print("尚未发起研究。")
     print("研究目录：", HOME / "projects" / PROJECT)
+
+
+def report_for_turn(evidence, *, app=None):
+    """Dispatch the installed report skill without making a model request."""
+    from integration.report_skill import run_report_skill
+    result = run_report_skill(evidence, HOME, PROJECT, app=app)
+    print("LaTeX 报告：", result["status"], result.get("message", ""), evidence / "report", flush=True)
+    return result
+
+
+def retry_report(turn=None):
+    if turn:
+        evidence = resolve_evidence_reference("evidence/" + turn)
+    else:
+        selection = json.loads((DATA_ROOT / "active_session.json").read_text(encoding="utf-8"))
+        evidence = resolve_evidence_reference(selection["latest_evidence"])
+    if evidence is None or not (evidence / "turn_summary.json").is_file():
+        raise ValueError("所选轮次缺少结束摘要。")
+    bootstrap_runtime()
+    result = report_for_turn(evidence)
+    return 0 if result["status"] in {"compiled", "tex_only"} else 2
 
 
 def run_research(prompt_file=None, *, model=None, max_calls=16):
@@ -369,7 +394,12 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
             "tools_executed": [item["text"] for item in tool_results],
             "source_preserved": source_identity() == identity,
         })
-        app.close_session(state)
+        try:
+            report_for_turn(evidence, app=app)
+        except Exception as exc:
+            print("报告步骤未完成。研究记录已保存，可用 report 命令重试。", exc, flush=True)
+        finally:
+            app.close_session(state)
         print("本轮记录：", evidence, flush=True)
         print("研究产物：", project_root, flush=True)
     if outcome["accepted_local_research_step"]:
@@ -381,7 +411,8 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", nargs="?", choices=["check", "run", "status"])
+    parser.add_argument("action", nargs="?", choices=["check", "run", "status", "report"])
+    parser.add_argument("--turn", help="指定需要重新排版的研究轮次，默认取当前项目最近一轮")
     parser.add_argument("--model")
     parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--max-calls", type=int, default=16)
@@ -407,6 +438,8 @@ def main():
     if args.action == "status":
         show_status()
         return 0
+    if args.action == "report":
+        return retry_report(args.turn)
     if args.action == "run":
         return run_research(args.prompt_file, model=args.model, max_calls=args.max_calls)
     print(TITLE)

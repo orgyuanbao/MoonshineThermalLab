@@ -12,6 +12,7 @@ import uuid
 import run_moonshine as runner
 
 DATA = Path(__file__).resolve().parent / "thermal"
+EXAMPLE_REPORT = Path(__file__).resolve().parent / "report_example" / "report.pdf"
 STAGES = {
     "1": ("建模与最小校验", "01_model.txt"),
     "2": ("完整模型与固定 POD 基线", "02_baseline.txt"),
@@ -75,9 +76,33 @@ def read_multiline():
         lines.append(line)
 
 
+def open_latest_report():
+    import json
+    selection = runner.DATA_ROOT / "active_session.json"
+    if not selection.is_file():
+        if EXAMPLE_REPORT.is_file():
+            print("当前项目还没有本地研究轮次。打开随仓四格示例；这是已保存的报告。")
+            os.startfile(str(EXAMPLE_REPORT))
+        else:
+            print("当前项目还没有研究轮次。先选择 1 推进一轮研究。")
+        return
+    evidence = runner.resolve_evidence_reference(json.loads(selection.read_text(encoding="utf-8"))["latest_evidence"])
+    if not evidence or not (evidence / "turn_summary.json").is_file():
+        print("最近一轮尚无结束记录。研究结束后可在这里查看报告。")
+        return
+    status = runner.retry_report(evidence.name)
+    folder = evidence / "report"
+    if status == 0:
+        pdf = folder / "report.pdf"
+        os.startfile(str(pdf if pdf.is_file() else folder))
+    else:
+        print("本轮尚无可展示的报告。可选 2 查看状态。")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", nargs="?", choices=["check", "status", "run"])
+    parser.add_argument("action", nargs="?", choices=["check", "status", "run", "report"])
+    parser.add_argument("--turn", help="重新生成报告的轮次标识，默认取最近一轮")
     parser.add_argument("--stage", choices=STAGES)
     parser.add_argument("--max-calls", type=int, default=16)
     args = parser.parse_args()
@@ -100,6 +125,8 @@ def main():
     if args.action == "status":
         runner.show_status()
         return 0
+    if args.action == "report":
+        return runner.retry_report(args.turn)
     if args.action == "run":
         return run_step(args.stage, max_calls=args.max_calls)
 
@@ -109,7 +136,7 @@ def main():
     print("打开菜单不会发起研究；选择研究阶段或提交补充要求后才调用模型。")
     while True:
         print("\n当前模型：", runner.model_display())
-        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换模型\n5  补充要求并推进一轮\n0  退出")
+        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换模型\n5  补充要求并推进一轮\n6  查看或重新生成最近一轮报告\n0  退出")
         answer = input("输入数字并回车：").strip()
         if answer == "0":
             return 0
@@ -137,8 +164,10 @@ def main():
                 supplement = read_multiline()
                 if supplement:
                     run_step(supplement=supplement, max_calls=args.max_calls)
+            elif answer == "6":
+                open_latest_report()
             else:
-                print("请选择 0 到 5。")
+                print("请选择 0 到 6。")
         except Exception as exc:
             print("本轮未完成：", exc, flush=True)
             print("可选 2 查看已保存记录，补充失败信息后重试。")

@@ -62,6 +62,10 @@ jobs:
         run: .\.venv\Scripts\python.exe -B -X utf8 residual_study/fresh_stream.py
       - name: Replay the original Moonshine signed-residual research programs
         run: .\.venv\Scripts\python.exe -B -X utf8 residual_study/moonshine/replay.py
+      - name: Test the installed LaTeX reporting skill without a model login
+        run: .\.venv\Scripts\python.exe -B -X utf8 -m unittest integration.test_report_skill integration.test_report_latex -v
+      - name: Recompute the four-cell report example and verify its evidence
+        run: .\.venv\Scripts\python.exe -B -X utf8 report_example/verify.py
       - name: Save the signed-residual replay results
         uses: actions/upload-artifact@v4
         with:

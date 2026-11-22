@@ -34,7 +34,7 @@ python -B residual_study/exact_audit.py
 
 ## 研究技能与课程材料怎样分工
 
-本机适配器把模型回答交还 Moonshine，上游工具读取已有的证明、构造反例和审核技能。新加入项目的是一份数学题面、一个可选择的研究阶段，以及独立计算与复核程序。Moonshine 原生运行写出了数学草稿、Python 程序、输出和审核记录。课程论文和课堂幻灯由 Codex 在研究运行之外使用已有的写作、排版工具完成；本项目没有给 Moonshine 安装报告生成 Skill。[运行器的工具清单](../run_moonshine.py) · [论文 LaTeX 源码](../thermal/report/main.tex)
+本机适配器把模型回答交还 Moonshine，上游工具读取已有的证明、构造反例和审核技能。新加入项目的是一份数学题面、一个可选择的研究阶段，以及独立计算与复核程序。Moonshine 原生运行写出了数学草稿、Python 程序、输出和审核记录。11 月 21 日的课程论文和课堂幻灯由 Codex 在这两轮研究结束后整理。11 月 22 日，项目在后续研究轮次中加入了独立的 [LaTeX 报告技能](../project_skills/latex-research-report/SKILL.md)。可以对照查看[新一轮自动报告和证据](../report_example/)。[运行器的工具清单](../run_moonshine.py) · [论文 LaTeX 源码](../thermal/report/main.tex)
 
 ## 应该怎样解释结果
 

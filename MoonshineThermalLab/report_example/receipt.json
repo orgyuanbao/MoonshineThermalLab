@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "skill": "latex-research-report",
+  "turn_id": "20261122-144417-c47f26d4",
+  "project": "four-cell-residual-modes",
+  "invocation": "automatic_after_research",
+  "dispatch": "Moonshine.ToolManager.dispatch/load_skill_definition",
+  "generation": "evidence-driven, no additional model call",
+  "started_at_utc": "2026-11-22T05:53:09.310938+00:00",
+  "status": "compiled",
+  "inputs": {
+    "input.txt": "3e206c62d33439497603e3d8cd424b0057c2f87145002eca2d8959153cdb84f1",
+    "integration.json": "7e14f27b8a8ea21716ca9e6679439880135c6bd0a6dcddc5857dec2ae0c74c47",
+    "moonshine_events.jsonl": "42a7e276e41fee1829d2064c4b4bf0b60faffb63e05d341a9a27daa73a0971b0",
+    "turn_summary.json": "41ce3ce980aa1dba771d85a505194cf3d86f29dee8dfcfdfd4754833fe1826c7",
+    "project_skill": "80f0e6e43de6d7f9abe917bc87aef4ecf21aabbfd2c7ac0202158b4fb95f2966",
+    "report_adapter": "7fa1e970a5776412c11611d2513d81206d71821ac7c1bdc717f744554401159d",
+    "report_renderer": "1497676bf59e4fa55898cbec568f57576e4a2cf851ad780add442b24f5b0c227",
+    "runner": "b5e2451d0794f00db1e0b930bee35b4f79c7498105b8c5966306bd3b7fb30ec8"
+  },
+  "outputs": {
+    "load_skill_definition.json": "ec08171a27179477ba336778f163432ebe03d0e0a58d1142decebd91f3c0020e",
+    "report_input.json": "1df5be20b711e66eb019204b3f453772b5b3840e86cbfbd5881858ed68610fb7",
+    "report.tex": "a9af522d2d36af9de84a1eb44a1903b0f221f5b0889bbadf18034df27b17992b",
+    "report.pdf": "dc195debada7007a3296656371aef0a22a3584a39263151b752b9390bc088122"
+  },
+  "session_id": "session-952a9aabdb",
+  "compile_status": "compiled",
+  "message": "已生成 PDF。",
+  "finished_at_utc": "2026-11-22T05:53:11.186225+00:00"
+}

@@ -1,0 +1,138 @@
+{
+  "session": "session-952a9aabdb",
+  "turn": "20261122-144417-c47f26d4",
+  "project": "four-cell-residual-modes",
+  "started_at": "2026-11-22T05:44:17.589725+00:00",
+  "research_elapsed_seconds": 530.875,
+  "model": "gpt-6-astra",
+  "upstream": {
+    "repository": "https://github.com/DeepMathLLM/Moonshine",
+    "commit": "bb0e4aa025fdcc5297fff1025ab4876f120ed615",
+    "verified_unchanged_after_run": true
+  },
+  "model_calls": {
+    "reserved": 12,
+    "returncode_zero": 12,
+    "by_role": {
+      "main": 7,
+      "verification": 4,
+      "archival": 1
+    }
+  },
+  "outcome": {
+    "final_reason": "assistant_text",
+    "runtime_failure": false,
+    "successful_python_executions": 1,
+    "passed_verifications": 1,
+    "archived_records": 9,
+    "accepted_local_research_step": true,
+    "industrial_problem_solved_asserted": false
+  },
+  "events_extracted_in_order": [
+    {
+      "line": 12,
+      "tool": "load_skill_definition",
+      "tool_error": false,
+      "slug": "quality-assessor"
+    },
+    {
+      "line": 13,
+      "tool": "query_memory",
+      "tool_error": false
+    },
+    {
+      "line": 14,
+      "tool": "read_runtime_file",
+      "tool_error": false
+    },
+    {
+      "line": 22,
+      "tool": "assess_problem_quality",
+      "tool_error": false
+    },
+    {
+      "line": 23,
+      "tool": "load_skill_definition",
+      "tool_error": false,
+      "slug": "direct-proving"
+    },
+    {
+      "line": 24,
+      "tool": "load_skill_definition",
+      "tool_error": false,
+      "slug": "verify-overall"
+    },
+    {
+      "line": 31,
+      "tool": "mcp_filesystem_write_file",
+      "tool_error": false,
+      "path": "workspace/experiments/mode_check.py"
+    },
+    {
+      "line": 32,
+      "tool": "mcp_filesystem_write_file",
+      "tool_error": false,
+      "path": "workspace/mode_proof.md"
+    },
+    {
+      "line": 33,
+      "tool": "mcp_filesystem_write_file",
+      "tool_error": false,
+      "path": "workspace/problem.md"
+    },
+    {
+      "line": 38,
+      "tool": "run_python_script",
+      "tool_error": false,
+      "script": "workspace/experiments/mode_check.py",
+      "returncode": 0,
+      "stdout_sha256": "0f8eccdcfaf49538115df646e9cbda5adf42a819503b86dc2ff07aee99212357"
+    },
+    {
+      "line": 44,
+      "tool": "verify_overall",
+      "tool_error": false,
+      "scope": "intermediate",
+      "passed": true,
+      "overall_verdict": "correct"
+    },
+    {
+      "line": 45,
+      "tool": "read_runtime_file",
+      "tool_error": false
+    },
+    {
+      "line": 50,
+      "tool": "mcp_filesystem_write_file",
+      "tool_error": false,
+      "path": "workspace/mode_verification.md"
+    },
+    {
+      "line": 56,
+      "event": "final",
+      "reason": "assistant_text",
+      "archived_records": 9
+    }
+  ],
+  "source_files_sha256": {
+    "integration.json": "7e14f27b8a8ea21716ca9e6679439880135c6bd0a6dcddc5857dec2ae0c74c47",
+    "input.txt": "3e206c62d33439497603e3d8cd424b0057c2f87145002eca2d8959153cdb84f1",
+    "moonshine_events.jsonl": "42a7e276e41fee1829d2064c4b4bf0b60faffb63e05d341a9a27daa73a0971b0",
+    "turn_summary.json": "41ce3ce980aa1dba771d85a505194cf3d86f29dee8dfcfdfd4754833fe1826c7"
+  },
+  "public_files_sha256": {
+    "input.txt": "3e206c62d33439497603e3d8cd424b0057c2f87145002eca2d8959153cdb84f1",
+    "installed_skill.md": "3effd8e4a1f7cfcf60cab4262bc4a2740aac82df85f382cc8ce402ee8fd13bc6",
+    "load_skill_definition.json": "ec08171a27179477ba336778f163432ebe03d0e0a58d1142decebd91f3c0020e",
+    "mode_check.py": "69bdaeff5c75757239ada05cb9c2cef2459281619996209c58898c1baec59c01",
+    "mode_proof.md": "eb06d9306b4964db00ed3eca01382da64933ef405d0ba678b19bdb280507224b",
+    "mode_results.json": "d8b801056cf3995077e46b469cde85f00922a00a805d1bd6b77240237a76b411",
+    "problem.md": "c447bc163677c6b12e374d7645df104f1d30ab888d43ddce43bd20feb0ba25ff",
+    "receipt.json": "3114be9a4de213e95b49d698182ce798649db4be1a65408027cd3f75c6db1923",
+    "report.pdf": "dc195debada7007a3296656371aef0a22a3584a39263151b752b9390bc088122",
+    "report.tex": "a9af522d2d36af9de84a1eb44a1903b0f221f5b0889bbadf18034df27b17992b",
+    "report_input.json": "1df5be20b711e66eb019204b3f453772b5b3840e86cbfbd5881858ed68610fb7",
+    "source_skill.md": "80f0e6e43de6d7f9abe917bc87aef4ecf21aabbfd2c7ac0202158b4fb95f2966",
+    "stdout.json": "0f8eccdcfaf49538115df646e9cbda5adf42a819503b86dc2ff07aee99212357"
+  }
+}

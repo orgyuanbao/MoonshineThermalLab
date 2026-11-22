@@ -39,6 +39,24 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 .\.venv\Scripts\python.exe -B -X utf8 .\thermal_agent.py run --stage 1 --max-calls 8
 ```
 
+### 一轮完成后，怎样拿到 LaTeX 报告？
+
+主菜单选 **1 → 5** 研究残差上界，或在主菜单选 **5** 自拟热仿真题目。试题可以写「四格都有同样大的热量失衡，若把正负号排成交错，最大温度误差是多少？请给出推导并用精确分数复算」。自拟题目输完后另起一行提交 `END`。
+
+一轮研究完成时，启动器会检查原生的程序执行、审核和归档记录。满足条件后，Moonshine 加载项目的已安装技能 `latex-research-report`。技能定义指定各节的次序和证据来源，项目适配器取出同一轮的送审推导、Python 输出和审核记录，排版器写入 LaTeX。排版无需额外的模型调用。[技能定义](project_skills/latex-research-report/SKILL.md) · [研究证据提取](integration/report_skill.py) · [LaTeX 排版](integration/report_latex.py)
+
+报告在 `thermal/evidence/<轮次>/report/`。终端会打印保存位置。返回主菜单选 **6** 可打开最近一轮的报告。首次使用、尚无个人轮次时，这个按钮会注明并打开随仓四格示例。打开 `report.tex` 可以编辑推导，打开 `report.pdf` 可以直接阅读。`load_skill_definition.json` 记录 Moonshine 加载了哪项技能，`report_input.json` 保存进入报告的材料，`receipt.json` 给出触发方式、状态及文件校验值。[查看真实四格报告及复算材料](report_example/)
+
+本项目固定的上游版本还提供最终审核后写入 Markdown 的流程。本技能处理每一轮已归档的局部数学结果，新增可编译的 LaTeX、PDF 和逐项出处。[上游实现](source/agent_runtime/research_workflow.py#L4318)
+
+若本机装有 XeLaTeX 和中文排版支持，会同时生成 PDF。只有 TeX 时，先安装这两项，再在本目录运行以下命令。它从最近一轮证据重新排版。也可以在命令末尾加 `--turn 轮次编号` 指定一次研究。
+
+```powershell
+.\.venv\Scripts\python.exe -B -X utf8 .\thermal_agent.py report
+```
+
+若研究中断、最后一次审核未通过或缺少归档，先核对本轮记录、补齐研究；终端和生成回执会给出原因。归档齐全但缺少可引用推导时，程序也会明确提示。
+
 ### 卡住或报错时
 
 | 看到的现象 | 下一步 |
@@ -75,4 +93,4 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 
 徐楷沅（2352163） · EDA 热仿真加速专题。[论文 PDF](thermal/report/Moonshine_Thermal_Report.pdf) · [LaTeX 源码](thermal/report/main.tex) · [汇报 PPT](classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](classroom/备讲稿与研究总结.pdf) · [离线交互演示](classroom/Moonshine现场演示.html)
 
-在本机演示时，将 [classroom](classroom/) 里的三个文件下载到同一文件夹。PPT 第 3 页可打开随附 HTML，演练提交研究任务与查看历史故障回执。
+在本机演示时，将 [classroom](classroom/) 里的 PPT、HTML 和 `moonshine-report.pdf` 下载到同一文件夹。第 3 页可以打开离线四格实验；第 6 页可跳到第 14 页，用本机 PDF 演示我们的报告技能。

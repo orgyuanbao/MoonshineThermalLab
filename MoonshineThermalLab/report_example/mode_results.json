@@ -1,0 +1,70 @@
+{
+  "arithmetic": "fractions.Fraction",
+  "method": "Gauss-Jordan elimination plus exact substitution and modal checks",
+  "modes": [
+    {
+      "name": "constant",
+      "residual": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "solution": [
+        "21/4",
+        "21/4",
+        "21/4",
+        "21/4"
+      ],
+      "error_inf": "21/4",
+      "baseline": "21/4",
+      "modal_bound": "21/4",
+      "verified": true
+    },
+    {
+      "name": "stripes",
+      "residual": [
+        1,
+        1,
+        -1,
+        -1
+      ],
+      "solution": [
+        "21/46",
+        "21/46",
+        "-21/46",
+        "-21/46"
+      ],
+      "error_inf": "21/46",
+      "baseline": "21/4",
+      "modal_bound": "21/46",
+      "verified": true
+    },
+    {
+      "name": "checkerboard",
+      "residual": [
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "solution": [
+        "21/88",
+        "-21/88",
+        "-21/88",
+        "21/88"
+      ],
+      "error_inf": "21/88",
+      "baseline": "21/4",
+      "modal_bound": "21/88",
+      "verified": true
+    }
+  ],
+  "basis_verified": true,
+  "inverse_nonnegative_verified": true,
+  "modal_inverse_verified_on_coordinate_basis": true,
+  "all_checks_passed": true,
+  "script_sha256": "69bdaeff5c75757239ada05cb9c2cef2459281619996209c58898c1baec59c01",
+  "proof_sha256": "eb06d9306b4964db00ed3eca01382da64933ef405d0ba678b19bdb280507224b",
+  "scope": "Fixed four-cell matrix only; computation is not independent proof review"
+}

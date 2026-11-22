@@ -1,0 +1,1 @@
+{"modes":[{"name":"constant","error_inf":"21/4","baseline":"21/4","modal_bound":"21/4","verified":true},{"name":"stripes","error_inf":"21/46","baseline":"21/4","modal_bound":"21/46","verified":true},{"name":"checkerboard","error_inf":"21/88","baseline":"21/4","modal_bound":"21/88","verified":true}],"all_checks_passed":true,"archive":"workspace/mode_results.json"}
