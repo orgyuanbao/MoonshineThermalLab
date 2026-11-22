@@ -30,69 +30,143 @@ def row(cells):
     return " & ".join(str(c) for c in cells) + r" \\"
 
 def four_patterns(modes):
-    """Place the saved signed vector in the row ordering of its four-cell solver."""
-    parts = [r"\begin{tikzpicture}[x=1cm,y=1cm]"]
-    labels = {"constant":"同号","stripes":"横条纹","checkerboard":"棋盘格"}
+    """Compare all four signed entries and their exact infinity-norm errors."""
+    labels = {"constant": "同号", "stripes": "横条纹", "checkerboard": "棋盘格"}
+    parts = [
+        r"\begin{tikzpicture}[x=1cm,y=1cm,inner sep=0pt]",
+        r"\path[use as bounding box] (0,-.10) rectangle (14.85,2.28);",
+    ]
+    cell = .93
     for index, record in enumerate(modes):
-        origin = index * 4.1
+        x = .16 + index * 5.00
+        # The recorded vector starts with the bottom row, from left to right.
         for k, sign in enumerate(record["residual"]):
-            x, y = origin + .78 * (k % 2), .78 * (k // 2)
-            color = "umber!22" if sign > 0 else "accent!24"
+            left = x + cell * (k % 2)
+            bottom = .12 + cell * (k // 2)
+            fill, foreground = ("umber!15", "ink") if sign > 0 else ("accent!86", "white")
             symbol = "+" if sign > 0 else "-"
-            parts.append(fr"\fill[{color}] ({x:.2f},{y:.2f}) rectangle ++(.75,.75);")
-            parts.append(fr"\node at ({x+.375:.3f},{y+.375:.3f}) {{\large " + "$"+symbol+"$};")
-        parts.append(fr"\node at ({origin+.76:.2f},-.34) " + "{" + labels[record["name"]] + "};")
-        parts.append(fr"\node[text=ink] at ({origin+.76:.2f},-.84) " + r"{$\norm e=" + frac(record["error_inf"]) + "$};")
-    parts.append(r"\end{tikzpicture}")
-    return "\n".join(parts)
+            parts.extend([
+                fr"\fill[{fill}] ({left:.3f},{bottom:.3f}) rectangle ++({cell},{cell});",
+                fr"\node[text={foreground},font=\Large] at ({left+cell/2:.3f},{bottom+cell/2:.3f}) "
+                + r"{$\boldsymbol{" + symbol + r"}$};",
+            ])
+        parts.extend([
+            fr"\draw[draw=ink!38,line width=.40pt] ({x:.3f},.12) rectangle ++({2*cell:.3f},{2*cell:.3f});",
+            fr"\draw[white,line width=.8pt] ({x+cell:.3f},.12) -- ++(0,{2*cell:.3f});",
+            fr"\draw[white,line width=.8pt] ({x:.3f},{cell+.12:.3f}) -- ++({2*cell:.3f},0);",
+        ])
+        text_x = x + 2.12
+        value = Fraction(record["error_inf"])
+        printed = f"{float(value):.3f}".rstrip("0").rstrip(".")
+        relation = "=" if Fraction(printed) == value else r"\approx"
+        parts.extend([
+            fr"\node[anchor=west,text=ink,font=\small\sffamily\bfseries] at ({text_x:.3f},1.70) "
+            + "{" + labels[record["name"]] + "};",
+            fr"\node[anchor=west,text=ink,font=\Large] at ({text_x:.3f},1.03) "
+            + "{$" + str(value) + "$};",
+            fr"\node[anchor=west,text=muted,font=\small] at ({text_x:.3f},.37) "
+            + "{$" + relation + " " + printed + "$};",
+        ])
+    return "\n".join(parts + [r"\end{tikzpicture}"])
+
 
 def threshold_chart(case, tolerance):
-    vals = [(label,case[key]/tolerance) for label,key in (("只用位置","block_abs"),("再分正负","block_sign"))]
-    scale = 9.5 / (1.18 * max([1.0] + [value for _,value in vals]))
-    out = [r"\begin{tikzpicture}[x=1cm,y=1cm]",
-           fr"\draw[densely dashed,ink] ({scale:.3f},-.19) -- ++(0,1.3);",
-           fr"\node[above,text=ink,font=\footnotesize] at ({scale:.3f},1.12) {{阈值 $1$}};"]
-    for j,(label,value) in enumerate(vals):
-        y = .74 - .64*j
-        color = "umber" if value > 1 else "accent"
-        out.append(fr"\node[anchor=east,font=\small] at (-.15,{y:.2f}) {{{label}}};")
-        out.append(fr"\draw[{color},line width=5pt] (0,{y:.2f}) -- ({value*scale:.3f},{y:.2f});")
-        out.append(fr"\node[anchor=west,font=\small] at ({value*scale+.1:.3f},{y:.2f}) {{{value:.3f}}};")
-    out.append(r"\end{tikzpicture}")
-    return "\n".join(out)
+    """Locate the two verified bounds on a shared, explicitly labelled local axis."""
+    from math import ceil, floor, log10
+
+    series = [("仅用位置", case["block_abs"] / tolerance),
+              ("位置与正负", case["block_sign"] / tolerance)]
+    values = [1.0] + [value for _, value in series]
+    rough_step = max(max(values) - min(values), .01) / 3
+    unit = 10 ** floor(log10(rough_step))
+    step = next(tick * unit for tick in (1, 2, 5, 10) if tick * unit >= rough_step)
+    first = min(-1, floor((min(values) - 1) / step))
+    last = max(1, ceil((max(values) - 1) / step))
+    left, right = 2.46, 10.17
+    def coordinate(value):
+        return left + ((value-1)/step - first) / (last-first) * (right-left)
+
+    threshold_x = coordinate(1)
+    out = [
+        r"\begin{tikzpicture}[x=1cm,y=1cm,inner sep=0pt]",
+        r"\path[use as bounding box] (0,-.67) rectangle (14.85,2.25);",
+        r"\node[anchor=west,text=muted,font=\footnotesize\sffamily] at (0,2.02) {残差信息};",
+        fr"\node[anchor=west,text=muted,font=\footnotesize\sffamily] at ({left},2.02) "
+        + r"{上界 / 允许误差};",
+        r"\node[anchor=west,text=muted,font=\footnotesize\sffamily] at (11.0,2.02) {相对上界};",
+        r"\node[anchor=west,text=muted,font=\footnotesize\sffamily] at (13.17,2.02) {判定};",
+        fr"\draw[hair,line width=.45pt] ({left},-.10) -- ({right},-.10);",
+    ]
+    precision = max(2, -floor(log10(step)))
+    for offset in range(first, last+1):
+        tick = 1 + offset * step
+        x = coordinate(tick)
+        style = r"ink,line width=.70pt,densely dashed" if offset == 0 else r"hair,line width=.35pt"
+        top = 1.70
+        out.append(fr"\draw[{style}] ({x:.3f},-.16) -- ({x:.3f},{top});")
+        out.append(fr"\node[anchor=north,text=ink,font=\footnotesize] at ({x:.3f},-.23) "
+                   + "{$" + f"{tick:.{precision}f}" + "$};")
+    out.append(fr"\node[anchor=south,text=muted,font=\scriptsize\sffamily] at ({threshold_x:.3f},1.73) {{阈值}};")
+    for index, (label, ratio) in enumerate(series):
+        y = 1.33 - index * .83
+        x = coordinate(ratio)
+        exceeds = ratio > 1
+        color, decision = ("umber", "报警") if exceeds else ("accent", "接受")
+        out.extend([
+            fr"\node[anchor=west,text=ink,font=\small] at (0,{y:.3f}) {{{label}}};",
+            fr"\draw[{color},line width=2pt] ({threshold_x:.3f},{y:.3f}) -- ({x:.3f},{y:.3f});",
+            fr"\node[draw={color},fill={color if exceeds else 'white'},line width=1.15pt,"
+            + ("rectangle" if exceeds else "circle") + fr",minimum size=5.5pt] at ({x:.3f},{y:.3f}) {{}};",
+            fr"\node[anchor=west,text=ink,font=\normalsize] at (11.0,{y:.3f}) " + "{$" + f"{ratio:.3f}$" + "};",
+            fr"\node[anchor=west,text={color},font=\small\sffamily\bfseries] at (13.17,{y:.3f}) {{{decision}}};",
+        ])
+    return "\n".join(out + [r"\end{tikzpicture}"])
+
 
 def material_links(evidence):
     hashes = evidence["source_sha256"]
     def link(path, label, line=None):
         if path not in hashes:
             raise ValueError("Citation missing from verified evidence: " + path)
-        address = BASE + quote(path,safe="/") + (f"#L{line}" if line else "")
+        address = BASE + quote(path,safe="/") + (fr"\#L{line}" if line else "")
         return r"\href{" + address + "}{" + esc(label) + "}"
     turns = evidence["signed"]["turns"]
     four = evidence["four_cell"]
     groups = [
-        ("A　早期求解器和冻结实验", [("evidence/iterations.json","七轮执行与审核回执"),("evidence/independent-checks.json","独立复核"),(evidence["history"]["oracle_path"],"标量屏障推导")]),
-        ("B　两轮残差界研究", [(turns[0]["proof_path"],"单端证明"),(turns[1]["proof_path"],"双端证明"),("residual_study/moonshine/run_receipts.json","审核回执"),(turns[1]["stdout_path"],"精确反例")]),
-        ("C　四格模态专轮", [(four["proof_path"],"模态推导"),("report_example/mode_results.json","逐格分数解"),("report_example/run_evidence.json","原生执行与审核")]),
-        ("D　独立大网格与补充复核", [("residual_study/results/paired_cases.csv","配对预测"),("residual_study/results/closed_loop_cases.csv","独立部署"),("residual_study/results/summary.json","汇总与计时"),("residual_study/results/fresh_stream.json","追加参数流"),("residual_study/results/exact_audit.json","四格独立穷举")])]
-    out = []
-    for title,files in groups:
-        out.append(r"\para{" + title + "}" + "、".join(link(p,l) for p,l in files) + "。")
-    out.append(r"\para{三份原生推导的原式} 以下各式保留所在草稿的记号，链接指向对应原文行。")
+        ("A", "早期求解器与冻结实验", [("evidence/iterations.json","七轮执行与审核"),("evidence/independent-checks.json","独立复核"),(evidence["history"]["oracle_path"],"标量屏障推导")]),
+        ("B", "两轮残差界研究", [(turns[0]["proof_path"],"单端证明"),(turns[1]["proof_path"],"双端证明"),("residual_study/moonshine/run_receipts.json","审核回执"),(turns[1]["stdout_path"],"精确反例")]),
+        ("C", "四格模态研究", [(four["proof_path"],"模态推导"),("report_example/mode_results.json","逐格分数解"),("report_example/run_evidence.json","执行与审核")]),
+        ("D", "独立大网格与补充复核", [("residual_study/results/paired_cases.csv","配对预测"),("residual_study/results/closed_loop_cases.csv","独立部署"),("residual_study/results/summary.json","汇总与计时"),("residual_study/results/fresh_stream.json","追加参数流"),("residual_study/results/exact_audit.json","四格穷举")])]
+    out = [
+        r"\par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}",
+        r"\noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}",
+        r"\toprule\multicolumn{2}{@{}l}{\sffamily\bfseries 研究材料} & \sffamily\bfseries 原始记录 \\ \midrule",
+    ]
+    for code, title, files in groups:
+        links = r"\hspace{.32em}\textcolor{muted}{/}\hspace{.32em}".join(link(p,l) for p,l in files)
+        out.append(row([r"\textcolor{accent}{\sffamily\bfseries " + code + "}", esc(title), links]))
+    out.extend([
+        r"\bottomrule\end{tabularx}\par\endgroup",
+        r"\para{三份原生推导的原式} 下表保留草稿记号，行号链接到原文。",
+        r"\par\smallskip\begingroup\small",
+        r"\noindent\begin{tabularx}{\linewidth}{@{}p{.30\linewidth}@{\hspace{.75em}}X@{}}",
+    ])
     passages = [
         (turns[0],r"^ *(-[a-z]+ +<= +[a-z]+ +<= +[a-z]+)\.? *$","单端包络"),
         (turns[1],r"(?m)^ *(L=[^,\s]+, *U=[^.\s]+)\.? *$","双端包络"),
         (four,r"\$(Au=[^$]+)\$、\$(As=[^$]+)\$、\$(Aq=[^$]+)\$","四格算子作用")]
-    for item,pattern,label in passages:
+    for item, pattern, label in passages:
         original = "\n".join(item["proof_text"].splitlines())
-        match = re.search(pattern,original,re.MULTILINE)
+        match = re.search(pattern, original, re.MULTILINE)
         if not match:
             raise ValueError("Cited passage missing from " + item["proof_path"])
-        n = original.count("\n",0,match.start(1)) + 1
+        n = original.count("\n", 0, match.start(1)) + 1
         excerpt = " / ".join(s.strip() for s in match.groups())
-        out.append(r"\par\noindent\hspace{1.3em}" + link(item["proof_path"],label+f"（第 {n} 行）",n)
-                   + r"\quad{\small\ttfamily " + esc(excerpt) + "}")
+        ref = link(item["proof_path"], label + f"（第 {n} 行）", n)
+        out.append(row([ref, r"{\small\ttfamily " + esc(excerpt) + "}"]))
+    out.append(r"\end{tabularx}\par\endgroup")
     return "\n".join(out)
+
 
 def paper_values(d):
     b,summary = d["benchmark"],d["summary"]
@@ -160,7 +234,8 @@ def build_paper_tex(evidence: dict, sections: list[str]) -> str:
     body = dict(zip(parts[1::2],parts[2::2]))
     if set(body) != set(SECTION_ORDER):
         raise ValueError("Template and registered course paper sections differ.")
-    tex = parts[0] + "\n\\clearpage\n".join(body[k] for k in sections) + "\n\\end{document}\n"
+    section_break = "\n\\papersectionbreak\n"
+    tex = parts[0] + section_break.join(body[k] for k in sections) + "\n\\end{document}\n"
     values = paper_values(evidence)
     return re.sub(r"@@([A-Z_]+)@@", lambda m:str(values[m[1]]), tex)
 
