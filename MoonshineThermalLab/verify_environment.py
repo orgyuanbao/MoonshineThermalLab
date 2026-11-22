@@ -24,7 +24,8 @@ def _verify():
     from moonshine.app import MoonshineApp
     from moonshine.moonshine_cli.config import ensure_runtime_home
     from moonshine.moonshine_constants import MoonshinePaths
-    from run_moonshine import TOOLS
+    from run_moonshine import TOOLS, project_tools
+    from integration.residual_tool import TOOL_NAME, register_residual_tool
     matrix = csr_matrix([[2.0, -1.0], [-1.0, 2.0]])
     rhs = np.array([1.0, 0.0])
     solution = spsolve(matrix, rhs)
@@ -45,12 +46,19 @@ def _verify():
         for name in ("provider", "verification_provider", "archival_provider"):
             config[name]["type"] = "offline"
         config["memory"].update(auto_extract=False, knowledge_vector_enabled=False)
-        config["exposure"]["tools_include"] = TOOLS
+        exposure = {"tools_include": project_tools("thermal-rom")}
+        config["exposure"].update(exposure)
         config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
         app = MoonshineApp(home=str(temporary / "home"))
         names = {item["name"] for item in app.tool_manager.schemas(mode="research", include=TOOLS)}
         if not set(TOOLS) <= names:
             raise RuntimeError("原版 Moonshine 工具缺失：" + repr(sorted(set(TOOLS) - names)))
+        register_residual_tool(app.tool_manager)
+        checked = app.tool_manager.dispatch(TOOL_NAME, {"candidate": "block_two_endpoint",
+                                            "boundary_levels": ["1/5"], "residual_values": [1]},
+                                            {"mode": "research", "exposure": exposure})
+        if checked["status"] != "no_counterexample_in_domain" or checked["checked_cases"] != 1:
+            raise RuntimeError("项目反例工具未完成已知的单项精确校验。")
         if (temporary / "home" / "config" / "credentials.json").exists():
             raise RuntimeError("离线检查不应生成凭据。")
     from integration.codex_provider import resolve_codex_executable
@@ -61,7 +69,8 @@ def _verify():
     print(json.dumps({"status": "passed", "python": sys.version,
                       "numpy": np.__version__, "scipy": scipy.__version__, "matplotlib": matplotlib.__version__,
                       "moonshine_source": str(Path(moonshine.__file__).resolve()),
-                      "tool_count": len(names), "numeric_residual": float(np.max(np.abs(matrix @ solution - rhs))),
+                      "tool_count": len(names), "project_tool_checked": TOOL_NAME,
+                      "numeric_residual": float(np.max(np.abs(matrix @ solution - rhs))),
                       "codex_executable_found": bool(cli), "model_login_or_availability_tested": False,
                       "real_model_calls": 0}, ensure_ascii=False, indent=2))
     if not cli:

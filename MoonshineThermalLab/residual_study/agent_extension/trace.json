@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "mode": "deterministic_controller",
+  "model": null,
+  "model_calls": 0,
+  "controller": "integration.bound_agent.run_agent",
+  "upstream_commit": "bb0e4aa025fdcc5297fff1025ab4876f120ed615",
+  "tool_name": "check_residual_bound",
+  "pristine_registry_has_tool": false,
+  "research_tool_schema": {
+    "name": "check_residual_bound",
+    "description": "Find an exact counterexample to a proposed four-cell Robin residual bound, or exhaust a bounded finite domain.",
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate"
+      ],
+      "properties": {
+        "candidate": {
+          "type": "string",
+          "enum": [
+            "weak_signed",
+            "block_position",
+            "block_signed",
+            "block_two_endpoint"
+          ]
+        },
+        "partition": {
+          "type": "string",
+          "enum": [
+            "whole",
+            "rows",
+            "singletons"
+          ],
+          "description": "Partition for block bounds; default singletons."
+        },
+        "scale": {
+          "type": "string",
+          "maxLength": 9,
+          "pattern": "^[1-9][0-9]{0,3}(?:/[1-9][0-9]{0,3})?$",
+          "description": "Multiply the candidate by this exact rational in (0, 10]; default 1."
+        },
+        "boundary_levels": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "string",
+            "maxLength": 9,
+            "pattern": "^[1-9][0-9]{0,3}(?:/[1-9][0-9]{0,3})?$"
+          },
+          "description": "Distinct rational levels in [1/5,5] for each side; default [\"1/5\",\"5\"]."
+        },
+        "residual_values": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "integer",
+            "minimum": -32,
+            "maximum": 32
+          },
+          "description": "Distinct integer choices at each cell; default [-1,0,1]."
+        }
+      }
+    }
+  },
+  "goal": "在指定的四格有限域上检验候选上界；遇到反例则修正，再检验修正式能否按比例收紧。",
+  "max_rounds": 4,
+  "steps": [
+    {
+      "round": 1,
+      "arguments": {
+        "candidate": "weak_signed",
+        "scale": "1"
+      },
+      "result": {
+        "candidate": "weak_signed",
+        "scale": "1",
+        "partition": "singletons",
+        "grid": [
+          2,
+          2
+        ],
+        "arithmetic": "fractions.Fraction",
+        "boundary_order": [
+          "left",
+          "right",
+          "down",
+          "up"
+        ],
+        "cell_order": [
+          "bottom_left",
+          "bottom_right",
+          "top_left",
+          "top_right"
+        ],
+        "boundary_levels": [
+          "1/5",
+          "5"
+        ],
+        "residual_values": [
+          -1,
+          0,
+          1
+        ],
+        "checked_cases": 90,
+        "total_cases": 1296,
+        "status": "counterexample",
+        "witness": {
+          "boundaries": [
+            "1/5",
+            "1/5",
+            "1/5",
+            "5"
+          ],
+          "residual": [
+            -1,
+            -1,
+            1,
+            1
+          ],
+          "error": [
+            "-399/538",
+            "-399/538",
+            "63/538",
+            "63/538"
+          ],
+          "true_error_inf": "399/538",
+          "candidate_bound": "21/46",
+          "violation_margin": "1764/6187"
+        }
+      },
+      "reason": "先在给定搜索域检验原始猜想。"
+    },
+    {
+      "round": 2,
+      "arguments": {
+        "candidate": "block_two_endpoint",
+        "scale": "1"
+      },
+      "result": {
+        "candidate": "block_two_endpoint",
+        "scale": "1",
+        "partition": "singletons",
+        "grid": [
+          2,
+          2
+        ],
+        "arithmetic": "fractions.Fraction",
+        "boundary_order": [
+          "left",
+          "right",
+          "down",
+          "up"
+        ],
+        "cell_order": [
+          "bottom_left",
+          "bottom_right",
+          "top_left",
+          "top_right"
+        ],
+        "boundary_levels": [
+          "1/5",
+          "5"
+        ],
+        "residual_values": [
+          -1,
+          0,
+          1
+        ],
+        "checked_cases": 1296,
+        "total_cases": 1296,
+        "status": "no_counterexample_in_domain",
+        "witness": null
+      },
+      "reason": "原式出现反例，改用分块双端点包络。"
+    },
+    {
+      "round": 3,
+      "arguments": {
+        "candidate": "block_two_endpoint",
+        "scale": "1/2"
+      },
+      "result": {
+        "candidate": "block_two_endpoint",
+        "scale": "1/2",
+        "partition": "singletons",
+        "grid": [
+          2,
+          2
+        ],
+        "arithmetic": "fractions.Fraction",
+        "boundary_order": [
+          "left",
+          "right",
+          "down",
+          "up"
+        ],
+        "cell_order": [
+          "bottom_left",
+          "bottom_right",
+          "top_left",
+          "top_right"
+        ],
+        "boundary_levels": [
+          "1/5",
+          "5"
+        ],
+        "residual_values": [
+          -1,
+          0,
+          1
+        ],
+        "checked_cases": 1,
+        "total_cases": 1296,
+        "status": "counterexample",
+        "witness": {
+          "boundaries": [
+            "1/5",
+            "1/5",
+            "1/5",
+            "1/5"
+          ],
+          "residual": [
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "error": [
+            "-21/4",
+            "-21/4",
+            "-21/4",
+            "-21/4"
+          ],
+          "true_error_inf": "21/4",
+          "candidate_bound": "21/8",
+          "violation_margin": "21/8"
+        }
+      },
+      "reason": "已由见证得到下限 0，由全域枚举得到可行上限 1，检验中点。"
+    }
+  ],
+  "decisions": [
+    {
+      "action": "check",
+      "arguments": {
+        "candidate": "weak_signed",
+        "scale": "1"
+      },
+      "reason": "先在给定搜索域检验原始猜想。"
+    },
+    {
+      "action": "check",
+      "arguments": {
+        "candidate": "block_two_endpoint",
+        "scale": "1"
+      },
+      "reason": "原式出现反例，改用分块双端点包络。"
+    },
+    {
+      "action": "check",
+      "arguments": {
+        "candidate": "block_two_endpoint",
+        "scale": "1/2"
+      },
+      "reason": "已由见证得到下限 0，由全域枚举得到可行上限 1，检验中点。"
+    },
+    {
+      "action": "finish",
+      "reason": "该有限域上最小可行倍数是 1。完整枚举给出可行倍数，已记录的等号样本排除了所有更小倍数。"
+    }
+  ],
+  "controller_status": "finite_search_completed",
+  "conclusion": "该有限域上最小可行倍数是 1。完整枚举给出可行倍数，已记录的等号样本排除了所有更小倍数。",
+  "scale_bracket": {
+    "lower": "1",
+    "upper": "1",
+    "no_finite_scale": false
+  }
+}

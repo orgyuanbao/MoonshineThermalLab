@@ -9,6 +9,8 @@
 .env.*
 **/.env
 **/.env.*
+!/.env.example
+thermal/bound_agent_runs/
 thermal/home/config/
 thermal/reproductions/
 thermal/papers/

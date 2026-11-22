@@ -1,7 +1,7 @@
 """Run the original Moonshine research loop through a local Codex provider.
 
-The upstream source is pinned and unchanged. The adapter supplies only model
-responses; Moonshine itself executes the project tools and verification flow.
+The upstream source is pinned. The adapter supplies model responses and the
+thermal project registers an exact residual checker in Moonshine's tool registry.
 """
 from __future__ import annotations
 
@@ -19,6 +19,8 @@ import time
 import tomllib
 import uuid
 from unittest.mock import patch
+
+from integration.residual_tool import TOOL_NAME, completed_search, register_residual_tool
 
 ROOT = Path(__file__).resolve().parent
 DATA_ROOT = ROOT
@@ -39,6 +41,11 @@ TOOLS = [
     "mcp_filesystem_write_file", "mcp_filesystem_read_file", "mcp_filesystem_list_directory",
     "run_python_script", "assess_problem_quality", "verify_overall",
 ]
+
+
+def project_tools(project):
+    """Return the provider-visible tools for this project."""
+    return [*TOOLS, TOOL_NAME] if project == "thermal-rom" else list(TOOLS)
 
 
 def select_project(data_root, *, project, title, continue_prompt, entrypoint=None):
@@ -166,7 +173,7 @@ def configure_home(model):
                               max_consecutive_errors=1,
                               research_max_iterations=1, verification_dimension_review_count=1,
                               research_final_report_enabled=True, research_final_report_retries=1)
-    settings["exposure"]["tools_include"] = TOOLS
+    settings["exposure"]["tools_include"] = project_tools(PROJECT)
     write_json(settings_path, settings)
     return settings
 
@@ -182,6 +189,8 @@ def build_app(model, evidence, *, max_calls=16):
          patch.object(implementation, "resolve_verification_provider", lambda config, **kwargs: providers["verification"]), \
          patch.object(implementation, "resolve_archival_provider", lambda config, **kwargs: providers["archival"]):
         app = implementation.MoonshineApp(home=str(HOME))
+    if PROJECT == "thermal-rom":
+        register_residual_tool(app.tool_manager)
     return app
 
 
@@ -196,6 +205,9 @@ def research_outcome(finals, tool_results):
     experiments = [item for item in tool_results if item.get("text") == "run_python_script"
                    and not item.get("payload", {}).get("error")
                    and item.get("payload", {}).get("output", {}).get("returncode") == 0]
+    exact_checks = [item for item in tool_results if item.get("text") == TOOL_NAME
+                    and not item.get("payload", {}).get("error")
+                    and completed_search(item.get("payload", {}).get("output"))]
     verified = [item for item in tool_results if item.get("text") == "verify_overall"
                 and not item.get("payload", {}).get("error")
                 and item.get("payload", {}).get("output", {}).get("passed") is True]
@@ -205,8 +217,9 @@ def research_outcome(finals, tool_results):
     archived = archived if isinstance(archived, int) and not isinstance(archived, bool) else 0
     return {"final_reason": reason, "runtime_failure": fatal,
             "successful_python_executions": len(experiments), "passed_verifications": len(verified),
+            **({"successful_residual_checks": len(exact_checks)} if exact_checks else {}),
             "archived_records": archived,
-            "accepted_local_research_step": bool(not fatal and experiments and verified and archived > 0),
+            "accepted_local_research_step": bool(not fatal and (experiments or exact_checks) and verified and archived > 0),
             "industrial_problem_solved_asserted": False}
 
 
@@ -303,6 +316,8 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
     evidence.mkdir(parents=True, exist_ok=False)
     write_json(evidence / "source.json", identity)
     write_json(evidence / "settings.json", settings)
+    project_sources = (["integration/residual_tool.py", "residual_study/exact_audit.py"]
+                       if PROJECT == "thermal-rom" else [])
     write_json(evidence / "integration.json", {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "model": model, "reasoning_effort": "high", "mode": "research", "project": PROJECT,
@@ -315,7 +330,8 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
         "source_manifest_sha256": digest(ROOT / "source_manifest.json"),
         "problem_sha256": digest(DATA_ROOT / "problem.md"),
         "entrypoint_sha256": digest(ENTRYPOINT) if ENTRYPOINT else None,
-        "description": "Original Moonshine orchestrator/tools/verification/archive; custom Codex CLI model provider.",
+        "project_tool_sources": {p: digest(ROOT / p) for p in project_sources},
+        "description": "Original Moonshine orchestrator, verifier and archive; project model transport and selected tool extensions.",
     })
     snapshot = evidence / "integration_source"
     snapshot.mkdir()
@@ -325,6 +341,10 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
     (snapshot / "moonshine_bootstrap.py").write_bytes((ROOT / "integration" / "moonshine_bootstrap.py").read_bytes())
     (snapshot / "source_manifest.json").write_bytes((ROOT / "source_manifest.json").read_bytes())
     (snapshot / "problem.md").write_bytes((DATA_ROOT / "problem.md").read_bytes())
+    for relative in project_sources:
+        target = snapshot / relative
+        target.parent.mkdir(exist_ok=True)
+        target.write_bytes((ROOT / relative).read_bytes())
     if ENTRYPOINT:
         (snapshot / "entrypoint.py").write_bytes(ENTRYPOINT.read_bytes())
     project_root = HOME / "projects" / PROJECT
@@ -343,9 +363,10 @@ def run_research(prompt_file=None, *, model=None, max_calls=16):
         prompt = CONTINUE_PROMPT
     else:
         prompt = (DATA_ROOT / "problem.md").read_text(encoding="utf-8")
+    evidence_request = ("使用已注册的工具实际核查本轮数学主张，并在结论中引用具体输出。"
+                        if PROJECT == "thermal-rom" else "完整写出程序后用原版工具实际运行，不把计划当成执行结果。")
     prompt += ("\n\n题面备份：" + staged["relative_path"] +
-               "\n本轮最多8次主模型轮次，总模型调用受外层预算限制。请高效推进实质研究，"
-               "完整写出程序后用原版工具实际运行，不把计划当成执行结果。")
+               "\n本轮最多8次主模型轮次，总模型调用受外层预算限制。请高效推进实质研究，" + evidence_request)
     (evidence / "input.txt").write_text(prompt, encoding="utf-8")
     write_json(selection, {"mode": "research", "project": PROJECT, "session_id": state.session_id,
                            "latest_evidence": evidence.relative_to(DATA_ROOT).as_posix()})
@@ -428,8 +449,9 @@ def main():
         identity = source_identity()
         configure_home(current_model())
         app = build_app(current_model(), DATA_ROOT / "checks", max_calls=args.max_calls)
-        names = {item["name"] for item in app.tool_manager.schemas(mode="research", include=TOOLS)}
-        missing = set(TOOLS) - names
+        expected = project_tools(PROJECT)
+        names = {item["name"] for item in app.tool_manager.schemas(mode="research", include=expected)}
+        missing = set(expected) - names
         if missing:
             raise RuntimeError("Moonshine 工具缺失：" + ", ".join(sorted(missing)))
         print(json.dumps({"upstream_commit": identity["commit"], "model": current_model(),

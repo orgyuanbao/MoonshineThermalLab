@@ -1,0 +1,375 @@
+{
+  "origin": "scripted loopback HTTP peer with actual Moonshine tool dispatch",
+  "external_model_calls": 0,
+  "http_requests": [
+    {
+      "path": "/v1/chat/completions",
+      "bearer_header_matched_fixture": true,
+      "model": "loopback-math-fixture",
+      "tools": [
+        "check_residual_bound"
+      ],
+      "candidate_values": [
+        "weak_signed",
+        "block_position",
+        "block_signed",
+        "block_two_endpoint"
+      ],
+      "roles": [
+        "system",
+        "user"
+      ],
+      "assistant_call_ids": [],
+      "returned_tool_messages": []
+    },
+    {
+      "path": "/v1/chat/completions",
+      "bearer_header_matched_fixture": true,
+      "model": "loopback-math-fixture",
+      "tools": [
+        "check_residual_bound"
+      ],
+      "candidate_values": [
+        "weak_signed",
+        "block_position",
+        "block_signed",
+        "block_two_endpoint"
+      ],
+      "roles": [
+        "system",
+        "user",
+        "assistant",
+        "tool"
+      ],
+      "assistant_call_ids": [
+        "weak-call"
+      ],
+      "returned_tool_messages": [
+        {
+          "call_id": "weak-call",
+          "result": {
+            "candidate": "weak_signed",
+            "scale": "1",
+            "partition": "singletons",
+            "grid": [
+              2,
+              2
+            ],
+            "arithmetic": "fractions.Fraction",
+            "boundary_order": [
+              "left",
+              "right",
+              "down",
+              "up"
+            ],
+            "cell_order": [
+              "bottom_left",
+              "bottom_right",
+              "top_left",
+              "top_right"
+            ],
+            "boundary_levels": [
+              "1/5",
+              "5"
+            ],
+            "residual_values": [
+              -1,
+              0,
+              1
+            ],
+            "checked_cases": 90,
+            "total_cases": 1296,
+            "status": "counterexample",
+            "witness": {
+              "boundaries": [
+                "1/5",
+                "1/5",
+                "1/5",
+                "5"
+              ],
+              "residual": [
+                -1,
+                -1,
+                1,
+                1
+              ],
+              "error": [
+                "-399/538",
+                "-399/538",
+                "63/538",
+                "63/538"
+              ],
+              "true_error_inf": "399/538",
+              "candidate_bound": "21/46",
+              "violation_margin": "1764/6187"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "path": "/v1/chat/completions",
+      "bearer_header_matched_fixture": true,
+      "model": "loopback-math-fixture",
+      "tools": [
+        "check_residual_bound"
+      ],
+      "candidate_values": [
+        "weak_signed",
+        "block_position",
+        "block_signed",
+        "block_two_endpoint"
+      ],
+      "roles": [
+        "system",
+        "user",
+        "assistant",
+        "tool",
+        "assistant",
+        "tool"
+      ],
+      "assistant_call_ids": [
+        "weak-call",
+        "corrected-call"
+      ],
+      "returned_tool_messages": [
+        {
+          "call_id": "weak-call",
+          "result": {
+            "candidate": "weak_signed",
+            "scale": "1",
+            "partition": "singletons",
+            "grid": [
+              2,
+              2
+            ],
+            "arithmetic": "fractions.Fraction",
+            "boundary_order": [
+              "left",
+              "right",
+              "down",
+              "up"
+            ],
+            "cell_order": [
+              "bottom_left",
+              "bottom_right",
+              "top_left",
+              "top_right"
+            ],
+            "boundary_levels": [
+              "1/5",
+              "5"
+            ],
+            "residual_values": [
+              -1,
+              0,
+              1
+            ],
+            "checked_cases": 90,
+            "total_cases": 1296,
+            "status": "counterexample",
+            "witness": {
+              "boundaries": [
+                "1/5",
+                "1/5",
+                "1/5",
+                "5"
+              ],
+              "residual": [
+                -1,
+                -1,
+                1,
+                1
+              ],
+              "error": [
+                "-399/538",
+                "-399/538",
+                "63/538",
+                "63/538"
+              ],
+              "true_error_inf": "399/538",
+              "candidate_bound": "21/46",
+              "violation_margin": "1764/6187"
+            }
+          }
+        },
+        {
+          "call_id": "corrected-call",
+          "result": {
+            "candidate": "block_two_endpoint",
+            "scale": "1",
+            "partition": "singletons",
+            "grid": [
+              2,
+              2
+            ],
+            "arithmetic": "fractions.Fraction",
+            "boundary_order": [
+              "left",
+              "right",
+              "down",
+              "up"
+            ],
+            "cell_order": [
+              "bottom_left",
+              "bottom_right",
+              "top_left",
+              "top_right"
+            ],
+            "boundary_levels": [
+              "1/5",
+              "5"
+            ],
+            "residual_values": [
+              -1,
+              0,
+              1
+            ],
+            "checked_cases": 1296,
+            "total_cases": 1296,
+            "status": "no_counterexample_in_domain",
+            "witness": null
+          }
+        }
+      ]
+    }
+  ],
+  "controller_result": {
+    "goal": "Check the weak signed bound, then use the witness to choose a replacement.",
+    "history": [
+      {
+        "round": 1,
+        "arguments": {
+          "candidate": "weak_signed"
+        },
+        "result": {
+          "candidate": "weak_signed",
+          "scale": "1",
+          "partition": "singletons",
+          "grid": [
+            2,
+            2
+          ],
+          "arithmetic": "fractions.Fraction",
+          "boundary_order": [
+            "left",
+            "right",
+            "down",
+            "up"
+          ],
+          "cell_order": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ],
+          "boundary_levels": [
+            "1/5",
+            "5"
+          ],
+          "residual_values": [
+            -1,
+            0,
+            1
+          ],
+          "checked_cases": 90,
+          "total_cases": 1296,
+          "status": "counterexample",
+          "witness": {
+            "boundaries": [
+              "1/5",
+              "1/5",
+              "1/5",
+              "5"
+            ],
+            "residual": [
+              -1,
+              -1,
+              1,
+              1
+            ],
+            "error": [
+              "-399/538",
+              "-399/538",
+              "63/538",
+              "63/538"
+            ],
+            "true_error_inf": "399/538",
+            "candidate_bound": "21/46",
+            "violation_margin": "1764/6187"
+          }
+        },
+        "reason": "Test the first conjecture."
+      },
+      {
+        "round": 2,
+        "arguments": {
+          "candidate": "block_two_endpoint"
+        },
+        "result": {
+          "candidate": "block_two_endpoint",
+          "scale": "1",
+          "partition": "singletons",
+          "grid": [
+            2,
+            2
+          ],
+          "arithmetic": "fractions.Fraction",
+          "boundary_order": [
+            "left",
+            "right",
+            "down",
+            "up"
+          ],
+          "cell_order": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ],
+          "boundary_levels": [
+            "1/5",
+            "5"
+          ],
+          "residual_values": [
+            -1,
+            0,
+            1
+          ],
+          "checked_cases": 1296,
+          "total_cases": 1296,
+          "status": "no_counterexample_in_domain",
+          "witness": null
+        },
+        "reason": "The witness refutes the shortcut. Check the envelope."
+      }
+    ],
+    "status": "finite_search_completed",
+    "reason": "The corrected conjecture survived the finite search.",
+    "decisions": [
+      {
+        "action": "check",
+        "arguments": {
+          "candidate": "weak_signed"
+        },
+        "reason": "Test the first conjecture."
+      },
+      {
+        "action": "check",
+        "arguments": {
+          "candidate": "block_two_endpoint"
+        },
+        "reason": "The witness refutes the shortcut. Check the envelope."
+      },
+      {
+        "action": "finish",
+        "reason": "The corrected conjecture survived the finite search."
+      }
+    ],
+    "scale_bracket": {
+      "lower": "0",
+      "upper": "1",
+      "no_finite_scale": false
+    }
+  }
+}
