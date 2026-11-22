@@ -99,13 +99,32 @@ def open_latest_report():
         print("本轮尚无可展示的报告。可选 2 查看状态。")
 
 
+def build_course_paper(output=None, *, tex_only=False, open_result=False):
+    from integration.course_paper import generate_course_paper
+    folder, receipt = generate_course_paper(runner.HOME, output=output, tex_only=tex_only)
+    print("综合课程论文：", receipt["message"])
+    print("保存位置：", folder)
+    print("已核对来源：", receipt["source_count"], "份。排版模型调用：", receipt["model_calls"])
+    if receipt["status"] == "compile_failed":
+        return 2
+    if open_result:
+        os.startfile(str(folder / "paper.pdf" if receipt["status"] == "compiled" else folder))
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", nargs="?", choices=["check", "status", "run", "report"])
+    parser.add_argument("action", nargs="?", choices=["check", "status", "run", "report", "paper"])
     parser.add_argument("--turn", help="重新生成报告的轮次标识，默认取最近一轮")
+    parser.add_argument("--output", type=Path, help="综合论文的输出目录，默认每次创建新目录")
+    parser.add_argument("--tex-only", action="store_true", help="生成综合论文的 TeX 和回执，跳过 PDF 编译")
     parser.add_argument("--stage", choices=STAGES)
     parser.add_argument("--max-calls", type=int, default=16)
     args = parser.parse_args()
+    if args.action != "paper" and (args.output is not None or args.tex_only):
+        parser.error("--output 和 --tex-only 适用于 paper")
+    if args.action == "paper" and (args.turn or args.stage):
+        parser.error("paper 使用综合论文的全部归档来源，请勿同时指定研究轮次或阶段")
     if not 1 <= args.max_calls <= 24:
         parser.error("--max-calls 必须在 1 到 24 之间")
     if args.action == "run" and not args.stage:
@@ -127,6 +146,8 @@ def main():
         return 0
     if args.action == "report":
         return runner.retry_report(args.turn)
+    if args.action == "paper":
+        return build_course_paper(args.output, tex_only=args.tex_only)
     if args.action == "run":
         return run_step(args.stage, max_calls=args.max_calls)
 
@@ -136,7 +157,7 @@ def main():
     print("打开菜单不会发起研究；选择研究阶段或提交补充要求后才调用模型。")
     while True:
         print("\n当前模型：", runner.model_display())
-        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换模型\n5  补充要求并推进一轮\n6  查看或重新生成最近一轮报告\n0  退出")
+        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换模型\n5  补充要求并推进一轮\n6  查看或重新生成最近一轮报告\n7  汇总历轮推导与大网格实验，生成课程论文\n0  退出")
         answer = input("输入数字并回车：").strip()
         if answer == "0":
             return 0
@@ -166,8 +187,10 @@ def main():
                     run_step(supplement=supplement, max_calls=args.max_calls)
             elif answer == "6":
                 open_latest_report()
+            elif answer == "7":
+                build_course_paper(open_result=True)
             else:
-                print("请选择 0 到 6。")
+                print("请选择 0 到 7。")
         except Exception as exc:
             print("本轮未完成：", exc, flush=True)
             print("可选 2 查看已保存记录，补充失败信息后重试。")

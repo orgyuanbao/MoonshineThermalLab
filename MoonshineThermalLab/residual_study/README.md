@@ -2,7 +2,7 @@
 
 同一个网格上，逐格的热量失衡构成残差 `r = b − A T̂`。本目录判断近似场 `T̂` 与离散方程解相差多大。为了了解位置和符号分别有什么用，程序在相同输入上评估五种判据，也让每个判据独立处理同一条散热参数序列。
 
-[数学推导与论文](../thermal/report/Moonshine_Thermal_Report.pdf) · [真实 Moonshine 研究](moonshine/) · [所有数值结果](results/)
+[数学推导与最终论文](../course_paper/paper.pdf) · [真实 Moonshine 研究](moonshine/) · [所有数值结果](results/)
 
 ## 先复算
 
@@ -34,7 +34,7 @@ python -B residual_study/exact_audit.py
 
 ## 研究技能与课程材料怎样分工
 
-本机适配器把模型回答交还 Moonshine，上游工具读取已有的证明、构造反例和审核技能。新加入项目的是一份数学题面、一个可选择的研究阶段，以及独立计算与复核程序。Moonshine 原生运行写出了数学草稿、Python 程序、输出和审核记录。11 月 21 日的课程论文和课堂幻灯由 Codex 在这两轮研究结束后整理。11 月 22 日，项目在后续研究轮次中加入了独立的 [LaTeX 报告技能](../project_skills/latex-research-report/SKILL.md)。可以对照查看[新一轮自动报告和证据](../report_example/)。[运行器的工具清单](../run_moonshine.py) · [论文 LaTeX 源码](../thermal/report/main.tex)
+本机适配器把模型回答交还 Moonshine，上游工具读取已有的证明、构造反例和审核技能。新加入项目的是一份数学题面、一个可选择的研究阶段，以及独立计算与复核程序。Moonshine 原生运行写出了数学草稿、Python 程序、输出和审核记录。11 月 21 日的课程论文和课堂幻灯由 Codex 在这两轮研究结束后整理。11 月 22 日，项目在后续研究轮次中加入了独立的 [LaTeX 报告技能](../project_skills/latex-research-report/SKILL.md)。现在可以分别阅读[单轮四格报告](../report_example/)和[同一技能从多轮材料与三网格数据生成的最终课程论文](../course_paper/)。[运行器的工具清单](../run_moonshine.py) · [最终论文 LaTeX 源码](../course_paper/paper.tex)
 
 ## 应该怎样解释结果
 

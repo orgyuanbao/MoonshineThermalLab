@@ -57,6 +57,18 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 
 若研究中断、最后一次审核未通过或缺少归档，先核对本轮记录、补齐研究；终端和生成回执会给出原因。归档齐全但缺少可引用推导时，程序也会明确提示。
 
+### 从归档证据生成最终课程论文
+
+安装好项目环境后，双击「启动热仿真研究.cmd」，主菜单选 **7**。也可以在本目录运行：
+
+```powershell
+.\.venv\Scripts\python.exe -B -X utf8 .\thermal_agent.py paper
+```
+
+论文模式通过 Moonshine 的技能接口加载 `latex-research-report`。它读取七轮前期记录、两轮原生推导、已审核的四格算例、三种网格的逐例数据与额外 128 个工况。表格从实验记录计算，正文交代哪些工作由 Moonshine 执行，哪些是项目侧的独立计算。整个出稿过程无需请求模型。
+
+每次默认写入 `thermal/papers/` 下的新目录，保留已有版本。可用 `--output` 指定空目录，用 `--tex-only` 仅保存可编辑的 LaTeX 和证据。生成 PDF 需要 XeLaTeX 和中文排版支持。[阅读整篇论文](course_paper/paper.pdf) · [可独立编译的 TeX](course_paper/paper.tex) · [技能加载记录](course_paper/load_skill_definition.json) · [出稿回执](course_paper/receipt.json)
+
 ### 卡住或报错时
 
 | 看到的现象 | 下一步 |
@@ -91,6 +103,6 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 
 ## 论文与演示
 
-徐楷沅（2352163） · EDA 热仿真加速专题。[论文 PDF](thermal/report/Moonshine_Thermal_Report.pdf) · [LaTeX 源码](thermal/report/main.tex) · [汇报 PPT](classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](classroom/备讲稿与研究总结.pdf) · [离线交互演示](classroom/Moonshine现场演示.html)
+徐楷沅（2352163） · EDA 热仿真加速专题。[最终课程论文 PDF](course_paper/paper.pdf) · [LaTeX 源码](course_paper/paper.tex) · [11 月 21 日的课程论文](thermal/report/Moonshine_Thermal_Report.pdf) · [汇报 PPT](classroom/Moonshine热仿真课堂汇报.pptx) · [备讲稿与操作截图](classroom/备讲稿与研究总结.pdf) · [离线交互演示](classroom/Moonshine现场演示.html)
 
 在本机演示时，将 [classroom](classroom/) 里的 PPT、HTML 和 `moonshine-report.pdf` 下载到同一文件夹。第 3 页可以打开离线四格实验；第 6 页可跳到第 14 页，用本机 PDF 演示我们的报告技能。

@@ -66,6 +66,16 @@ jobs:
         run: .\.venv\Scripts\python.exe -B -X utf8 -m unittest integration.test_report_skill integration.test_report_latex -v
       - name: Recompute the four-cell report example and verify its evidence
         run: .\.venv\Scripts\python.exe -B -X utf8 report_example/verify.py
+      - name: Test course-paper export and historical skill compatibility
+        run: .\.venv\Scripts\python.exe -B -X utf8 -m unittest integration.test_course_paper integration.test_paper_evidence -v
+      - name: Regenerate the full course paper and verify its evidence offline
+        run: |
+          $dest = Join-Path $env:RUNNER_TEMP "moonshine-paper-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          .\.venv\Scripts\python.exe -B -X utf8 thermal_agent.py paper --tex-only --output $dest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\.venv\Scripts\python.exe -B -X utf8 integration/verify_course_paper.py --rebuild $dest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "The installed reporting skill regenerated the published course-paper LaTeX and evidence without model calls." >> $env:GITHUB_STEP_SUMMARY
       - name: Save the signed-residual replay results
         uses: actions/upload-artifact@v4
         with:

@@ -11,6 +11,7 @@
 **/.env.*
 thermal/home/config/
 thermal/reproductions/
+thermal/papers/
 reproduction_runs/
 thermal/report/build/
 thermal/report/build_draft/

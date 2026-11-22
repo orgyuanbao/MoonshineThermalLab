@@ -7,7 +7,8 @@
 | 在自己的电脑上复算一次 | 按[热仿真使用指南](MoonshineThermalLab/README.md)安装环境，复算分块残差上界 |
 | 用 Moonshine 提出问题、继续研究 | 安装环境并登录 Codex CLI 后，打开[热仿真研究启动器](MoonshineThermalLab/启动热仿真研究.cmd) |
 | 查看 Moonshine 新一轮自动生成的 LaTeX 报告 | [四格导热实例、报告与证据](MoonshineThermalLab/report_example/) · [项目技能定义](MoonshineThermalLab/project_skills/latex-research-report/SKILL.md) |
-| 直接查看已有实验 | 打开[五种误差界的逐例对比](MoonshineThermalLab/residual_study/results/summary.json)或[最终论文 PDF](MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) |
+| 生成最终课程论文 | 双击研究启动器，选 **7**，或直接打开[技能生成的论文和证据](MoonshineThermalLab/course_paper/) |
+| 直接查看已有实验 | 打开[五种误差界的逐例对比](MoonshineThermalLab/residual_study/results/summary.json)或[最终论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) |
 
 ## 历史项目：鸿蒙众包定位
 

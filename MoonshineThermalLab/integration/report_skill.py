@@ -13,6 +13,9 @@ import uuid
 SLUG = "latex-research-report"
 ROOT = Path(__file__).resolve().parents[1]
 DEFINITION = ROOT / "project_skills" / SLUG / "SKILL.md"
+# SHA-256 of the complete v1 native installed file with LF line endings.
+# This is also independently archived at report_example/installed_skill.md.
+RELEASED_V1 = "76501f76335d412a6d790517b3375908a1a93dd0738eafa9739de6e5364c3f62"
 TURN_FILES = ("input.txt", "integration.json", "moonshine_events.jsonl", "turn_summary.json")
 OUTPUTS = {"report_input.json", "load_skill_definition.json", "report.tex", "report.pdf"}
 SELECTIONS = {
@@ -61,7 +64,7 @@ def portable_workspace_path(value):
     return path.as_posix() if value else ""
 
 
-def load_definition(home, project, session, app):
+def load_definition(home, project, session, app, *, course_paper=False):
     from integration.codex_provider import _budget_lock
     from moonshine.moonshine_cli.config import ensure_runtime_home, load_config
     from moonshine.moonshine_constants import MoonshinePaths
@@ -84,8 +87,16 @@ def load_definition(home, project, session, app):
         if existing is None:
             skills.create_skill(slug=SLUG, title=meta["metadata"]["title"],
                                 description=meta["description"], body=body, category="installed")
-        elif Path(existing.path).resolve() != installed or existing.body.strip() != body.strip():
+        elif Path(existing.path).resolve() != installed:
             raise ValueError("同名已安装技能与项目定义冲突，请检查 Moonshine home 中的技能。")
+        elif existing.body.strip() != body.strip():
+            # Only the exact released v1 may be upgraded. Local body and
+            # frontmatter edits both survive a conflicting upgrade attempt.
+            previous = installed.read_text(encoding="utf-8").encode("utf-8")
+            if hashlib.sha256(previous).hexdigest() != RELEASED_V1:
+                raise ValueError("本机同名技能已有个人改动，请检查 Moonshine home 中的技能。")
+            skills.edit_skill(slug=SLUG, title=meta["metadata"]["title"],
+                              description=meta["description"], body=body)
         registered = skills.list_skills()["installed"]
         if not any(s["slug"] == SLUG and Path(s["path"]).resolve() == installed for s in registered):
             raise ValueError("Moonshine 已安装技能注册表未返回该技能。")
@@ -104,11 +115,17 @@ def load_definition(home, project, session, app):
                   and entry.get("project_slug") == project), None)
     if match is None or result["slug"] != SLUG or result["body"].strip() != body.strip():
         raise ValueError("原生技能加载回执与本轮身份或已安装内容不一致。")
-    section = result["sections"].get("Evidence Layout", "").strip().splitlines()
+    section_name = "Course Paper Layout" if course_paper else "Evidence Layout"
+    section = result["sections"].get(section_name, "").strip().splitlines()
     if len(section) < 3 or section[0] != chr(96) * 3 + "json" or section[-1] != chr(96) * 3:
-        raise ValueError("技能缺少有效的 Evidence Layout。")
+        raise ValueError("技能缺少有效的 " + section_name + "。")
     layout = json.loads("\n".join(section[1:-1]))
-    if not isinstance(layout, dict) or not layout or any(SELECTIONS.get(k) != v for k, v in layout.items()):
+    if course_paper:
+        required = {"problem", "bounds", "four_cell", "research", "experiments", "discussion", "sources"}
+        if (not isinstance(layout, list) or len(layout) != len(required)
+                or not all(isinstance(key, str) for key in layout) or set(layout) != required):
+            raise ValueError("综合论文布局缺少章节、包含重复章节或存在未知章节。")
+    elif not isinstance(layout, dict) or not layout or any(SELECTIONS.get(k) != v for k, v in layout.items()):
         raise ValueError("技能指定了不受支持的证据栏或材料类型。")
     native_hash = hashlib.sha256(json_bytes(result)).hexdigest()
     public_result = dict(result, path=installed.relative_to(home).as_posix())
