@@ -332,6 +332,25 @@ def extension_research(archive):
             "citation_paths": paths + [http_path]}
 
 
+def live_model_research(archive, reference):
+    """Read the observed remote policy and compare its tool feedback to exact replay."""
+    from residual_study.agent_extension.verify_live_trace import validate_trace
+
+    source = EXTENSION + "live_trace.json"
+    verifier = EXTENSION + "verify_live_trace.py"
+    archive.bytes(verifier)
+    trace = archive.json(source)
+    validate_trace(trace)
+    steps = trace["steps"]
+    require(len(steps) == 2 and [s["arguments"]["candidate"] for s in steps] ==
+            ["weak_signed", "block_two_endpoint"], "Unexpected sequence of live mathematical checks")
+    # These two calls use precisely the same arguments as the first two local trials,
+    # whose results were independently recomputed above, including the exact witness.
+    for live, exact in zip(steps, reference["steps"]):
+        require(live["result"] == exact["result"], "Live tool observation differs from exact replay")
+    return {**trace, "source_path": source, "verifier_path": verifier}
+
+
 def build_paper_evidence(root: Path) -> dict:
     """Verify archived study inputs and regenerate paper tables from individual CSV rows."""
     archive = Archive(root)
@@ -339,6 +358,7 @@ def build_paper_evidence(root: Path) -> dict:
     signed, receipts = signed_research(archive)
     four_cell = four_cell_research(archive)
     extension = extension_research(archive)
+    live = live_model_research(archive, extension)
     benchmark, summary, frozen = numerical_evidence(archive)
     fresh = archive.json(RESULTS + "fresh_stream.json")
     params = set(map(tuple, fresh["parameters"]))
@@ -363,7 +383,8 @@ def build_paper_evidence(root: Path) -> dict:
         archive.bytes(path)
     require(set(archive.hashes) == set(archive.expected), "The course paper used a different set of archived inputs")
     sources = [{"path": key, "sha256": value} for key, value in sorted(archive.hashes.items())]
-    return {"schema_version":2, "history":history, "signed":signed, "four_cell":four_cell, "agent_extension":extension,
+    return {"schema_version":3, "history":history, "signed":signed, "four_cell":four_cell, "agent_extension":extension,
+            "live_model_study":live,
             "benchmark":benchmark, "summary":summary, "receipts":receipts, "fresh":fresh, "exact":exact,
             "sources": sources, "source_sha256": dict(sorted(archive.hashes.items()))}
 

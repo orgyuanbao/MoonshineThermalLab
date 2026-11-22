@@ -67,7 +67,8 @@ def check_export(folder, *, published):
                 "report_example/run_evidence.json", "residual_study/results/paired_cases.csv",
                 "residual_study/results/closed_loop_cases.csv", "residual_study/results/fresh_stream.json",
                 "integration/residual_tool.py", "integration/bound_agent.py", "residual_study/agent_extension/trace.json",
-                "residual_study/agent_extension/replay.py"}
+                "residual_study/agent_extension/replay.py", "residual_study/agent_extension/live_trace.json",
+                "residual_study/agent_extension/verify_live_trace.py"}
     require(required <= sources.keys(), "Missing research histories or benchmark data.")
     check_files(ROOT, sources)
 

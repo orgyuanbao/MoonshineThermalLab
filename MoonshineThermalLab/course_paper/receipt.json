@@ -4,7 +4,7 @@
   "invocation": "requested_course_paper",
   "skill": "latex-research-report",
   "project": "thermal-rom",
-  "session_id": "paper-export-20261122-123457-cbd2866f41d2",
+  "session_id": "paper-export-20261122-131130-1253b01eb9c9",
   "sections": [
     "problem",
     "bounds",
@@ -18,25 +18,25 @@
   "model_calls": 0,
   "new_research_rounds": 0,
   "upstream_commit": "bb0e4aa025fdcc5297fff1025ab4876f120ed615",
-  "source_count": 63,
+  "source_count": 65,
   "inputs": {
     "project_skills/latex-research-report/SKILL.md": "5e77725e4695699d1527879592ef353099a3d18da60c55b35e02b5d8fee4de4e",
     "integration/report_skill.py": "5f69325c4871a1a03f883a268d83dc2adbbcb847f443824e0cd7709af7d401e9",
     "integration/course_paper.py": "f78eb516d355397f2f47c256015a059ab866a4bba1ccbe5153fdcf5d6e70283e",
-    "integration/paper_evidence.py": "fbbcc52b60aceab69160fa8145e75388cb5084ffeff7bf62306d06c5a1536b82",
-    "integration/paper_sources.sha256": "a580bb4876804e1cb35c85167e3519bd0e9bbc78a0a5cc1a719654c34c9fcbb6",
-    "integration/paper_latex.py": "0adabbaa30a5e0f2d81e7c63c7b307de8d99cac26617a37e11bf67cd18cc2c1a",
-    "integration/paper_template.tex": "98635e17951edba6839090c28187809a1d0da8a1ce66f5b3c9c728bae4d1df3d",
+    "integration/paper_evidence.py": "5b450e909fd51f3358a1c8e619bcca1595fd4031fc3455124658efd2a5a28e50",
+    "integration/paper_sources.sha256": "4d325251f7f8164c7a5e01054cd9473347d019559b88d9cadb6982e21805a180",
+    "integration/paper_latex.py": "963aa7d7e060ff4aa6744156b833b83c83c8109ec91fefbdcd586347842a37e9",
+    "integration/paper_template.tex": "ed0b0b4c696a7140526972aaaeb19d25d8715b782994bae914280b1ac867c838",
     "source_manifest.json": "f5b2dd4ce458ec12500716817c2f2500cb1b037e32091e622b1e8881fadef6a4"
   },
   "outputs": {
-    "load_skill_definition.json": "acdd1b82ba8873f6d9866dcb23471382ea8aad819704309f5e2c3a9519063c00",
-    "paper.pdf": "4b4f37c0648fcf2bf17c4188f8c96851649b02dbf6f57e821ff831a152482989",
-    "paper.tex": "b5f17cdc4279eecd20ffd5f25743428c931337e079f5ed7a33cce312c0745d80",
-    "paper_input.json": "49dc2761b0335450a52689d510439be954d6620eb0b4734faa1ddc39699f0b23"
+    "load_skill_definition.json": "97b50998d2434e73008b89fcc6b28bc3dbe2d6b49e1f5ff7e6be137b5cc22a50",
+    "paper.pdf": "a95966b51468aa1ac32c966553396474787dc6bca09a941a62462a62b7613eec",
+    "paper.tex": "b416302fc38f9367bc8cde93af1cc320d011f650c1fce65c32ad0bf432d3a464",
+    "paper_input.json": "a7403ce53046eaa7e38a4cea13d13c58d47d43763afd7136a4acf13d4dfb23c8"
   },
   "status": "compiled",
   "compile_status": "compiled",
   "message": "LaTeX 源文件及 PDF 均已生成。",
-  "finished_at_utc": "2026-11-22T12:35:05.375309+00:00"
+  "finished_at_utc": "2026-11-22T13:11:38.542027+00:00"
 }

@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from integration.paper_evidence import Archive, EXTENSION, NATIVE, RESULTS, TRACKS, \
-    build_paper_evidence, extension_research, read_groups, signed_research
+    build_paper_evidence, extension_research, live_model_research, read_groups, signed_research
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -29,6 +29,17 @@ class PaperEvidenceTests(unittest.TestCase):
         self.assertEqual(extension["mode"], "deterministic_controller")
         self.assertEqual(extension["model_calls"], 0)
         self.assertTrue(all(path in evidence["source_sha256"] for path in extension["citation_paths"]))
+        live = evidence["live_model_study"]
+        self.assertEqual(live["model"], "DeepSeek 4.1")
+        self.assertEqual([s["result"]["checked_cases"] for s in live["steps"]], [90, 1296])
+        self.assertEqual([s["action"] for s in live["decisions"]], ["check", "check", "finish"])
+
+    def test_live_observations_must_match_the_recomputed_exact_witness(self):
+        archive = Archive(PROJECT)
+        reference = extension_research(archive)
+        reference["steps"][0]["result"]["checked_cases"] += 1
+        with self.assertRaisesRegex(ValueError, "Live tool observation differs"):
+            live_model_research(archive, reference)
 
     def test_witness_value_must_match_a_fresh_exact_search(self):
         archive = Archive(PROJECT)

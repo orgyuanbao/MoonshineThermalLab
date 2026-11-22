@@ -9,7 +9,8 @@
 | [早期七轮的研究记录](../evidence/iterations.json)与[独立解析屏障推导](../thermal/independent_review/theory_oracle.md) | 说明建模、求解器校验和降阶策略怎样形成，保留各轮程序执行及审核状态。 |
 | [两轮原生数学研究](../residual_study/moonshine/) | 对照单端符号界、双端点区间及反例，追踪首轮补交证据后的复审。 |
 | [四格符号模式](../report_example/) | 从同号、条纹和棋盘三种精确解解释位置与符号的作用。 |
-| [自研智能体运行轨迹](../residual_study/agent_extension/trace.json)与[模型接口测试](../residual_study/agent_extension/http_fixture.json) | 逐轮核对原猜想被反驳、修正式通过有限域检验、收紧倍数遇到等号样本的过程，并区分数学实验和接口验证。 |
+| [自研智能体的本地策略](../residual_study/agent_extension/trace.json) | 三轮精确实验检验原猜想、双端点修正式与统一缩放倍数。 |
+| [阿里云百炼两轮真实调用](../residual_study/agent_extension/live_trace.json)与[复核程序](../residual_study/agent_extension/verify_live_trace.py) | 自研智能体保存任务、行动与反馈；DeepSeek 4.1 收到第一轮反例后，按题设条件提交第二次检验并总结有限域结论。 |
 | [三网格逐例数据及留出实验](../residual_study/results/) | 区分固定预测上的报警与每种策略独立回退，比较预测精度、代价和适用范围。 |
 
 从同一批旧预测出发，原判据与双端点界分别发出 47 次、29 次报警。每种策略独立更新降阶基时，实际回退分别为 47 次、40 次。三网格计时均未显示双端点策略的总耗时优势。

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "history": {
     "turns": [
       {
@@ -5194,6 +5194,152 @@
       "residual_study/agent_extension/http_fixture.json"
     ]
   },
+  "live_model_study": {
+    "schema_version": 1,
+    "mode": "live_chat_completions",
+    "provider": "阿里云百炼",
+    "model": "DeepSeek 4.1",
+    "source_trace_sha256": "a5fb3ab3a39656c622d6299a01d163329c6b18903a7a8b75d810e1f0d7d4f869",
+    "tool_name": "check_residual_bound",
+    "goal": "在默认四格域上，先调用 check_residual_bound 检验 weak_signed，保留默认参数。若有反例，在同一域检验 block_two_endpoint。收到两次本机检验结果后，以一两句话给出反例数值、修正式实际检查数和结论范围，然后结束。",
+    "steps": [
+      {
+        "round": 1,
+        "arguments": {
+          "candidate": "weak_signed"
+        },
+        "result": {
+          "candidate": "weak_signed",
+          "scale": "1",
+          "partition": "singletons",
+          "grid": [
+            2,
+            2
+          ],
+          "arithmetic": "fractions.Fraction",
+          "boundary_order": [
+            "left",
+            "right",
+            "down",
+            "up"
+          ],
+          "cell_order": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ],
+          "boundary_levels": [
+            "1/5",
+            "5"
+          ],
+          "residual_values": [
+            -1,
+            0,
+            1
+          ],
+          "checked_cases": 90,
+          "total_cases": 1296,
+          "status": "counterexample",
+          "witness": {
+            "boundaries": [
+              "1/5",
+              "1/5",
+              "1/5",
+              "5"
+            ],
+            "residual": [
+              -1,
+              -1,
+              1,
+              1
+            ],
+            "error": [
+              "-399/538",
+              "-399/538",
+              "63/538",
+              "63/538"
+            ],
+            "true_error_inf": "399/538",
+            "candidate_bound": "21/46",
+            "violation_margin": "1764/6187"
+          }
+        },
+        "reason": ""
+      },
+      {
+        "round": 2,
+        "arguments": {
+          "candidate": "block_two_endpoint"
+        },
+        "result": {
+          "candidate": "block_two_endpoint",
+          "scale": "1",
+          "partition": "singletons",
+          "grid": [
+            2,
+            2
+          ],
+          "arithmetic": "fractions.Fraction",
+          "boundary_order": [
+            "left",
+            "right",
+            "down",
+            "up"
+          ],
+          "cell_order": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ],
+          "boundary_levels": [
+            "1/5",
+            "5"
+          ],
+          "residual_values": [
+            -1,
+            0,
+            1
+          ],
+          "checked_cases": 1296,
+          "total_cases": 1296,
+          "status": "no_counterexample_in_domain",
+          "witness": null
+        },
+        "reason": ""
+      }
+    ],
+    "decisions": [
+      {
+        "action": "check",
+        "reason": "",
+        "arguments": {
+          "candidate": "weak_signed"
+        }
+      },
+      {
+        "action": "check",
+        "reason": "",
+        "arguments": {
+          "candidate": "block_two_endpoint"
+        }
+      },
+      {
+        "action": "finish",
+        "reason": "weak_signed 在默认参数下被反例推翻：边界 (1/5,1/5,1/5,5)、残差 (−1,−1,1,1)，真误差 ∞-范数 399/538 ≈ 0.7416 超过界 21/46 ≈ 0.4565（超出 1764/6187 ≈ 0.285）。改用 block_two_endpoint 后，在默认四格域上穷尽检验了 1296 个用例，未发现反例；这只是有限离散搜索得到的证据，并不构成连续参数上的证明。"
+      }
+    ],
+    "controller_status": "finite_search_completed",
+    "conclusion": "weak_signed 在默认参数下被反例推翻：边界 (1/5,1/5,1/5,5)、残差 (−1,−1,1,1)，真误差 ∞-范数 399/538 ≈ 0.7416 超过界 21/46 ≈ 0.4565（超出 1764/6187 ≈ 0.285）。改用 block_two_endpoint 后，在默认四格域上穷尽检验了 1296 个用例，未发现反例；这只是有限离散搜索得到的证据，并不构成连续参数上的证明。",
+    "scale_bracket": {
+      "lower": "0",
+      "upper": "1",
+      "no_finite_scale": false
+    },
+    "source_path": "residual_study/agent_extension/live_trace.json",
+    "verifier_path": "residual_study/agent_extension/verify_live_trace.py"
+  },
   "benchmark": {
     "grids": [
       24,
@@ -9066,12 +9212,20 @@
       "sha256": "d2aacb653e68057dce41d27600e114b506e0f1303293300e75d1336c00d8c60b"
     },
     {
+      "path": "residual_study/agent_extension/live_trace.json",
+      "sha256": "8e63de70c447f7190b2f67a23252ea1995398e0edfc529dc5b7706634bed6e5d"
+    },
+    {
       "path": "residual_study/agent_extension/replay.py",
       "sha256": "c8ce40ac5691d75a0c88a8b4d13a3bf41449720bb5a4c944727b9f5bdcacb39f"
     },
     {
       "path": "residual_study/agent_extension/trace.json",
       "sha256": "4ec4ccc9f2f1cefb0fc734e002d71c396163432b10ce4d1fb58d081c740a5b66"
+    },
+    {
+      "path": "residual_study/agent_extension/verify_live_trace.py",
+      "sha256": "b21a780875929d83bc4c96959bc4a5aab00e7651a2999d83c07108f8686f03c8"
     },
     {
       "path": "residual_study/bounds.py",
@@ -9253,8 +9407,10 @@
     "report_example/source_skill.md": "80f0e6e43de6d7f9abe917bc87aef4ecf21aabbfd2c7ac0202158b4fb95f2966",
     "report_example/stdout.json": "0f8eccdcfaf49538115df646e9cbda5adf42a819503b86dc2ff07aee99212357",
     "residual_study/agent_extension/http_fixture.json": "d2aacb653e68057dce41d27600e114b506e0f1303293300e75d1336c00d8c60b",
+    "residual_study/agent_extension/live_trace.json": "8e63de70c447f7190b2f67a23252ea1995398e0edfc529dc5b7706634bed6e5d",
     "residual_study/agent_extension/replay.py": "c8ce40ac5691d75a0c88a8b4d13a3bf41449720bb5a4c944727b9f5bdcacb39f",
     "residual_study/agent_extension/trace.json": "4ec4ccc9f2f1cefb0fc734e002d71c396163432b10ce4d1fb58d081c740a5b66",
+    "residual_study/agent_extension/verify_live_trace.py": "b21a780875929d83bc4c96959bc4a5aab00e7651a2999d83c07108f8686f03c8",
     "residual_study/bounds.py": "767f558f0f9a90fbd6274fb0a65e4bd7bd765a5217ef1be7f15a7f2c9016f403",
     "residual_study/exact_audit.py": "4e821ab0f69f0502ecddbfbf7527ea495702a66aa9329d90e998f436211c6d27",
     "residual_study/fresh_stream.py": "afd4010f7ca691c8a1cc1e5a417e62adae4d00b78217d5238c52eb8ac5986568",

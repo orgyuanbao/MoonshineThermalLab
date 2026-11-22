@@ -12,6 +12,8 @@
 
 选 **8 → 2** 可让模型阅读每次反例并选择下一步。打开子目录里的 `.env`，填写 `LLM_BASE_URL`、`LLM_API_KEY` 和 `LLM_MODEL`。从 GitHub 克隆时可先把 `.env.example` 复制为 `.env`。接口采用支持工具调用的 Chat Completions 协议，模型选择检验，矩阵求解与分数比较在本机执行。[空白配置模板](MoonshineThermalLab/.env.example) · [模型接口和命令行示例](MoonshineThermalLab/README.md#运行自研残差上界研究智能体)
 
+一次通过阿里云百炼运行的研究展示了这个循环。我们要求 **DeepSeek 4.1** 先检验弱端点公式，遇到反例再检验双端点公式。第 90 组中，真实误差为 399/538，超过原式给出的 21/46。模型读到这条工具结果后，提交了双端点公式；本机检查同一有限域中的全部 1,296 组，未发现反例。公开记录保留了原任务、两个工具调用和模型的结束说明。[两轮模型运行记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [离线复核](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
+
 ## 先试一个四格算例
 
 同一块板、同一组散热条件，四个格子的残差都取 +1 时，最大温度误差等于 5.25；将符号按棋盘交错排列，误差降为 21/88，恰好小了 22 倍。两个例子的最大残差均为 1。用 Python 3.12 和标准库可以精确核对这两组数。
@@ -47,6 +49,6 @@ python -B .\residual_study\exact_audit.py
 
 ## 论文与课堂演示
 
-《人工智能与数学》课程论文（徐楷沅，2352163）从残差方程推导误差界，给出自研智能体的逐轮决策，再用同一批预测和独立部署两种实验检验上界。主菜单选 **7** 可从归档生成整篇论文。早期课堂演示另存为 PPT 和 HTML。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [出稿回执](MoonshineThermalLab/course_paper/receipt.json) · [早期演示 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
+《人工智能与数学》课程论文（徐楷沅，2352163）给出误差界的推导、自研智能体与 DeepSeek 4.1 的两轮检验，以及大网格上的预测和部署实验。主菜单选 **7** 可从归档生成整篇论文。课堂 PPT 的演讲者备注解释了控制器、模型和数学工具各自完成的工作。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [早期备讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
 
 前一期的导热求解器、原七轮记录和冻结输入均可查阅。更早的鸿蒙众包定位项目另有归档。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [原七轮记录](MoonshineThermalLab/evidence/iterations.json) · [上一版导热论文](https://github.com/orgyuanbao/MoonshineThermalLab/blob/ef9273d2a64242344af26b609807e5249172b565/MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [众包定位归档](CROWDLOCATE_ARCHIVE.md)

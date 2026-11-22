@@ -10,6 +10,7 @@ SECTION_ORDER = ("problem","bounds","four_cell","research","agent_extension","ex
 # Fix the revision of the archived inputs so the source line links stay stable.
 BASE = "https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/"
 NATIVE_EXTENSION_REVISION = "de5b7fb28e46a1749973d6d0a9c36d77a25c08ef"
+LIVE_STUDY_REVISION = "2dcd69b437bc5320c67c68d2010bd85d07e7715f"
 METHODS = {"analytic":"原解析标量", "sharp_scalar":"最优统一标量", "block_abs":"分块幅度",
            "block_sign":"单端符号", "two_endpoint":"双端点符号"}
 HISTORY = ("求解器校验、修复与产物检查", "复核热求解器并补做审核", "构造 POD 基线与失效分析",
@@ -127,11 +128,14 @@ def threshold_chart(case, tolerance):
 
 def material_links(evidence):
     hashes = evidence["source_sha256"]
+    live = evidence["live_model_study"]
     def link(path, label, line=None):
         if path not in hashes:
             raise ValueError("Citation missing from verified evidence: " + path)
         base = (f"https://github.com/orgyuanbao/MoonshineThermalLab/blob/{NATIVE_EXTENSION_REVISION}/MoonshineThermalLab/"
                 if path in evidence["agent_extension"]["citation_paths"] else BASE)
+        if path in (live["source_path"], live["verifier_path"]):
+            base = f"https://github.com/orgyuanbao/MoonshineThermalLab/blob/{LIVE_STUDY_REVISION}/MoonshineThermalLab/"
         address = base + quote(path,safe="/") + (fr"\#L{line}" if line else "")
         return r"\href{" + address + "}{" + esc(label) + "}"
     turns = evidence["signed"]["turns"]
@@ -147,6 +151,8 @@ def material_links(evidence):
                     (evidence["agent_extension"]["trace_path"], "调用记录"),
                     (evidence["agent_extension"]["replay_path"], "复放程序"),
                     (evidence["agent_extension"]["http_path"], "接口自测")]))
+    groups.append(("F", "真实模型的两轮检验",
+                   [(live["source_path"], "任务、工具回执与结束结论"), (live["verifier_path"], "精确复核程序")]))
     out = [
         r"\par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}",
         r"\noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}",
@@ -190,15 +196,11 @@ def extension_values(trace):
             formula = frac(result["scale"]) + r"\," + formula
         outcome = "找到反例" if result["status"] == "counterexample" else "域内未见反例"
         rows.append(row([i, "$" + formula + "$", result["checked_cases"], result["total_cases"], outcome]))
-    witness = steps[0]["result"]["witness"]
     scaled = steps[-1]["result"]
     scaled_witness = scaled["witness"]
     def vector(values):
         return r"\bigl(" + ",".join(frac(v) for v in values) + r"\bigr)"
-    return {"TOOL_STEPS": "\n".join(rows), "TOOL_H": vector(witness["boundaries"]),
-            "TOOL_R": vector(witness["residual"]), "TOOL_BOUND": frac(witness["candidate_bound"]),
-            "TOOL_ERROR": frac(witness["true_error_inf"]), "TOOL_MARGIN": frac(witness["violation_margin"]),
-            "TOOL_MODEL_CALLS": trace["model_calls"], "HTTP_REQUESTS": trace["http_requests"],
+    return {"TOOL_STEPS": "\n".join(rows), "TOOL_MODEL_CALLS": trace["model_calls"],
             "SCALE_FACTOR": frac(scaled["scale"]),
             "SCALE_R": vector(scaled_witness["residual"]), "SCALE_ERROR": frac(scaled_witness["true_error_inf"]),
             "SCALE_BOUND": frac(scaled_witness["candidate_bound"])}
@@ -208,6 +210,13 @@ def paper_values(d):
     b,summary = d["benchmark"],d["summary"]
     g,pair,closed,total = b["grids"],b["paired"],b["closed"],b["totals"]
     case,fresh,exact = b["case"],d["fresh"],d["exact"]
+    live = d["live_model_study"]
+    first_result, second_result = (s["result"] for s in live["steps"])
+    witness = first_result["witness"]
+    # Retain the model's own qualification verbatim from the archived final answer.
+    qualifier = live["conclusion"].split("，未发现反例；", 1)
+    if len(qualifier) != 2 or not qualifier[1].strip():
+        raise ValueError("The archived model conclusion lacks the finite-domain qualification.")
     four = d["four_cell"]["modes"]
     modes = {s["name"]:s for s in four}
     first,second = d["signed"]["turns"]
@@ -237,6 +246,13 @@ def paper_values(d):
         raise ValueError("The two signed studies cite different models.")
     return {
         **extension_values(d["agent_extension"]),
+        "LIVE_MODEL": esc(live["model"]), "LIVE_PROVIDER": esc(live["provider"]),
+        "LIVE_FIRST_N": first_result["checked_cases"], "LIVE_FINISH_EXCERPT": esc(qualifier[1]),
+        "LIVE_SECOND_N": second_result["checked_cases"],
+        "LIVE_BOUND": frac(witness["candidate_bound"]), "LIVE_ERROR": frac(witness["true_error_inf"]),
+        "LIVE_GAP": frac(witness["violation_margin"]),
+        "LIVE_H": r"\bigl(" + ",".join(frac(v) for v in witness["boundaries"]) + r"\bigr)",
+        "LIVE_R": r"\bigl(" + ",".join(frac(v) for v in witness["residual"]) + r"\bigr)",
         "STRIPE":frac(modes["stripes"]["error_inf"]),"CHECKER":frac(modes["checkerboard"]["error_inf"]),
         "STRIPE_RATIO":frac(Fraction(modes["stripes"]["error_inf"])/Fraction(modes["checkerboard"]["error_inf"])),
         "OLDPAIRED":op,"NEWPAIRED":np,"OLDCLOSED":oc,"NEWCLOSED":nc,"PAIRED_SAVED":op-np,"CLOSED_SAVED":oc-nc,

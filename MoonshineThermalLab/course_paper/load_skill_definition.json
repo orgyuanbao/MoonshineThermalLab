@@ -4,13 +4,13 @@
     "slug": "latex-research-report"
   },
   "project": "thermal-rom",
-  "session_id": "paper-export-20261122-123457-cbd2866f41d2",
+  "session_id": "paper-export-20261122-131130-1253b01eb9c9",
   "registry": "installed",
   "native_skill_audit": {
     "event": "skill_load",
-    "created_at": "2026-11-22T12:34:57Z",
+    "created_at": "2026-11-22T13:11:30Z",
     "slug": "latex-research-report",
-    "session_id": "paper-export-20261122-123457-cbd2866f41d2",
+    "session_id": "paper-export-20261122-131130-1253b01eb9c9",
     "project_slug": "thermal-rom"
   },
   "dispatch": "Moonshine.ToolManager.dispatch",

@@ -89,7 +89,7 @@
 \noindent{\color{hair}\rule{\linewidth}{.45pt}}\par\vspace{1.0mm}
 \noindent\begin{tabularx}{\linewidth}{@{}p{.105\linewidth}@{}X@{}}
 {\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont 摘\hspace{.26em}要} &
-{\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，怎样从逐格热量失衡估计温度误差？对四边 Robin 系数可变的离散系统，本文证明统一残差倍数的最优值，并用分块残差极值及强弱散热响应给出误差区间。我们开发残差上界研究智能体，借用 Moonshine 的工具接口求取精确反例，再根据反例检验修正后的候选式。横条纹和棋盘格均有两正两负的单位残差，四格模型的最大误差分别为 $@@STRIPE@@$ 和 $@@CHECKER@@$。在三个大网格上，对相同预测替换判据，报警数由 @@OLDPAIRED@@ 减至 @@NEWPAIRED@@；各策略自行更新降阶基后，实际回退由 @@OLDCLOSED@@ 减至 @@NEWCLOSED@@。归档预测上的双端点界与单端符号界@@EQUIV@@，双端点策略的总耗时仍较长。\par}\\[2.2mm]
+{\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，怎样从逐格热量失衡估计温度误差？对四边 Robin 系数可变的离散系统，本文证明统一残差倍数的最优值，并用分块残差极值及强弱散热响应给出误差区间。我们开发了残差上界研究智能体。在线实验中，@@LIVE_MODEL@@ 收到四格反例，转而检验任务中给出的双端点界，在 @@LIVE_SECOND_N@@ 组离散工况中未见反例。横条纹和棋盘格均有两正两负的单位残差，四格模型的最大误差分别为 $@@STRIPE@@$ 和 $@@CHECKER@@$。在三个大网格上，对相同预测替换判据，报警数由 @@OLDPAIRED@@ 减至 @@NEWPAIRED@@；各策略自行更新降阶基后，实际回退由 @@OLDCLOSED@@ 减至 @@NEWCLOSED@@。归档预测上的双端点界与单端符号界@@EQUIV@@，双端点策略的总耗时仍较长。\par}\\[2.2mm]
 {\sffamily\paperlabel\bfseries\fontsize{9.4}{14}\selectfont\color{muted}关键词} &
 {\fontsize{9.6}{14.8}\selectfont\color{muted}后验误差估计；离散导热；逆非负矩阵；残差符号；降阶模型}
 \end{tabularx}\par\vspace{2.0mm}
@@ -165,29 +165,50 @@
 %%PART agent_extension
 \clearpage
 \section{自研残差上界研究智能体}\label{extension}
-早期两轮研究中，Moonshine 为各自的猜想编写并运行了不同的 Python 程序。我们希望固定数学模型之后，研究程序能够记住哪些上界已经失败，选择下一种候选式，并留下读者可复算的判断依据。为此开发了残差上界研究智能体（Residual Bound Agent）。其控制程序维护目标、候选式、工具返回值与步数预算，依据每次反馈继续试验或停止。它调用 Moonshine 的工具管理器执行本项目注册的 \texttt{check\_residual\_bound}。早期研究与这一轮实验分别留档，报告技能在研究完成后排版。
+早期研究中，Moonshine 为不同猜想编写并运行 Python 程序。为了让同一个程序根据反例继续试验，我们开发了残差上界研究智能体（Residual Bound Agent）。自研控制器保存目标、已检验的候选式和工具回执，把最新观测交给决策策略，再执行下一次检验或结束研究。每完成一次数学检验，控制器便将结果写入本轮记录。
 
-\para{工具怎样检验一个猜想} 令 $H(r,\mu)$ 为待测上界。在 $2\times2$ 网格上，工具对给定的边界系数和残差做笛卡尔积枚举，以有理数运算计算 $e=G_\mu r$。一旦发现 $\norm e>H(r,\mu)$，就返回这组工况和差额；遍历结束则报告检查的范围及数量。可选择候选式、分块和正有理数倍数。默认四边各取 $\{1/5,5\}$，四格残差各取 $\{-1,0,1\}$，共 $2^4\,3^4=1296$ 组。
+\para{工具怎样检验一个猜想} 我们编写的 \texttt{check\_residual\_bound} 通过 Moonshine 的工具管理器注册和执行。令 $H(r,\mu)$ 为待测上界。在 $2\times2$ 网格上，工具枚举边界系数和残差，以有理数运算计算 $e=G_\mu r$。一旦发现 $\norm e>H(r,\mu)$，就返回这组工况、真实误差和候选上界；遍历结束则报告检查的范围及数量。默认四边各取 $\{1/5,5\}$，四格残差各取 $\{-1,0,1\}$，共 $2^4\,3^4=1296$ 组。
 
-\para{谁选择下一步} 运行 \texttt{python thermal\_agent.py investigate}，由本地策略依据回执选择后续试验。表 2 记录了全部工具调用，本轮模型调用数为 @@TOOL_MODEL_CALLS@@。另一入口 \texttt{-{}-model} 从 \texttt{.env} 读取模型、接口地址与密钥。本次以本地模拟服务验证了 @@HTTP_REQUESTS@@ 次 HTTP 请求的工具往返，尚待接入真实服务。早期 Moonshine 研究的模型调用另见材料 B。
+\para{两种决策策略} 直接运行 \texttt{python thermal\_agent.py investigate}，本地策略遇到反例后会尝试双端点界，再根据通过的倍数和已有见证选择新的缩放倍数。增加 \texttt{-{}-model} 参数则启用模型策略。控制器从 \texttt{.env} 读取服务配置，将目标和工具回执交给模型，模型返回下一次工具调用或结束说明。两种策略共用控制器和有理数工具。研究结束后，报告技能从归档记录提取推导和实测数值。
 
 \par\medskip\noindent\begin{minipage}{\linewidth}
-\capline{表 2}{智能体依次检验的候选式与停止时的用例数}
+\capline{表 2}{本地策略的三轮精确检验（模型调用 @@TOOL_MODEL_CALLS@@ 次）}
 \vspace{2mm}\tabletype
 \begin{tabular*}{\linewidth}{@{}c@{\extracolsep{\fill}}lrrl@{}}
 \toprule {\columnhead 次序}&{\columnhead 候选式}&{\columnhead 实查}&{\columnhead 域内总数}&{\columnhead 结果}\\\midrule
 @@TOOL_STEPS@@
 \bottomrule\end{tabular*}\end{minipage}\par
 
-\subhead{怎样复核工具给出的反例}
-取边界次序为左、右、下、上，残差从下排左格开始编号。首个反例为
-\[
-   (h_L,h_R,h_D,h_U)=@@TOOL_H@@,\qquad r=@@TOOL_R@@^\top .
-\]
-候选值 $H=@@TOOL_BOUND@@$，而真实误差为 $\norm{G_\mu r}=@@TOOL_ERROR@@$，低估 $@@TOOL_MARGIN@@$。这一组分数即足以否定原候选式。改用双端点界后，表中的有限检验仅覆盖所列组合，对连续边界参数盒的保证来自命题二。
+
 
 \para{能否再乘一个小于 1 的常数？} 智能体接着将同一双端点上界乘以 $@@SCALE_FACTOR@@$。在四边均取弱端点、$r=@@SCALE_R@@^\top$ 时，实测 $\norm e=@@SCALE_ERROR@@$，缩放上界仅为 $@@SCALE_BOUND@@$。由这一见证反推，原双端点上界在此例恰好等于真实误差。因此对本模型的单格分块，统一下调所有工况的倍数会失效；其他工况仍可有余量。
 \source{智能体控制程序、反例工具、实际调用顺序及复算入口见 \hyperref[materials]{材料 E}。}
+
+\clearpage
+\subsection*{模型实测：@@LIVE_MODEL@@ 如何根据反例进入第二轮}
+我们将自研智能体接入@@LIVE_PROVIDER@@，让 @@LIVE_MODEL@@ 在同一默认四格域内选择工具调用。交给模型的任务规定了条件：先检验弱端点式，若有反例，再检验双端点式。两种候选公式均已给定。这一实验考察模型能否读懂工具返回的证据，执行条件分支，并准确说明结果的适用范围。
+
+\subhead{第一轮：弱端点式在哪一组工况失效？}
+模型首次请求检验 \texttt{weak\_signed}，即以 $H_0(r)=\norm{G_w r}$ 估计 $\norm{G_\mu r}$。工具在第 @@LIVE_FIRST_N@@ 组停止。取边界次序为左、右、下、上；单元从下排左格起逐行编号，回执中的工况为
+\[
+   (h_L,h_R,h_D,h_U)=@@LIVE_H@@,\qquad r=@@LIVE_R@@^\top .
+\]
+同一残差下，真实最大误差超过候选上界。精确差额为
+\[
+    \underbrace{@@LIVE_ERROR@@}_{\norm{G_\mu r}}
+       -\underbrace{@@LIVE_BOUND@@}_{H_0(r)}=@@LIVE_GAP@@>0 .
+\]
+四个分量含有相反符号，弱散热响应作用在整个向量上时会发生抵消。仅这一组工况，就足以反驳“弱端点式对每种边界都给出上界”的猜想。
+
+\subhead{第二轮：模型收到反例后检验了什么？}
+控制器将含边界、残差、两个分数和停检位置的回执交回模型。模型随后向同一工具发出第二次调用，实际参数只有一项：
+\begin{center}\ttfamily\small \{"candidate": "block\_two\_endpoint"\}\end{center}
+\noindent 因而单格分块、枚举域和倍数 $1$ 均沿用默认值。新候选式分别处理残差的正负部分，用强弱两端的响应给出逐格区间，再从区间取最大误差上界 $\eta_2$（式~\eqref{chain}）。工具查完全部 @@LIVE_SECOND_N@@ 组，均未出现真实误差超过 $\eta_2$ 的情形。
+
+\para{何时停止} 收到第二份回执后，模型结束研究，报告原式的具体反例，并将对修正式的判断限定在给定工况。结束答复的原文节选如下：
+\begin{quote}\small @@LIVE_FINISH_EXCERPT@@\end{quote}
+\noindent 连续参数盒上的保证来自命题二。此会话留下两次工具调用和一次结束决策；上一页的半倍试验属于另外运行的本地策略。
+\source{原始任务、模型选择的参数、逐轮有理数结果与结束答复均见 \hyperref[materials]{材料 F}。所附复核程序可在本机重新计算两轮数学结果。}
 %%PART experiments
 \clearpage
 \section{大网格实验：两种问题，两组计数}
@@ -218,13 +239,13 @@
 \figurenote{每格是 @@REPEATS@@ 次本机归档计时的中位数，含训练、模板准备、预测、回退和更新。参照误差复核与模型研究时间另计。模板栏按两组响应向量的字节数计算。}\end{minipage}\par
 \subhead{独立参数流} 保持相同训练集和策略定义，在 $@@FRESH_N@@^2$ 网格另抽 @@FRESH_NQ@@ 组系数（种子 @@SEED@@），与原序列、训练集和调参集的重合数为 @@OVERLAP@@。原标量回退 @@FRESH_OLD@@ 次，双端点回退 @@FRESH_NEW@@ 次；双端点纠正了 @@FRESH_PRE@@ 次真实超标，返回结果超标 @@FRESH_RETURN@@ 次。冻结旧流各策略的返回超标合计为 @@RETURN_EX@@。这两条流评价了观测到的工况，全参数保证仍依靠证明。
 \subhead{使用边界} $K_b$ 个块需要 $2K_b$ 张端点响应图，每张含 $n^2$ 个分量。可在两次矩阵分解后批量求离线响应，在线直接组合的工作量为 $O(K_b n^2)$。表 4 中，双端点策略虽减少回退，完整执行时间在本次三个网格上均高于旧标量策略。耗时受实现和机器负载影响。
-\subhead{结论} 空间块把“哪里失衡”保留到估计中，正负极值又分开了升温和降温方向。两端点给出的逐格区间在精确算术下覆盖整个允许的 Robin 参数盒；四格反例指出了直接套用矩阵单调性会出错的位置。大网格实现使用普通双精度，未对舍入误差做有向包围；本文也没有估计从连续热方程到有限体积网格的离散化误差。
+\subhead{结论} 空间块把“哪里失衡”保留到估计中，正负极值又分开了升温和降温方向。自研智能体将弱端点式的精确反例反馈给 @@LIVE_MODEL@@，使它在同一批工况上转入预设的双端点检验。两端点区间在整个允许的 Robin 参数盒上成立，依据是命题二的逐项比较。大网格实现使用普通双精度，未对舍入误差做有向包围；本文也没有估计从连续热方程到有限体积网格的离散化误差。
 
 若只允许存储 $2K_b$ 张响应图，怎样选取 $K_b$ 个块以最小化回退和在线求值的总成本？本文固定采用同一分块，尚未求解这个优化问题。后续可以在训练工况上选块，再由独立参数流评价。
 %%PART sources
 \clearpage
 \section{复核材料与文献}\label{materials}
-公开的来源按研究阶段列出。材料 B 和 C 保留模型写下的推导与实际工具记录；材料 D 的每行保存参考误差及相应决策。表格由论文生成程序从归档中取值。除计时随机器而变，精确数值与决策都可以独立核对。
+材料 B 和 C 保存原生研究推导，D 保存大网格的逐次结果；E 和 F 分别记录自研智能体的本地策略、真实模型会话。模型会话中的两次工具运算可离线复核。论文表格均从归档取值。
 @@SOURCE_LIST@@
 \subhead{复算入口} 在项目的 \texttt{MoonshineThermalLab} 子目录中，可以运行下面三条命令。四格程序只需 Python 标准库；大网格需要项目固定的科学计算环境。
 \par\smallskip\noindent
@@ -244,4 +265,3 @@ Improved error bounds for linear systems with $H$-matrices.
 \textit{Nonlinear Theory and Its Applications, IEICE}, 6 (2015), 377--382.
 \href{https://doi.org/10.1587/nolta.6.377}{出版记录}.
 \end{thebibliography}
-
