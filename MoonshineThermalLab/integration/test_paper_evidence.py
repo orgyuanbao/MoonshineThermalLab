@@ -6,9 +6,8 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from integration.paper_evidence import (
-    Archive, NATIVE, RESULTS, TRACKS, build_paper_evidence, read_groups, signed_research,
-)
+from integration.paper_evidence import Archive, EXTENSION, NATIVE, RESULTS, TRACKS, \
+    build_paper_evidence, extension_research, read_groups, signed_research
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -26,6 +25,18 @@ class PaperEvidenceTests(unittest.TestCase):
         self.assertTrue(evidence["signed"]["turns"][0]["reviews"][-1]["passed"])
         self.assertEqual(evidence["four_cell"]["modes"][2]["error_inf"], "21/88")
         self.assertEqual(evidence["fresh"]["query_count"], 128)
+        extension = evidence["agent_extension"]
+        self.assertEqual(extension["mode"], "deterministic_controller")
+        self.assertEqual(extension["model_calls"], 0)
+        self.assertTrue(all(path in evidence["source_sha256"] for path in extension["citation_paths"]))
+
+    def test_witness_value_must_match_a_fresh_exact_search(self):
+        archive = Archive(PROJECT)
+        trace = archive.json(EXTENSION + "trace.json")
+        trace["steps"][0]["result"]["witness"]["true_error_inf"] = "999"
+        with patch.object(archive, "json", return_value=trace):
+            with self.assertRaisesRegex(ValueError, "Exact replay differs"):
+                extension_research(archive)
 
     def test_changed_proof_is_rejected_before_use(self):
         original = Archive(PROJECT)

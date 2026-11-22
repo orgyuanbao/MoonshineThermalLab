@@ -110,6 +110,19 @@ class ReportSkillTests(unittest.TestCase):
         self.assertLess(tex.index("实验与计算结果"), tex.index("推导与数学结论"))
         self.assertNotIn(r"\section{研究问题}", tex)
 
+    def test_research_selector_includes_bound_witness_without_changing_legacy_output(self):
+        event = result("check_residual_bound", {"candidate": "weak_signed"}, {
+            "status": "counterexample", "checked_cases": 2, "total_cases": 16,
+            "witness": {"violation_margin": "1/4"},
+        })
+        self.assertEqual(report_skill.experiments([event]), [])
+        self.save(self.py, event, review(True))
+        with patch.object(report_latex.shutil, "which", return_value=None):
+            self.assertEqual(self.generate()["status"], "tex_only")
+        row = report_skill.read_json(self.out / "report_input.json")["experiments"][1]
+        self.assertEqual(row["status"], "找到反例")
+        self.assertIn("1/4", row["summary"])
+
     def test_empty_evidence_and_later_failed_review(self):
         for tools in ([review(True)], [self.py], [self.py, review(True), review(False)]):
             with self.subTest(tools=tools):

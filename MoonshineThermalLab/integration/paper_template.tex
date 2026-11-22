@@ -7,7 +7,8 @@
 \definecolor{hair}{gray}{.62}
 \definecolor{tint}{gray}{.96}
 \hypersetup{hidelinks,
- pdftitle={变散热边界下离散温度场的残差误差上界},pdfauthor={徐楷沅 2352163}}
+ pdftitle={变散热边界下离散温度场的残差误差上界},pdfauthor={徐楷沅 2352163},
+ pdfsubject={人工智能与数学课程论文：Moonshine 研究工具扩展与离散误差估计}}
 \IfFontExistsTF{STZhongsong}
   {\newCJKfontfamily\paperdisplay{STZhongsong}[FakeBold=1.7]}
   {\newcommand{\paperdisplay}{\bfseries}}
@@ -17,7 +18,7 @@
 \newcommand{\runningface}{\normalfont\sffamily\paperlabel\fontsize{8.7}{10.6}\selectfont}
 \pagestyle{fancy}\fancyhf{}
 \fancyhead[L]{{\runningface\color{muted}变散热边界下离散温度场的残差误差上界}}
-\fancyhead[R]{{\runningface\color{muted}应用数学课程论文}}
+\fancyhead[R]{{\runningface\color{muted}人工智能与数学\enspace·\enspace 课程论文}}
 \fancyfoot[L]{{\runningface\color{muted}徐楷沅\enspace{\color{hair}/}\enspace2352163}}
 \fancyfoot[R]{{\runningface\color{ink}\bfseries\thepage}}
 \renewcommand{\headrulewidth}{.4pt}
@@ -58,7 +59,7 @@
 \linespread{1.19}
 \begin{document}
 \thispagestyle{firstpage}
-\noindent{\runningface 应用数学课程论文}\hfill
+\noindent{\runningface 人工智能与数学\enspace·\enspace 课程论文}\hfill
 {\normalfont\small\scshape Moonshine Thermal Lab}\par
 \vspace{2mm}\noindent{\color{ink}\rule{\linewidth}{.55pt}}\par
 \vspace{3.0mm}
@@ -88,7 +89,7 @@
 \noindent{\color{hair}\rule{\linewidth}{.45pt}}\par\vspace{1.0mm}
 \noindent\begin{tabularx}{\linewidth}{@{}p{.105\linewidth}@{}X@{}}
 {\sffamily\paperlabel\bfseries\fontsize{11}{16}\selectfont 摘\hspace{.26em}要} &
-{\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，热量守恒方程的逐格失衡可以直接计算，真实误差却通常需要完整求解才能知道。本文针对四边 Robin 系数可变的离散导热系统，证明统一残差倍数的最优值，并用各空间块的残差极值和强弱散热两端的响应给出逐格误差区间。在固定四格问题中，横条纹和棋盘格均有两正两负的单位残差，最大温度误差分别为 $@@STRIPE@@$ 和 $@@CHECKER@@$。在三个大网格上，对旧轨迹中的同一批预测替换判据，报警数由 @@OLDPAIRED@@ 减至 @@NEWPAIRED@@；各策略自行更新降阶基后，实际回退数由 @@OLDCLOSED@@ 减至 @@NEWCLOSED@@。双端点界在精确算例中可严格收紧，但在归档大网格预测上与单端符号界@@EQUIV@@；减少回退也未转化为本次测试的双端点总耗时优势。\par}\\[2.2mm]
+{\linespread{1.0}\fontsize{10.8}{16.4}\selectfont 对一张近似温度图，怎样从逐格热量失衡估计温度误差？对四边 Robin 系数可变的离散系统，本文证明统一残差倍数的最优值，并用分块残差极值及强弱散热响应给出误差区间。我们开发残差上界研究智能体，借用 Moonshine 的工具接口求取精确反例，再根据反例检验修正后的候选式。横条纹和棋盘格均有两正两负的单位残差，四格模型的最大误差分别为 $@@STRIPE@@$ 和 $@@CHECKER@@$。在三个大网格上，对相同预测替换判据，报警数由 @@OLDPAIRED@@ 减至 @@NEWPAIRED@@；各策略自行更新降阶基后，实际回退由 @@OLDCLOSED@@ 减至 @@NEWCLOSED@@。归档预测上的双端点界与单端符号界@@EQUIV@@，双端点策略的总耗时仍较长。\par}\\[2.2mm]
 {\sffamily\paperlabel\bfseries\fontsize{9.4}{14}\selectfont\color{muted}关键词} &
 {\fontsize{9.6}{14.8}\selectfont\color{muted}后验误差估计；离散导热；逆非负矩阵；残差符号；降阶模型}
 \end{tabularx}\par\vspace{2.0mm}
@@ -161,13 +162,39 @@
 \subhead{第二轮残差研究} 项目侧提出双端点候选式并要求寻找反例。Moonshine 检查了减号方向和格林响应的比较条件，另写程序枚举 @@SECOND_TOTAL@@ 个参数、残差和分块组合，其中 @@SECOND_GAIN@@ 个严格紧于单端符号界。直接乘带符号残差的反例来自这一轮；审核一次通过。两轮底层模型均为 \texttt{@@MODEL@@}。
 \subhead{四格专轮与独立实验} 为解释同一残差幅度为何产生不同误差，我们另给固定四格矩阵及三个比较对象。Moonshine 补齐另一个条纹方向，得到四模态分解，实际执行有理数程序并通过审核。大网格数据则由项目的独立数值程序生成，以完整求解结果检查预测。两种实验分别计数。本篇由项目扩展的报告技能读取上述归档、重新汇总逐例数据并排版，先前审核的对象是各轮局部推导。
 \source{早期各轮详见 \hyperref[materials]{材料 A}；两轮符号界的初审、复审、证明及程序结果详见材料 B；四格专轮详见材料 C。}
+%%PART agent_extension
+\clearpage
+\section{自研残差上界研究智能体}\label{extension}
+早期两轮研究中，Moonshine 为各自的猜想编写并运行了不同的 Python 程序。我们希望固定数学模型之后，研究程序能够记住哪些上界已经失败，选择下一种候选式，并留下读者可复算的判断依据。为此开发了残差上界研究智能体（Residual Bound Agent）。其控制程序维护目标、候选式、工具返回值与步数预算，依据每次反馈继续试验或停止。它调用 Moonshine 的工具管理器执行本项目注册的 \texttt{check\_residual\_bound}。早期研究与这一轮实验分别留档，报告技能在研究完成后排版。
+
+\para{工具怎样检验一个猜想} 令 $H(r,\mu)$ 为待测上界。在 $2\times2$ 网格上，工具对给定的边界系数和残差做笛卡尔积枚举，以有理数运算计算 $e=G_\mu r$。一旦发现 $\norm e>H(r,\mu)$，就返回这组工况和差额；遍历结束则报告检查的范围及数量。可选择候选式、分块和正有理数倍数。默认四边各取 $\{1/5,5\}$，四格残差各取 $\{-1,0,1\}$，共 $2^4\,3^4=1296$ 组。
+
+\para{谁选择下一步} 运行 \texttt{python thermal\_agent.py investigate}，由本地策略依据回执选择后续试验。表 2 记录了全部工具调用，本轮模型调用数为 @@TOOL_MODEL_CALLS@@。另一入口 \texttt{-{}-model} 从 \texttt{.env} 读取模型、接口地址与密钥。本次以本地模拟服务验证了 @@HTTP_REQUESTS@@ 次 HTTP 请求的工具往返，尚待接入真实服务。早期 Moonshine 研究的模型调用另见材料 B。
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\capline{表 2}{智能体依次检验的候选式与停止时的用例数}
+\vspace{2mm}\tabletype
+\begin{tabular*}{\linewidth}{@{}c@{\extracolsep{\fill}}lrrl@{}}
+\toprule {\columnhead 次序}&{\columnhead 候选式}&{\columnhead 实查}&{\columnhead 域内总数}&{\columnhead 结果}\\\midrule
+@@TOOL_STEPS@@
+\bottomrule\end{tabular*}\end{minipage}\par
+
+\subhead{怎样复核工具给出的反例}
+取边界次序为左、右、下、上，残差从下排左格开始编号。首个反例为
+\[
+   (h_L,h_R,h_D,h_U)=@@TOOL_H@@,\qquad r=@@TOOL_R@@^\top .
+\]
+候选值 $H=@@TOOL_BOUND@@$，而真实误差为 $\norm{G_\mu r}=@@TOOL_ERROR@@$，低估 $@@TOOL_MARGIN@@$。这一组分数即足以否定原候选式。改用双端点界后，表中的有限检验仅覆盖所列组合，对连续边界参数盒的保证来自命题二。
+
+\para{能否再乘一个小于 1 的常数？} 智能体接着将同一双端点上界乘以 $@@SCALE_FACTOR@@$。在四边均取弱端点、$r=@@SCALE_R@@^\top$ 时，实测 $\norm e=@@SCALE_ERROR@@$，缩放上界仅为 $@@SCALE_BOUND@@$。由这一见证反推，原双端点上界在此例恰好等于真实误差。因此对本模型的单格分块，统一下调所有工况的倍数会失效；其他工况仍可有余量。
+\source{智能体控制程序、反例工具、实际调用顺序及复算入口见 \hyperref[materials]{材料 E}。}
 %%PART experiments
 \clearpage
 \section{大网格实验：两种问题，两组计数}
 采用 $@@GRID_STRING@@$ 三种网格。每种网格内，五种策略共用该网格的八维 POD 初始基 $V$，以 $V^\top A_\mu V y=V^\top b$ 得到预测 $Vy$。训练参数 24 组、调参参数 12 组，三个网格复用同一批参数，在 @@QUERIES@@ 组冻结散热参数上测试。每块板固定分成 $@@PARTITION@@$ 个空间块，容许的无量纲温升误差为 $\tau=@@TOL@@$。若判据大于阈值，则执行完整求解；自适应策略用这个新解增广基。事后完整参照解只用于计算真实误差。
 \para{配对诊断} 保留旧策略每次回退前的预测，逐一替换五种界。预测及其真实误差固定，所以报警数的变化只反映证书提供的信息。另保留固定八维基的整条预测轨迹用于考察保守性。
 \para{独立部署} 各策略从相同初始基出发独立决定是否回退，后续基底和预测可能分化。实验共记录 @@PAIRED_ROWS@@ 条配对预测行、@@CLOSED_ROWS@@ 条独立部署行；前者每行含五种界，后者每行只对应一种策略。
-\par\medskip\noindent\begin{minipage}{\linewidth}\capline{表 2}{原参数流的报警与回退次数}
+\par\medskip\noindent\begin{minipage}{\linewidth}\capline{表 3}{原参数流的报警与回退次数}
 \vspace{2mm}\tabletype\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rrr@{\hspace{6mm}}rrr@{}}\toprule
  & \multicolumn{3}{c}{\columnhead 固定旧轨迹：报警} & \multicolumn{3}{c}{\columnhead 各策略部署：回退}\\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}判据 & @@GRID_HEADS@@ & @@GRID_HEADS@@\\\midrule
@@ -183,14 +210,14 @@
 \clearpage
 \section{代价、适用范围与结论}
 \para{哪些预测仍然难以判断？} 在固定八维基上，三个网格分别只有 @@FIXED_EX@@ 个真实超标工况，但每种判据仍对每个网格的全部 @@QUERIES@@ 个预测报警。双端点界与原标量界的逐例比值中位数分别为 @@FIXED_RATIOS@@。即使上界大幅缩小，仍可能高于决策阈值。在两种轨迹的全部 @@PAIRED_ROWS@@ 条预测中，双端点界与单端符号界@@EQUIV@@。式~\eqref{interval} 中，一个块只有在全部残差严格同号时，才可能提供非零的强端点修正。这解释了为何小网格有严格改进而大网格可以相等。
-\par\medskip\noindent\begin{minipage}{\linewidth}\capline{表 3}{训练至返回结果的完整部署耗时（秒）}
+\par\medskip\noindent\begin{minipage}{\linewidth}\capline{表 4}{训练至返回结果的完整部署耗时（秒）}
 \vspace{2mm}\tabletype\renewcommand{\arraystretch}{1.31}\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rrrr@{}}\toprule
 {\columnhead 网格} & {\columnhead 原标量} & {\columnhead 单端符号} & {\columnhead 双端点} & {\columnhead 双端点模板存储（MiB）}\\\midrule
 @@COST_ROWS@@
 \bottomrule\end{tabular*}
 \figurenote{每格是 @@REPEATS@@ 次本机归档计时的中位数，含训练、模板准备、预测、回退和更新。参照误差复核与模型研究时间另计。模板栏按两组响应向量的字节数计算。}\end{minipage}\par
 \subhead{独立参数流} 保持相同训练集和策略定义，在 $@@FRESH_N@@^2$ 网格另抽 @@FRESH_NQ@@ 组系数（种子 @@SEED@@），与原序列、训练集和调参集的重合数为 @@OVERLAP@@。原标量回退 @@FRESH_OLD@@ 次，双端点回退 @@FRESH_NEW@@ 次；双端点纠正了 @@FRESH_PRE@@ 次真实超标，返回结果超标 @@FRESH_RETURN@@ 次。冻结旧流各策略的返回超标合计为 @@RETURN_EX@@。这两条流评价了观测到的工况，全参数保证仍依靠证明。
-\subhead{使用边界} $K_b$ 个块需要 $2K_b$ 张端点响应图，每张含 $n^2$ 个分量。可在两次矩阵分解后批量求离线响应，在线直接组合的工作量为 $O(K_b n^2)$。表 3 中，双端点策略虽减少回退，完整执行时间在本次三个网格上均高于旧标量策略。耗时受实现和机器负载影响。
+\subhead{使用边界} $K_b$ 个块需要 $2K_b$ 张端点响应图，每张含 $n^2$ 个分量。可在两次矩阵分解后批量求离线响应，在线直接组合的工作量为 $O(K_b n^2)$。表 4 中，双端点策略虽减少回退，完整执行时间在本次三个网格上均高于旧标量策略。耗时受实现和机器负载影响。
 \subhead{结论} 空间块把“哪里失衡”保留到估计中，正负极值又分开了升温和降温方向。两端点给出的逐格区间在精确算术下覆盖整个允许的 Robin 参数盒；四格反例指出了直接套用矩阵单调性会出错的位置。大网格实现使用普通双精度，未对舍入误差做有向包围；本文也没有估计从连续热方程到有限体积网格的离散化误差。
 
 若只允许存储 $2K_b$ 张响应图，怎样选取 $K_b$ 个块以最小化回退和在线求值的总成本？本文固定采用同一分块，尚未求解这个优化问题。后续可以在训练工况上选块，再由独立参数流评价。

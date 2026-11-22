@@ -6,9 +6,10 @@ from urllib.parse import quote
 from integration.report_latex import esc
 
 TEMPLATE = Path(__file__).with_name("paper_template.tex")
-SECTION_ORDER = ("problem","bounds","four_cell","research","experiments","discussion","sources")
+SECTION_ORDER = ("problem","bounds","four_cell","research","agent_extension","experiments","discussion","sources")
 # Fix the revision of the archived inputs so the source line links stay stable.
 BASE = "https://github.com/orgyuanbao/MoonshineThermalLab/blob/ece5bbfffbbd722c43c94d691a0b714ffda7b0e5/MoonshineThermalLab/"
+NATIVE_EXTENSION_REVISION = "de5b7fb28e46a1749973d6d0a9c36d77a25c08ef"
 METHODS = {"analytic":"原解析标量", "sharp_scalar":"最优统一标量", "block_abs":"分块幅度",
            "block_sign":"单端符号", "two_endpoint":"双端点符号"}
 HISTORY = ("求解器校验、修复与产物检查", "复核热求解器并补做审核", "构造 POD 基线与失效分析",
@@ -129,7 +130,9 @@ def material_links(evidence):
     def link(path, label, line=None):
         if path not in hashes:
             raise ValueError("Citation missing from verified evidence: " + path)
-        address = BASE + quote(path,safe="/") + (fr"\#L{line}" if line else "")
+        base = (f"https://github.com/orgyuanbao/MoonshineThermalLab/blob/{NATIVE_EXTENSION_REVISION}/MoonshineThermalLab/"
+                if path in evidence["agent_extension"]["citation_paths"] else BASE)
+        address = base + quote(path,safe="/") + (fr"\#L{line}" if line else "")
         return r"\href{" + address + "}{" + esc(label) + "}"
     turns = evidence["signed"]["turns"]
     four = evidence["four_cell"]
@@ -138,6 +141,12 @@ def material_links(evidence):
         ("B", "两轮残差界研究", [(turns[0]["proof_path"],"单端证明"),(turns[1]["proof_path"],"双端证明"),("residual_study/moonshine/run_receipts.json","审核回执"),(turns[1]["stdout_path"],"精确反例")]),
         ("C", "四格模态研究", [(four["proof_path"],"模态推导"),("report_example/mode_results.json","逐格分数解"),("report_example/run_evidence.json","执行与审核")]),
         ("D", "独立大网格与补充复核", [("residual_study/results/paired_cases.csv","配对预测"),("residual_study/results/closed_loop_cases.csv","独立部署"),("residual_study/results/summary.json","汇总与计时"),("residual_study/results/fresh_stream.json","追加参数流"),("residual_study/results/exact_audit.json","四格穷举")])]
+    groups.append(("E", "自研智能体与反例检验",
+                   [(evidence["agent_extension"]["controller_path"], "控制程序"),
+                    (evidence["agent_extension"]["tool_path"], "反例工具"),
+                    (evidence["agent_extension"]["trace_path"], "调用记录"),
+                    (evidence["agent_extension"]["replay_path"], "复放程序"),
+                    (evidence["agent_extension"]["http_path"], "接口自测")]))
     out = [
         r"\par\smallskip\begingroup\small\renewcommand{\arraystretch}{1.25}",
         r"\noindent\begin{tabularx}{\linewidth}{@{}l@{\hspace{.9em}}p{.30\linewidth}@{\hspace{.6em}}X@{}}",
@@ -167,6 +176,32 @@ def material_links(evidence):
         out.append(row([ref, r"{\small\ttfamily " + esc(excerpt) + "}"]))
     out.append(r"\end{tabularx}\par\endgroup")
     return "\n".join(out)
+
+
+def extension_values(trace):
+    steps = trace["steps"]
+    names = {"weak_signed": r"\norm{G_w r}", "block_position": r"\eta_{\rm pos}",
+             "block_signed": r"\eta_{\pm}", "block_two_endpoint": r"\eta_2"}
+    rows = []
+    for i, step in enumerate(steps, 1):
+        result = step["result"]
+        formula = names[result["candidate"]]
+        if Fraction(result["scale"]) != 1:
+            formula = frac(result["scale"]) + r"\," + formula
+        outcome = "找到反例" if result["status"] == "counterexample" else "域内未见反例"
+        rows.append(row([i, "$" + formula + "$", result["checked_cases"], result["total_cases"], outcome]))
+    witness = steps[0]["result"]["witness"]
+    scaled = steps[-1]["result"]
+    scaled_witness = scaled["witness"]
+    def vector(values):
+        return r"\bigl(" + ",".join(frac(v) for v in values) + r"\bigr)"
+    return {"TOOL_STEPS": "\n".join(rows), "TOOL_H": vector(witness["boundaries"]),
+            "TOOL_R": vector(witness["residual"]), "TOOL_BOUND": frac(witness["candidate_bound"]),
+            "TOOL_ERROR": frac(witness["true_error_inf"]), "TOOL_MARGIN": frac(witness["violation_margin"]),
+            "TOOL_MODEL_CALLS": trace["model_calls"], "HTTP_REQUESTS": trace["http_requests"],
+            "SCALE_FACTOR": frac(scaled["scale"]),
+            "SCALE_R": vector(scaled_witness["residual"]), "SCALE_ERROR": frac(scaled_witness["true_error_inf"]),
+            "SCALE_BOUND": frac(scaled_witness["candidate_bound"])}
 
 
 def paper_values(d):
@@ -201,6 +236,7 @@ def paper_values(d):
     if first["model"] != second["model"]:
         raise ValueError("The two signed studies cite different models.")
     return {
+        **extension_values(d["agent_extension"]),
         "STRIPE":frac(modes["stripes"]["error_inf"]),"CHECKER":frac(modes["checkerboard"]["error_inf"]),
         "STRIPE_RATIO":frac(Fraction(modes["stripes"]["error_inf"])/Fraction(modes["checkerboard"]["error_inf"])),
         "OLDPAIRED":op,"NEWPAIRED":np,"OLDCLOSED":oc,"NEWCLOSED":nc,"PAIRED_SAVED":op-np,"CLOSED_SAVED":oc-nc,

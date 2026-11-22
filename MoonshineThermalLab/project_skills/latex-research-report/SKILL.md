@@ -18,7 +18,7 @@ metadata:
 
 1. 核对会话、轮次和原生结束摘要，查验最后一次审核、成功运行及归档记录。
 2. 在同一次审核的蓝图写入回执中提取推导；若本轮没有写入该蓝图，则使用提交给该次审核的证明正文。
-3. 逐项列出 Python 工具的实际退出状态和标准输出；标准错误单列。保留审核失败以及后续修改的顺序。
+3. 逐项列出 Python 执行回执、工具错误及反例检验结果。对反例注明候选式、实查用例数和见证；对无反例结果注明实际枚举的范围。保留审核失败以及后续修改的顺序。
 4. 依照以下 Evidence Layout 的顺序生成各节。冒号前为报告栏目，冒号后为本项目读取该证据的方式。每段材料附本轮原始文件或事件行号。
 5. 将所有研究文字作为数据安全排版，保存输入、输出和原生技能加载回执；若编译器缺失，交付可编译的源文件并记录原因。
 
@@ -28,7 +28,7 @@ metadata:
 {
   "research_question": "turn_prompt",
   "proofs": "reviewed_blueprint_or_submitted_proof",
-  "experiments": "python_tool_results",
+  "experiments": "research_tool_results",
   "reviews": "chronological_reviews_and_archive",
   "sources": "turn_file_digests"
 }
@@ -40,7 +40,7 @@ metadata:
 
 1. 核对历史导热基准、两轮误差界研究及四格模式研究的真实来源，记录原生执行、审核与归档。保留失败与后续修正的归属。
 2. 对照冻结工况的逐行数据，分别汇总旧轨迹上的配对报警、各方法独立运行的回退与返回场误差。用第二条参数流检查适用范围。独立大网格实验单独署明来源。
-3. 按 Course Paper Layout 的次序撰写数学问题、假设与推导、逐格实例、研究过程、实验和局限。每张表和每个科学结论均可回到证据目录复核。
+3. 读取研究工具的原生调用记录，区分由模型发起的调用与离线复放，核对候选式、反例和枚举范围。按 Course Paper Layout 的次序撰写推导、研究过程、智能体改进、数值实验和局限。
 4. 保存实用的完整论文源文件、结构化材料、技能加载记录和生成回执；安装了中文 XeLaTeX 环境时编译 PDF。证据核对失败时终止本次出稿。
 
 ## Course Paper Layout
@@ -51,6 +51,7 @@ metadata:
   "bounds",
   "four_cell",
   "research",
+  "agent_extension",
   "experiments",
   "discussion",
   "sources"

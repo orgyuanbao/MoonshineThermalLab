@@ -65,7 +65,9 @@ def check_export(folder, *, published):
     require(len(sources) == len(evidence["sources"]) == receipt["source_count"], "Incomplete source inventory.")
     required = {"evidence/iterations.json", "residual_study/moonshine/run_receipts.json",
                 "report_example/run_evidence.json", "residual_study/results/paired_cases.csv",
-                "residual_study/results/closed_loop_cases.csv", "residual_study/results/fresh_stream.json"}
+                "residual_study/results/closed_loop_cases.csv", "residual_study/results/fresh_stream.json",
+                "integration/residual_tool.py", "integration/bound_agent.py", "residual_study/agent_extension/trace.json",
+                "residual_study/agent_extension/replay.py"}
     require(required <= sources.keys(), "Missing research histories or benchmark data.")
     check_files(ROOT, sources)
 

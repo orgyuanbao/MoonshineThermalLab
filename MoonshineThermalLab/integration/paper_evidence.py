@@ -18,6 +18,7 @@ TRACKS = ("fixed8", "old_pre")
 RESULTS = "residual_study/results/"
 NATIVE = "residual_study/moonshine/"
 FROZEN = "thermal/home/projects/thermal-rom/workspace/results/04_final_v1/"
+EXTENSION = "residual_study/agent_extension/"
 
 
 def require(condition, message):
@@ -283,12 +284,61 @@ def numerical_evidence(archive):
             "tolerance": tolerance, "repeats": repeats, "scope": summary["origin"]}, summary, frozen
 
 
+def extension_research(archive):
+    """Check the exact search results reported by the new agent before quoting them."""
+    from integration.residual_tool import TOOL_NAME, evaluate
+
+    trace_path = EXTENSION + "trace.json"
+    trace = archive.json(trace_path)
+    tool_path = "integration/residual_tool.py"
+    replay_path = EXTENSION + "replay.py"
+    controller_path = "integration/bound_agent.py"
+    paths = [trace_path, tool_path, replay_path, controller_path, "integration/bound_agent_model.py",
+             "integration/test_bound_agent_http.py"]
+    for name in paths[1:]:
+        archive.bytes(name)
+    require(trace["tool_name"] == TOOL_NAME and trace["mode"] == "deterministic_controller"
+            and trace["model_calls"] == 0 and trace.get("model") is None
+            and trace["pristine_registry_has_tool"] is False, "Unexpected agent or tool provenance")
+    steps = trace["steps"]
+    require(len(steps) >= 2 and steps[0]["arguments"]["candidate"] == "weak_signed"
+            and steps[0]["result"]["status"] == "counterexample"
+            and any(s["arguments"]["candidate"] == "block_two_endpoint"
+                    and s["result"]["status"] == "no_counterexample_in_domain" for s in steps[1:]),
+            "The agent's trace lacks the conjecture, its witness, or the subsequent check")
+    for i, step in enumerate(steps, 1):
+        require(step["round"] == i, "Missing or reordered agent step")
+        result = evaluate(None, **step["arguments"])
+        require(result == step["result"], f"Exact replay differs at agent step {i}")
+        require(result["partition"] == "singletons" and result["boundary_levels"] == ["1/5", "5"]
+                and result["residual_values"] == [-1, 0, 1], "Agent study domain changed between trials")
+    require(trace["controller_status"] == "finite_search_completed"
+            and trace["scale_bracket"] == {"lower": "1", "upper": "1", "no_finite_scale": False},
+            "The stated scale does not match the controller's conclusion")
+    last = steps[-1]["result"]
+    witness = last["witness"]
+    require(last["candidate"] == "block_two_endpoint" and last["partition"] == "singletons"
+            and 0 < Fraction(last["scale"]) < 1 and last["status"] == "counterexample" and witness
+            and list(map(Fraction, witness["boundaries"])) == [Fraction(1, 5)] * 4
+            and Fraction(witness["candidate_bound"]) / Fraction(last["scale"]) == Fraction(witness["true_error_inf"]),
+            "The final witness does not establish tightness under a uniform scaling")
+    http_path = EXTENSION + "http_fixture.json"
+    http = archive.json(http_path)
+    require(http["external_model_calls"] == 0 and http["http_requests"]
+            and http["controller_result"]["status"] == "finite_search_completed",
+            "The model-adapter fixture must identify a completed local protocol test")
+    return {**trace, "trace_path": trace_path, "tool_path": tool_path, "controller_path": controller_path,
+            "replay_path": replay_path, "http_path": http_path, "http_requests": len(http["http_requests"]),
+            "citation_paths": paths + [http_path]}
+
+
 def build_paper_evidence(root: Path) -> dict:
     """Verify archived study inputs and regenerate paper tables from individual CSV rows."""
     archive = Archive(root)
     history = research_history(archive)
     signed, receipts = signed_research(archive)
     four_cell = four_cell_research(archive)
+    extension = extension_research(archive)
     benchmark, summary, frozen = numerical_evidence(archive)
     fresh = archive.json(RESULTS + "fresh_stream.json")
     params = set(map(tuple, fresh["parameters"]))
@@ -313,7 +363,7 @@ def build_paper_evidence(root: Path) -> dict:
         archive.bytes(path)
     require(set(archive.hashes) == set(archive.expected), "The course paper used a different set of archived inputs")
     sources = [{"path": key, "sha256": value} for key, value in sorted(archive.hashes.items())]
-    return {"schema_version":1, "history":history, "signed":signed, "four_cell":four_cell,
+    return {"schema_version":2, "history":history, "signed":signed, "four_cell":four_cell, "agent_extension":extension,
             "benchmark":benchmark, "summary":summary, "receipts":receipts, "fresh":fresh, "exact":exact,
             "sources": sources, "source_sha256": dict(sorted(archive.hashes.items()))}
 

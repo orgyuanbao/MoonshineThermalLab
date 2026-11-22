@@ -6,6 +6,27 @@ MoonshineThermalLab 用 [Moonshine](https://github.com/DeepMathLLM/Moonshine/tre
 
 当前研究从格子内的热量失衡推断温度场的最大误差。先运行 `python -B residual_study/exact_audit.py` 看四格反例，再按[数学实验指南](residual_study/README.md)复算真实预测或独立更新策略。需要继续做新研究时，主菜单选 **1**、研究阶段选 **5**。上游 Moonshine 本次的实际程序与回执见[原生研究记录](residual_study/moonshine/)。
 
+## 运行自研残差上界研究智能体
+
+双击 `启动热仿真研究.cmd`，选 **8**。直接回车使用本地研究策略。智能体会检验一个猜想，遇到反例就换用修正式，再试探一个更小的倍数。每轮报告真实误差、上界和已检查组合数，最终记录保存到 `thermal/bound_agent_runs/<本次编号>/trace.json`。[研究循环与停止条件](integration/bound_agent.py) · [反例工具](integration/residual_tool.py) · [已归档的完整三轮](residual_study/agent_extension/trace.json)
+
+选 **8 → 2** 使用模型策略。将同目录的 `.env.example` 复制为 `.env`（若已有则直接编辑），在三个等号右侧填写服务商提供的 API 基础地址、密钥和模型名。基础地址通常以 `/v1` 结尾，程序会补上 `/chat/completions`；也可直接填写完整接口地址。模型须支持函数工具调用。[空白配置模板](.env.example)
+
+```dotenv
+LLM_BASE_URL=
+LLM_API_KEY=
+LLM_MODEL=
+```
+
+也可在本目录运行以下命令。第一行使用本地策略，第二行将问题发给所填服务商。模型只负责选择行动；控制器检验工具参数，把本机有理数运算的结果交回模型，并在请求结束或用完轮数时停止。
+
+```powershell
+.\.venv\Scripts\python.exe -B -X utf8 thermal_agent.py investigate
+.\.venv\Scripts\python.exe -B -X utf8 thermal_agent.py investigate --model --goal "四格残差有正有负时，检验弱散热端点上界；如果找到反例，再检验双端点式。"
+```
+
+随仓数学记录由本地策略实际跑出。另可运行 `residual_study/agent_extension/replay.py --http-fixture`，在本机复查接口如何把两次运算结果交回策略。这里的三次 HTTP 请求由测试服务应答；真实服务商的连通性取决于使用者的配置。[接口测试记录](residual_study/agent_extension/http_fixture.json)
+
 ## 运行前期导热基准算例
 
 在 Windows 上安装 **Python 3.12（64 位）**，下载或克隆完整仓库。进入 `MoonshineThermalLab` 目录，双击 `安装环境.cmd`。首次安装需要联网获取固定版本的依赖；安装完成后可离线复算，无需登录模型账号。

@@ -4,17 +4,17 @@
     "slug": "latex-research-report"
   },
   "project": "thermal-rom",
-  "session_id": "paper-export-20261122-122143-2d3b7c3186af",
+  "session_id": "paper-export-20261122-123457-cbd2866f41d2",
   "registry": "installed",
   "native_skill_audit": {
     "event": "skill_load",
-    "created_at": "2026-11-22T12:21:45Z",
+    "created_at": "2026-11-22T12:34:57Z",
     "slug": "latex-research-report",
-    "session_id": "paper-export-20261122-122143-2d3b7c3186af",
+    "session_id": "paper-export-20261122-123457-cbd2866f41d2",
     "project_slug": "thermal-rom"
   },
   "dispatch": "Moonshine.ToolManager.dispatch",
-  "native_response_sha256": "de1ff2dbc60a745f862a4fbe1e6c09c816e8433a5eac55b1af6e79909b2a8d89",
+  "native_response_sha256": "ab73806e1f92a507e1b967ff681e79adb6eb087aac046d18771f6e31d4560d94",
   "path_base": "Moonshine runtime home",
   "output": {
     "slug": "latex-research-report",
@@ -27,10 +27,10 @@
     "path": "skills/installed/latex-research-report/SKILL.md",
     "sections": {
       "Summary": "在项目适配器确认本轮已执行程序、通过局部审核并完成归档后运行。报告的结论限于该轮的审核对象。排版过程不需要新增模型请求。\n\n收到综合课程论文请求时，从历史研究轮次与独立数值实验中取材。每类证据保留单独的来源标识及范围。一次综合排版登记为一次技能调用，研究轮次和模型调用数维持原计数。",
-      "Execution Steps": "1. 核对会话、轮次和原生结束摘要，查验最后一次审核、成功运行及归档记录。\n2. 在同一次审核的蓝图写入回执中提取推导；若本轮没有写入该蓝图，则使用提交给该次审核的证明正文。\n3. 逐项列出 Python 工具的实际退出状态和标准输出；标准错误单列。保留审核失败以及后续修改的顺序。\n4. 依照以下 Evidence Layout 的顺序生成各节。冒号前为报告栏目，冒号后为本项目读取该证据的方式。每段材料附本轮原始文件或事件行号。\n5. 将所有研究文字作为数据安全排版，保存输入、输出和原生技能加载回执；若编译器缺失，交付可编译的源文件并记录原因。",
-      "Evidence Layout": "```json\n{\n  \"research_question\": \"turn_prompt\",\n  \"proofs\": \"reviewed_blueprint_or_submitted_proof\",\n  \"experiments\": \"python_tool_results\",\n  \"reviews\": \"chronological_reviews_and_archive\",\n  \"sources\": \"turn_file_digests\"\n}\n```",
-      "Course Paper Execution": "综合课程论文的操作如下。\n\n1. 核对历史导热基准、两轮误差界研究及四格模式研究的真实来源，记录原生执行、审核与归档。保留失败与后续修正的归属。\n2. 对照冻结工况的逐行数据，分别汇总旧轨迹上的配对报警、各方法独立运行的回退与返回场误差。用第二条参数流检查适用范围。独立大网格实验单独署明来源。\n3. 按 Course Paper Layout 的次序撰写数学问题、假设与推导、逐格实例、研究过程、实验和局限。每张表和每个科学结论均可回到证据目录复核。\n4. 保存实用的完整论文源文件、结构化材料、技能加载记录和生成回执；安装了中文 XeLaTeX 环境时编译 PDF。证据核对失败时终止本次出稿。",
-      "Course Paper Layout": "```json\n[\n  \"problem\",\n  \"bounds\",\n  \"four_cell\",\n  \"research\",\n  \"experiments\",\n  \"discussion\",\n  \"sources\"\n]\n```",
+      "Execution Steps": "1. 核对会话、轮次和原生结束摘要，查验最后一次审核、成功运行及归档记录。\n2. 在同一次审核的蓝图写入回执中提取推导；若本轮没有写入该蓝图，则使用提交给该次审核的证明正文。\n3. 逐项列出 Python 执行回执、工具错误及反例检验结果。对反例注明候选式、实查用例数和见证；对无反例结果注明实际枚举的范围。保留审核失败以及后续修改的顺序。\n4. 依照以下 Evidence Layout 的顺序生成各节。冒号前为报告栏目，冒号后为本项目读取该证据的方式。每段材料附本轮原始文件或事件行号。\n5. 将所有研究文字作为数据安全排版，保存输入、输出和原生技能加载回执；若编译器缺失，交付可编译的源文件并记录原因。",
+      "Evidence Layout": "```json\n{\n  \"research_question\": \"turn_prompt\",\n  \"proofs\": \"reviewed_blueprint_or_submitted_proof\",\n  \"experiments\": \"research_tool_results\",\n  \"reviews\": \"chronological_reviews_and_archive\",\n  \"sources\": \"turn_file_digests\"\n}\n```",
+      "Course Paper Execution": "综合课程论文的操作如下。\n\n1. 核对历史导热基准、两轮误差界研究及四格模式研究的真实来源，记录原生执行、审核与归档。保留失败与后续修正的归属。\n2. 对照冻结工况的逐行数据，分别汇总旧轨迹上的配对报警、各方法独立运行的回退与返回场误差。用第二条参数流检查适用范围。独立大网格实验单独署明来源。\n3. 读取研究工具的原生调用记录，区分由模型发起的调用与离线复放，核对候选式、反例和枚举范围。按 Course Paper Layout 的次序撰写推导、研究过程、智能体改进、数值实验和局限。\n4. 保存实用的完整论文源文件、结构化材料、技能加载记录和生成回执；安装了中文 XeLaTeX 环境时编译 PDF。证据核对失败时终止本次出稿。",
+      "Course Paper Layout": "```json\n[\n  \"problem\",\n  \"bounds\",\n  \"four_cell\",\n  \"research\",\n  \"agent_extension\",\n  \"experiments\",\n  \"discussion\",\n  \"sources\"\n]\n```",
       "Tool Calls": "- `load_skill_definition` 从已安装技能注册表加载本技能，并在 Moonshine 的技能审计日志登记这次调用。",
       "File References": "- `input.txt` 保存本轮实际任务。\n- `moonshine_events.jsonl` 保存逐次工具请求、结果和归档回执。\n- `turn_summary.json` 保存本轮结束状态与会话身份。\n- `integration.json` 保存项目、研究模式、模型和启动时间。",
       "Output Contract": "报告目录包含 `report_input.json`、`load_skill_definition.json`、`report.tex` 与 `receipt.json`。成功编译时另附 `report.pdf`。生成回执列出技能、触发途径、输入与成品 SHA-256、编译状态和限定范围。证据不足时只给出待补原因。\n\n综合课程论文保存在独立目录中，其中包含 `paper_input.json`、`load_skill_definition.json`、`paper.tex`、`receipt.json` 及成功编译的 `paper.pdf`。使用的数据集、各来源的指纹、排版机制、是否产生新的研究轮次与模型调用都应可核查。"
@@ -47,8 +47,8 @@
     "output_contract": "报告目录包含 `report_input.json`、`load_skill_definition.json`、`report.tex` 与 `receipt.json`。成功编译时另附 `report.pdf`。生成回执列出技能、触发途径、输入与成品 SHA-256、编译状态和限定范围。证据不足时只给出待补原因。\n\n综合课程论文保存在独立目录中，其中包含 `paper_input.json`、`load_skill_definition.json`、`paper.tex`、`receipt.json` 及成功编译的 `paper.pdf`。使用的数据集、各来源的指纹、排版机制、是否产生新的研究轮次与模型调用都应可核查。",
     "usage_hint": "",
     "runtime_notice": "Tool Calls and File References are structured guidance from SKILL.md. They are not executed or loaded automatically; call the listed tools or read_runtime_file/query_memory when the task needs those sources.",
-    "body": "# 研究证据转 LaTeX 报告\n\n## Summary\n\n在项目适配器确认本轮已执行程序、通过局部审核并完成归档后运行。报告的结论限于该轮的审核对象。排版过程不需要新增模型请求。\n\n收到综合课程论文请求时，从历史研究轮次与独立数值实验中取材。每类证据保留单独的来源标识及范围。一次综合排版登记为一次技能调用，研究轮次和模型调用数维持原计数。\n\n## Execution Steps\n\n1. 核对会话、轮次和原生结束摘要，查验最后一次审核、成功运行及归档记录。\n2. 在同一次审核的蓝图写入回执中提取推导；若本轮没有写入该蓝图，则使用提交给该次审核的证明正文。\n3. 逐项列出 Python 工具的实际退出状态和标准输出；标准错误单列。保留审核失败以及后续修改的顺序。\n4. 依照以下 Evidence Layout 的顺序生成各节。冒号前为报告栏目，冒号后为本项目读取该证据的方式。每段材料附本轮原始文件或事件行号。\n5. 将所有研究文字作为数据安全排版，保存输入、输出和原生技能加载回执；若编译器缺失，交付可编译的源文件并记录原因。\n\n## Evidence Layout\n\n```json\n{\n  \"research_question\": \"turn_prompt\",\n  \"proofs\": \"reviewed_blueprint_or_submitted_proof\",\n  \"experiments\": \"python_tool_results\",\n  \"reviews\": \"chronological_reviews_and_archive\",\n  \"sources\": \"turn_file_digests\"\n}\n```\n\n## Course Paper Execution\n\n综合课程论文的操作如下。\n\n1. 核对历史导热基准、两轮误差界研究及四格模式研究的真实来源，记录原生执行、审核与归档。保留失败与后续修正的归属。\n2. 对照冻结工况的逐行数据，分别汇总旧轨迹上的配对报警、各方法独立运行的回退与返回场误差。用第二条参数流检查适用范围。独立大网格实验单独署明来源。\n3. 按 Course Paper Layout 的次序撰写数学问题、假设与推导、逐格实例、研究过程、实验和局限。每张表和每个科学结论均可回到证据目录复核。\n4. 保存实用的完整论文源文件、结构化材料、技能加载记录和生成回执；安装了中文 XeLaTeX 环境时编译 PDF。证据核对失败时终止本次出稿。\n\n## Course Paper Layout\n\n```json\n[\n  \"problem\",\n  \"bounds\",\n  \"four_cell\",\n  \"research\",\n  \"experiments\",\n  \"discussion\",\n  \"sources\"\n]\n```\n\n## Tool Calls\n\n- `load_skill_definition` 从已安装技能注册表加载本技能，并在 Moonshine 的技能审计日志登记这次调用。\n\n## File References\n\n- `input.txt` 保存本轮实际任务。\n- `moonshine_events.jsonl` 保存逐次工具请求、结果和归档回执。\n- `turn_summary.json` 保存本轮结束状态与会话身份。\n- `integration.json` 保存项目、研究模式、模型和启动时间。\n\n## Output Contract\n\n报告目录包含 `report_input.json`、`load_skill_definition.json`、`report.tex` 与 `receipt.json`。成功编译时另附 `report.pdf`。生成回执列出技能、触发途径、输入与成品 SHA-256、编译状态和限定范围。证据不足时只给出待补原因。\n\n综合课程论文保存在独立目录中，其中包含 `paper_input.json`、`load_skill_definition.json`、`paper.tex`、`receipt.json` 及成功编译的 `paper.pdf`。使用的数据集、各来源的指纹、排版机制、是否产生新的研究轮次与模型调用都应可核查。"
+    "body": "# 研究证据转 LaTeX 报告\n\n## Summary\n\n在项目适配器确认本轮已执行程序、通过局部审核并完成归档后运行。报告的结论限于该轮的审核对象。排版过程不需要新增模型请求。\n\n收到综合课程论文请求时，从历史研究轮次与独立数值实验中取材。每类证据保留单独的来源标识及范围。一次综合排版登记为一次技能调用，研究轮次和模型调用数维持原计数。\n\n## Execution Steps\n\n1. 核对会话、轮次和原生结束摘要，查验最后一次审核、成功运行及归档记录。\n2. 在同一次审核的蓝图写入回执中提取推导；若本轮没有写入该蓝图，则使用提交给该次审核的证明正文。\n3. 逐项列出 Python 执行回执、工具错误及反例检验结果。对反例注明候选式、实查用例数和见证；对无反例结果注明实际枚举的范围。保留审核失败以及后续修改的顺序。\n4. 依照以下 Evidence Layout 的顺序生成各节。冒号前为报告栏目，冒号后为本项目读取该证据的方式。每段材料附本轮原始文件或事件行号。\n5. 将所有研究文字作为数据安全排版，保存输入、输出和原生技能加载回执；若编译器缺失，交付可编译的源文件并记录原因。\n\n## Evidence Layout\n\n```json\n{\n  \"research_question\": \"turn_prompt\",\n  \"proofs\": \"reviewed_blueprint_or_submitted_proof\",\n  \"experiments\": \"research_tool_results\",\n  \"reviews\": \"chronological_reviews_and_archive\",\n  \"sources\": \"turn_file_digests\"\n}\n```\n\n## Course Paper Execution\n\n综合课程论文的操作如下。\n\n1. 核对历史导热基准、两轮误差界研究及四格模式研究的真实来源，记录原生执行、审核与归档。保留失败与后续修正的归属。\n2. 对照冻结工况的逐行数据，分别汇总旧轨迹上的配对报警、各方法独立运行的回退与返回场误差。用第二条参数流检查适用范围。独立大网格实验单独署明来源。\n3. 读取研究工具的原生调用记录，区分由模型发起的调用与离线复放，核对候选式、反例和枚举范围。按 Course Paper Layout 的次序撰写推导、研究过程、智能体改进、数值实验和局限。\n4. 保存实用的完整论文源文件、结构化材料、技能加载记录和生成回执；安装了中文 XeLaTeX 环境时编译 PDF。证据核对失败时终止本次出稿。\n\n## Course Paper Layout\n\n```json\n[\n  \"problem\",\n  \"bounds\",\n  \"four_cell\",\n  \"research\",\n  \"agent_extension\",\n  \"experiments\",\n  \"discussion\",\n  \"sources\"\n]\n```\n\n## Tool Calls\n\n- `load_skill_definition` 从已安装技能注册表加载本技能，并在 Moonshine 的技能审计日志登记这次调用。\n\n## File References\n\n- `input.txt` 保存本轮实际任务。\n- `moonshine_events.jsonl` 保存逐次工具请求、结果和归档回执。\n- `turn_summary.json` 保存本轮结束状态与会话身份。\n- `integration.json` 保存项目、研究模式、模型和启动时间。\n\n## Output Contract\n\n报告目录包含 `report_input.json`、`load_skill_definition.json`、`report.tex` 与 `receipt.json`。成功编译时另附 `report.pdf`。生成回执列出技能、触发途径、输入与成品 SHA-256、编译状态和限定范围。证据不足时只给出待补原因。\n\n综合课程论文保存在独立目录中，其中包含 `paper_input.json`、`load_skill_definition.json`、`paper.tex`、`receipt.json` 及成功编译的 `paper.pdf`。使用的数据集、各来源的指纹、排版机制、是否产生新的研究轮次与模型调用都应可核查。"
   },
-  "skill_source_sha256": "83196d5207f7e3a35dc31de66540346d9279cd5f414e289a6379df507f79b715",
-  "installed_file_sha256": "255d816af0da02e4d87835905e1d38fbebbce2cc1fed5dcc50850d64c264fa3d"
+  "skill_source_sha256": "5e77725e4695699d1527879592ef353099a3d18da60c55b35e02b5d8fee4de4e",
+  "installed_file_sha256": "fad24b0f7f864125e8ca17b1b3718a4ad30943931e0d6695b88a44a3065ee36d"
 }

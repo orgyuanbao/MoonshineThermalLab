@@ -13,15 +13,17 @@ import uuid
 SLUG = "latex-research-report"
 ROOT = Path(__file__).resolve().parents[1]
 DEFINITION = ROOT / "project_skills" / SLUG / "SKILL.md"
-# SHA-256 of the complete v1 native installed file with LF line endings.
-# This is also independently archived at report_example/installed_skill.md.
-RELEASED_V1 = "76501f76335d412a6d790517b3375908a1a93dd0738eafa9739de6e5364c3f62"
+# Hash the full installed definition (including frontmatter) with LF line endings.
+PREVIOUS_RELEASES = {
+    "76501f76335d412a6d790517b3375908a1a93dd0738eafa9739de6e5364c3f62",  # single-round report
+    "263ecd25b17e8a0712682d0dafe485c6758ca40cc6bbc556a139abee0c63ce4b",  # seven-section paper
+}
 TURN_FILES = ("input.txt", "integration.json", "moonshine_events.jsonl", "turn_summary.json")
 OUTPUTS = {"report_input.json", "load_skill_definition.json", "report.tex", "report.pdf"}
 SELECTIONS = {
     "research_question": "turn_prompt",
     "proofs": "reviewed_blueprint_or_submitted_proof",
-    "experiments": "python_tool_results",
+    "experiments": "research_tool_results",
     "reviews": "chronological_reviews_and_archive",
     "sources": "turn_file_digests",
 }
@@ -90,10 +92,9 @@ def load_definition(home, project, session, app, *, course_paper=False):
         elif Path(existing.path).resolve() != installed:
             raise ValueError("同名已安装技能与项目定义冲突，请检查 Moonshine home 中的技能。")
         elif existing.body.strip() != body.strip():
-            # Only the exact released v1 may be upgraded. Local body and
-            # frontmatter edits both survive a conflicting upgrade attempt.
+            # Upgrade only a known release. Preserve local body and metadata edits.
             previous = installed.read_text(encoding="utf-8").encode("utf-8")
-            if hashlib.sha256(previous).hexdigest() != RELEASED_V1:
+            if hashlib.sha256(previous).hexdigest() not in PREVIOUS_RELEASES:
                 raise ValueError("本机同名技能已有个人改动，请检查 Moonshine home 中的技能。")
             skills.edit_skill(slug=SLUG, title=meta["metadata"]["title"],
                               description=meta["description"], body=body)
@@ -121,11 +122,13 @@ def load_definition(home, project, session, app, *, course_paper=False):
         raise ValueError("技能缺少有效的 " + section_name + "。")
     layout = json.loads("\n".join(section[1:-1]))
     if course_paper:
-        required = {"problem", "bounds", "four_cell", "research", "experiments", "discussion", "sources"}
+        required = {"problem", "bounds", "four_cell", "research", "agent_extension", "experiments", "discussion", "sources"}
         if (not isinstance(layout, list) or len(layout) != len(required)
                 or not all(isinstance(key, str) for key in layout) or set(layout) != required):
             raise ValueError("综合论文布局缺少章节、包含重复章节或存在未知章节。")
-    elif not isinstance(layout, dict) or not layout or any(SELECTIONS.get(k) != v for k, v in layout.items()):
+    elif not isinstance(layout, dict) or not layout or any(
+        SELECTIONS.get(k) != v and (k, v) != ("experiments", "python_tool_results") for k, v in layout.items()
+    ):
         raise ValueError("技能指定了不受支持的证据栏或材料类型。")
     native_hash = hashlib.sha256(json_bytes(result)).hexdigest()
     public_result = dict(result, path=installed.relative_to(home).as_posix())
@@ -178,9 +181,21 @@ def proof_material(events, project):
     return proofs
 
 
-def experiments(events):
+def experiments(events, *, include_bound_checks=False):
     outputs = []
     for number, name, payload, result in records(events):
+        if include_bound_checks and name == "check_residual_bound":
+            status = {"counterexample": "找到反例", "no_counterexample_in_domain": "所列有限域内未见反例"}
+            tool_error = payload.get("error") or result.get("error")
+            candidate = payload.get("arguments", {}).get("candidate", "")
+            outputs.append({
+                "title": f"反例检验 {candidate}", "source": event_ref(number),
+                "status": "未成功" if tool_error else status.get(result.get("status"), "未确认"),
+                "metrics": [{"label": "已检验 / 全域组合数",
+                             "value": f"{result.get('checked_cases', '—')} / {result.get('total_cases', '—')}"}],
+                "summary": str(tool_error) if tool_error else "标准输出\n" + json.dumps(result, ensure_ascii=False),
+            })
+            continue
         if name != "run_python_script":
             continue
         path = portable_workspace_path(result.get("relative_path") or payload.get("arguments", {}).get("path"))
@@ -229,6 +244,7 @@ def report_inputs(folder, summary, events, meta, layout, hashes):
         "turn_prompt": lambda: question,
         "reviewed_blueprint_or_submitted_proof": lambda: proof_material(events, project),
         "python_tool_results": lambda: experiments(events),
+        "research_tool_results": lambda: experiments(events, include_bound_checks=True),
         "chronological_reviews_and_archive": lambda: reviews(events, summary["outcome"]),
         "turn_file_digests": lambda: [{"label": name, "path": name, "sha256": hashes[name]} for name in TURN_FILES],
     }

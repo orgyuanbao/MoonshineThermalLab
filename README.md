@@ -1,10 +1,16 @@
 # Moonshine Thermal Lab
 
-给定一张近似的温度图，怎样判断最不准确的那个格子究竟会错多少？Moonshine Thermal Lab 用二维稳态导热方程研究这一问题。这里可以复算同一组温度预测、检查每个误差上界，也可以启动开源 Moonshine，要求它推导一个命题、寻找反例并执行验证程序。
+给定一张近似的温度图，误差最大的一格究竟会错多少？本项目开发了一个残差上界研究智能体。它提出一个候选上界，用精确分数找反例，读回真实误差并决定下一次检验。研究控制器和数学工具由项目实现，工具注册与执行复用开源 Moonshine。仓库还保留了早期 Moonshine 的推导、记录和三个大网格上的实际预测。
 
 [![自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
 [复算与开发指南](MoonshineThermalLab/residual_study/README.md) · [研究智能体](MoonshineThermalLab/thermal_agent.py) · [Moonshine 实际研究记录](MoonshineThermalLab/residual_study/moonshine/) · [最终课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf)
+
+## 运行残差上界研究智能体
+
+进入 `MoonshineThermalLab` 子目录，首次使用先运行 `安装环境.cmd`。双击 `启动热仿真研究.cmd`，选 **8**，再回车，即可看见智能体依次检验原猜想、修正式和收紧后的倍数。终端逐轮显示精确值，并给出本次研究记录的位置。这一模式可以离线运行。[控制器](MoonshineThermalLab/integration/bound_agent.py) · [三轮实际记录](MoonshineThermalLab/residual_study/agent_extension/trace.json)
+
+选 **8 → 2** 可让模型阅读每次反例并选择下一步。打开子目录里的 `.env`，填写 `LLM_BASE_URL`、`LLM_API_KEY` 和 `LLM_MODEL`。从 GitHub 克隆时可先把 `.env.example` 复制为 `.env`。接口采用支持工具调用的 Chat Completions 协议，模型选择检验，矩阵求解与分数比较在本机执行。[空白配置模板](MoonshineThermalLab/.env.example) · [模型接口和命令行示例](MoonshineThermalLab/README.md#运行自研残差上界研究智能体)
 
 ## 先试一个四格算例
 
@@ -41,6 +47,6 @@ python -B .\residual_study\exact_audit.py
 
 ## 论文与课堂演示
 
-徐楷沅（2352163）的最终论文从残差方程出发，推导误差界，再用相同预测和独立运行两种实验检验它。安装项目环境后，在研究菜单选 **7** 可从归档证据生成整篇论文，无需登录模型。课堂放映用同目录的 PPT、HTML 和四格报告 PDF。[最终课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [本次生成回执](MoonshineThermalLab/course_paper/receipt.json) · [可编辑 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
+《人工智能与数学》课程论文（徐楷沅，2352163）从残差方程推导误差界，给出自研智能体的逐轮决策，再用同一批预测和独立部署两种实验检验上界。主菜单选 **7** 可从归档生成整篇论文。早期课堂演示另存为 PPT 和 HTML。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [出稿回执](MoonshineThermalLab/course_paper/receipt.json) · [早期演示 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
 
 前一期的导热求解器、原七轮记录和冻结输入均可查阅。更早的鸿蒙众包定位项目另有归档。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [原七轮记录](MoonshineThermalLab/evidence/iterations.json) · [上一版导热论文](https://github.com/orgyuanbao/MoonshineThermalLab/blob/ef9273d2a64242344af26b609807e5249172b565/MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [众包定位归档](CROWDLOCATE_ARCHIVE.md)

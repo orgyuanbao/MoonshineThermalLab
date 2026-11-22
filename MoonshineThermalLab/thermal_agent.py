@@ -114,15 +114,28 @@ def build_course_paper(output=None, *, tex_only=False, open_result=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", nargs="?", choices=["check", "status", "run", "report", "paper"])
+    parser.add_argument("action", nargs="?", choices=["check", "status", "run", "report", "paper", "investigate"])
     parser.add_argument("--turn", help="重新生成报告的轮次标识，默认取最近一轮")
-    parser.add_argument("--output", type=Path, help="综合论文的输出目录，默认每次创建新目录")
+    parser.add_argument("--output", type=Path, help="综合论文或自研智能体研究记录的输出目录")
+    parser.add_argument("--model", action="store_true", help="由 .env 中的模型选择下一次研究行动")
+    parser.add_argument("--goal", help="交给自研智能体模型策略的四格残差研究问题")
+    parser.add_argument("--max-rounds", type=int, help="自研智能体的数学工具调用轮数上限，默认 4")
     parser.add_argument("--tex-only", action="store_true", help="生成综合论文的 TeX 和回执，跳过 PDF 编译")
     parser.add_argument("--stage", choices=STAGES)
     parser.add_argument("--max-calls", type=int, default=16)
     args = parser.parse_args()
-    if args.action != "paper" and (args.output is not None or args.tex_only):
-        parser.error("--output 和 --tex-only 适用于 paper")
+    if args.tex_only and args.action != "paper":
+        parser.error("--tex-only 适用于 paper")
+    if args.output is not None and args.action not in ("paper", "investigate"):
+        parser.error("--output 适用于 paper 或 investigate")
+    if args.action != "investigate" and (args.model or args.goal is not None or args.max_rounds is not None):
+        parser.error("--model、--goal 和 --max-rounds 适用于 investigate")
+    if args.action == "investigate":
+        if args.stage or args.turn:
+            parser.error("investigate 使用独立的研究循环")
+        from integration.bound_agent_cli import investigate
+        return investigate(DATA.parent, model=args.model, goal=args.goal, output=args.output,
+                           max_rounds=4 if args.max_rounds is None else args.max_rounds)
     if args.action == "paper" and (args.turn or args.stage):
         parser.error("paper 使用综合论文的全部归档来源，请勿同时指定研究轮次或阶段")
     if not 1 <= args.max_calls <= 24:
@@ -156,8 +169,8 @@ def main():
     print("阶段 5 研究残差的位置和符号，可从小网格开始；阶段 1 至 4 提供原导热模型与降阶基线。")
     print("打开菜单不会发起研究；选择研究阶段或提交补充要求后才调用模型。")
     while True:
-        print("\n当前模型：", runner.model_display())
-        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换模型\n5  补充要求并推进一轮\n6  查看或重新生成最近一轮报告\n7  汇总历轮推导与大网格实验，生成课程论文\n0  退出")
+        print("\nMoonshine 历史研究流程的模型：", runner.model_display())
+        print("1  选择阶段并推进一轮\n2  查看研究状态\n3  打开研究产物文件夹\n4  切换 Moonshine 模型\n5  补充要求并推进一轮\n6  查看或重新生成最近一轮报告\n7  汇总历轮推导与大网格实验，生成课程论文\n8  运行自研残差上界研究智能体\n0  退出")
         answer = input("输入数字并回车：").strip()
         if answer == "0":
             return 0
@@ -189,8 +202,18 @@ def main():
                 open_latest_report()
             elif answer == "7":
                 build_course_paper(open_result=True)
+            elif answer == "8":
+                from integration.bound_agent_cli import investigate
+                mode = input("回车运行本地策略，输入 2 使用 .env 配置的模型，输入 0 返回：").strip()
+                if mode == "2":
+                    goal = input("输入四格残差研究问题，回车使用默认问题：").strip()
+                    investigate(DATA.parent, model=True, goal=goal or None)
+                elif mode in ("", "1"):
+                    investigate(DATA.parent)
+                elif mode != "0":
+                    print("可选本地策略或 .env 模型。")
             else:
-                print("请选择 0 到 7。")
+                print("请选择 0 到 8。")
         except Exception as exc:
             print("本轮未完成：", exc, flush=True)
             print("可选 2 查看已保存记录，补充失败信息后重试。")

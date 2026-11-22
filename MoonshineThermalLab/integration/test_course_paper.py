@@ -29,13 +29,13 @@ class CoursePaperTests(unittest.TestCase):
     def install_previous(self):
         with patch.object(report_skill, "DEFINITION", self.source):
             layout, receipt = self.dispatch(paper=False)
-        self.assertEqual(layout, report_skill.SELECTIONS)
+        self.assertEqual(layout, dict(report_skill.SELECTIONS, experiments="python_tool_results"))
         return self.home / receipt["output"]["path"]
 
     def test_upgrade_v1_through_native_registry_preserves_single_turn_mode(self):
         installed = self.install_previous()
         sections, loaded = self.dispatch()
-        self.assertEqual(sections, ["problem", "bounds", "four_cell", "research", "experiments",
+        self.assertEqual(sections, ["problem", "bounds", "four_cell", "research", "agent_extension", "experiments",
                                     "discussion", "sources"])
         self.assertEqual(loaded["registry"], "installed")
         self.assertEqual(loaded["native_skill_audit"]["event"], "skill_load")
