@@ -1,87 +1,16 @@
 # 从这里开始
 
-本仓库当前项目是 **Moonshine Thermal Lab**。它用二维稳态导热系统研究一个数学问题：只看残差，怎样判定温度最多会错多少？可从[四格精确例与五种上界](MoonshineThermalLab/residual_study/README.md)开始。
+《人工智能与数学》课程项目，徐楷沅（2352163）。给定一张近似温度图，如何根据每个格子的热量收支差判断它是否足够准确？论文给出误差上界的推导，课堂汇报用两轮真实模型调用演示自研智能体怎样检验这个上界。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [可编辑汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx)
 
 | 我想做什么 | 从哪里开始 |
 | --- | --- |
-| 在自己的电脑上复算一次 | 按[热仿真使用指南](MoonshineThermalLab/README.md)安装环境，复算分块残差上界 |
-| 用 Moonshine 提出问题、继续研究 | 安装环境并登录 Codex CLI 后，打开[热仿真研究启动器](MoonshineThermalLab/启动热仿真研究.cmd) |
-| 查看 Moonshine 新一轮自动生成的 LaTeX 报告 | [四格导热实例、报告与证据](MoonshineThermalLab/report_example/) · [项目技能定义](MoonshineThermalLab/project_skills/latex-research-report/SKILL.md) |
-| 生成最终课程论文 | 双击研究启动器，选 **7**，或直接打开[技能生成的论文和证据](MoonshineThermalLab/course_paper/) |
-| 直接查看已有实验 | 打开[五种误差界的逐例对比](MoonshineThermalLab/residual_study/results/summary.json)或[最终论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) |
+| 看智能体是怎么开发的 | [自研研究控制器](MoonshineThermalLab/integration/bound_agent.py)保存状态并调度试验，[反例工具](MoonshineThermalLab/integration/residual_tool.py)通过 Moonshine 工具接口执行精确枚举，[模型接口](MoonshineThermalLab/integration/bound_agent_model.py)把真实结果交回 DeepSeek 4.1。 |
+| 跑一次本地研究 | 在项目子目录双击[安装环境.cmd](MoonshineThermalLab/安装环境.cmd)，完成后双击[启动热仿真研究.cmd](MoonshineThermalLab/启动热仿真研究.cmd)。选择 **8**，再按回车，查看三轮本地策略如何推进。 |
+| 让模型选择下一步 | 按[模型配置说明](MoonshineThermalLab/README.md#运行自研残差上界研究智能体)在本机填写接口信息。启动后选 **8 → 2**，输入自己的四格残差研究问题。 |
+| 核对课堂里的两轮实测 | 阅读[真实模型运行记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json)。在项目子目录运行下面的命令，可离线重算两轮数学结果。 |
+| 重新生成课程论文 | 启动后选 **7**。报告技能依照[研究证据](MoonshineThermalLab/course_paper/)生成 LaTeX 和 PDF。 |
+| 复算大网格实验 | 按[数学实验指南](MoonshineThermalLab/residual_study/README.md)比较相同预测上的报警次数，以及各策略分别部署后的回退次数。 |
 
-## 历史项目：鸿蒙众包定位
-
-以下指南对应仓库早期的定位项目。项目介绍与运行示例见[众包定位归档](CROWDLOCATE_ARCHIVE.md)。
-
-这是 **CrowdLocateLab：双轮定位研究与开源 Agent 扩展版**。两轮历史智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算。[12 页 LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)已更新至 2026-10-16，包含工程复核与新增开源 Agent 的实际研究；[审查记录](docs/QUALITY_REVIEW.md)保留各阶段状态。原研究的静态退化与部分覆盖不足仍保留，不声称零缺陷。
-
-学生：**徐楷沅**，学号：**2352163**。新增证据卡片把模型假设、工具观察、数学见证和审阅分别列出；[第二轮归档](archives/revision_reference/archive.json)来自已有真实记录，不增加模型调用或研究次数。
-
-**2026-10-15 更新：已直接使用参考项目 Creative-Intelligence 的 Stage 2 Agent。** 通过原控制器完成两次真实研究推进，得到非共线、局部满秩仍有定位歧义的反例，以及修订后的精确候选检查器。[新研究入口](studies/creative_intelligence/mirror_ambiguity/README.md)保留两轮原始调用、程序、失败和修复记录，独立于原 27 次模型调用与定位成绩计数。
-
-先用 Python 3.11+ 在项目根目录执行以下命令，可无模型复算新成果；它仅需标准库，在临时副本中检查，不覆盖归档：
-
-```text
-python -B studies/creative_intelligence/mirror_ambiguity/reproduce_checks.py
+```powershell
+.\.venv\Scripts\python.exe -B -X utf8 residual_study/agent_extension/verify_live_trace.py
 ```
-
-若要发起新的真实研究，使用 [上游 Agent 接入说明](integrations/creative_intelligence/README.md)中的 `runner.py init / advance`，准备自己的 Codex CLI 登录与额度。新检查器验证给定有限候选，不能以“未找到见证”宣告唯一。新增研究见补充报告第 8 页起，52 页历史论文保留原实验归档。
-
-## 1. 只查看，不调用模型
-
-打开 [中文报告](report/CrowdLocateLab_Report.pdf)，或在项目根目录执行：
-
-```text
-python dashboard_revision.py --port 8766
-```
-
-浏览器打开 <http://127.0.0.1:8766>。右上角切换 V2 / Revision，查看概览、真实迭代、失败案例、校准与拒绝、n=6…12 边界。界面仅需 Python 标准库；没有记录时显示等待。
-
-两轮模型证据分别在 `runs/live_reference/`、`runs/revision_reference/`。评测在 `results/benchmark/`、`results/sensitivity/`、`results/revision_benchmark/`。阅读不需要模型账号，演示步骤见 [DEFENSE_DEMO.md](docs/DEFENSE_DEMO.md)。
-
-也可下载或克隆完整项目，保持目录结构，然后用浏览器打开 `archives/revision_reference/index.html`。GitHub 仓库页面不会直接呈现 HTML；单独下载 HTML 只能看卡片正文，原始证据链接需要完整项目。安装数值依赖后，可用 `python research_archive.py --run runs/revision_reference --output archives/my_review` 审计并生成自己的新归档目录；它不调用模型，不把假设自动认定为事实。
-
-## 2. 检查环境和证据
-
-数值运行使用 Python 3.11+，推荐独立虚拟环境；安装步骤见 [众包定位 README](CROWDLOCATE_ARCHIVE.md)。
-
-```text
-python -m pip install -r requirements.txt
-python doctor.py
-python -m unittest discover -s tests -v
-```
-
-第二轮已冻结后，先完整链审计：
-
-```text
-python audit.py --run runs/revision_reference --require-frozen
-```
-
-必须返回退出码 0、`passed_frozen` 后才能进入评测。运行中已有证据一致不等于冻结完成。随后按 [复现说明](docs/reproduction_revision.md) 进行 `--validate-only` 和新目录评测，不覆盖正式结果。
-
-## 3. 应用或发起研究
-
-第二轮已冻结且独立校准完成后，使用不含真值的输入：
-
-```text
-python locate_revision.py --input examples/observations.json --region mondrian --alpha 0.1 --max-radius 20 --output results/my_location.json
-```
-
-这不调用模型。新增数值筛查失败时会明确拒绝，即使半径很小也不接受；缺失校准会报错。现场观测与合成校准不同分布时不保证覆盖。详见 [应用说明](docs/application_revision.md)。
-
-重新执行模型研究使用新目录：
-
-```text
-python run_research.py --output runs/my_revision --provider codex --reasoning-effort medium
-```
-
-需要用户自己的 Codex CLI 登录和额度。新入口仍用已公开协议，不构成新盲测。replay 是旧决策回放，离线评测是重算数值，都不是新模型推理。原 `run_revision.py` 仅保留为历史入口。完整区别见[众包定位 README](CROWDLOCATE_ARCHIVE.md)。
-
-## 4. 重建与提交
-
-`latex/main.tex` 是历史论文入口，`reporting/compile_report.py` 从完成的证据生成章节并编译该论文。本版新成果与学生身份写在 `latex/quality_addendum.tex`，对应 `report/CrowdLocateLab_Quality_Review.pdf`；两份 PDF 应共同提交。身份见 [提交说明](docs/SUBMISSION.md)，学校、院系和课程信息未提供，未虚构填写。
-
-源码、两轮正式记录、结果、预登记、审计与 PDF 应一并提交；课件和凭据不上传。保留 `.gitattributes` 以免换行转换破坏冻结哈希。GitHub 发布与课程提交步骤见 [SUBMISSION.md](docs/SUBMISSION.md)。
-
-本项目处理工业开放问题的合成子问题。阅读成果时同时查看负面结果、成本与覆盖限制，不把总体改善当作全部问题已解决。

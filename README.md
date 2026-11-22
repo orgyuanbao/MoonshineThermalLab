@@ -4,7 +4,13 @@
 
 [![自动检查](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/orgyuanbao/MoonshineThermalLab/actions/workflows/tests.yml)
 
-[复算与开发指南](MoonshineThermalLab/residual_study/README.md) · [研究智能体](MoonshineThermalLab/thermal_agent.py) · [Moonshine 实际研究记录](MoonshineThermalLab/residual_study/moonshine/) · [最终课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf)
+[《人工智能与数学》课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [自研智能体源码](MoonshineThermalLab/integration/bound_agent.py) · [两轮真实调用记录](MoonshineThermalLab/residual_study/agent_extension/live_trace.json) · [复算指南](START_HERE.md)
+
+## 智能体是怎样开发的
+
+项目先将四格导热问题写成可枚举的精确试验，再把它封装成工具 `check_residual_bound`。工具逐组比较真实误差和候选上界，返回首个反例或完成枚举的组数。我们用 Moonshine 的工具管理器注册和调用这个工具，并编写控制器保存每次调用的候选式、参数和结果。[数学检验工具](MoonshineThermalLab/integration/residual_tool.py) · [研究控制器](MoonshineThermalLab/integration/bound_agent.py)
+
+我们还编写了模型适配器，把上一轮的工具结果连同原始目标交给 DeepSeek 4.1，由模型选择下一次检验或结束。在真实的两轮实验中，第二次仍使用同一个工具，只把候选式从 `weak_signed` 改为 `block_two_endpoint`。课堂汇报用流程图标出了这条反馈路径。[模型适配器](MoonshineThermalLab/integration/bound_agent_model.py) · [离线复核这两次运算](MoonshineThermalLab/residual_study/agent_extension/verify_live_trace.py)
 
 ## 运行残差上界研究智能体
 
@@ -51,4 +57,4 @@ python -B .\residual_study\exact_audit.py
 
 《人工智能与数学》课程论文（徐楷沅，2352163）给出误差界的推导、自研智能体与 DeepSeek 4.1 的两轮检验，以及大网格上的预测和部署实验。主菜单选 **7** 可从归档生成整篇论文。课堂 PPT 的演讲者备注解释了控制器、模型和数学工具各自完成的工作。[课程论文 PDF](MoonshineThermalLab/course_paper/paper.pdf) · [论文 LaTeX 源码](MoonshineThermalLab/course_paper/paper.tex) · [课堂汇报 PPT](MoonshineThermalLab/classroom/Moonshine热仿真课堂汇报.pptx) · [早期备讲稿](MoonshineThermalLab/classroom/备讲稿与研究总结.pdf) · [互动演示](MoonshineThermalLab/classroom/Moonshine现场演示.html)
 
-前一期的导热求解器、原七轮记录和冻结输入均可查阅。更早的鸿蒙众包定位项目另有归档。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [原七轮记录](MoonshineThermalLab/evidence/iterations.json) · [上一版导热论文](https://github.com/orgyuanbao/MoonshineThermalLab/blob/ef9273d2a64242344af26b609807e5249172b565/MoonshineThermalLab/thermal/report/Moonshine_Thermal_Report.pdf) · [众包定位归档](CROWDLOCATE_ARCHIVE.md)
+论文采用的前期导热求解器、七轮研究记录和冻结输入均可查阅。[原导热实验](MoonshineThermalLab/thermal/home/projects/thermal-rom/workspace/results/04_final_v1/) · [七轮研究记录](MoonshineThermalLab/evidence/iterations.json)
