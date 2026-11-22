@@ -70,6 +70,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .\.venv\Scripts\python.exe -B -X utf8 residual_study/agent_extension/replay.py --http-fixture
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\.venv\Scripts\python.exe -B -X utf8 residual_study/agent_extension/verify_live_trace.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Test the installed LaTeX reporting skill without a model login
         run: .\.venv\Scripts\python.exe -B -X utf8 -m unittest integration.test_report_skill integration.test_report_latex -v
       - name: Recompute the four-cell report example and verify its evidence
